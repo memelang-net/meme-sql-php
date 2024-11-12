@@ -67,9 +67,10 @@ function memeSQL($query) {
 		$filterClause = trim(substr($query, $getPos + 3));
 	}
 
+	$expressions = explode(' ', trim($andClause));
+
 	// Output a simpler SQL query if only the AND clause has conditions and no GET or NOT is present
-	if ($getPos === false && $notPos === false) {
-		$expressions = explode(' ', trim($andClause));
+	if ($getPos === false && $notPos === false & count($expressions)===1) {
 		$conditions = [];
 		foreach ($expressions as $expr) {
 			$result = memeParse($expr);
@@ -131,7 +132,7 @@ function memeJunction($andClause, $andNotClause, $filterClause) {
 
 // Parse individual components of a memelang query
 function memeParse($query) {
-	$pattern = '/^([A-Za-z0-9]*)\.?([A-Za-z0-9]*):?([A-Za-z0-9]*)?([<>=#]*)?(-?\d*\.?\d*)$/';
+	$pattern = '/^([A-Za-z0-9\_]*)\.?([A-Za-z0-9\_]*):?([A-Za-z0-9\_]*)?([<>=#]*)?(-?\d*\.?\d*)$/';
 	$matches = [];
 	if (preg_match($pattern, $query, $matches)) {
 		$aid = $matches[1] ?: null;
