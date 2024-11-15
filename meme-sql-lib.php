@@ -20,125 +20,101 @@ function memeQuery($memelangQuery) {
 	}
 }
 
-// Translate the memelang query into SQL
 function memeSQL($query) {
-	$query = preg_replace('/\s+/', ' ', trim($query));  // Normalize whitespace
+	$query = preg_replace('/\s+/', ' ', trim($query)); // Normalize whitespace
 
-	if ($query=='GET ALL') return "SELECT * FROM " . DB_TABLE;
+	// Automatically remove spaces around operators
+	$query = preg_replace('/\s*([\!<>=]+)\s*/', '$1', $query);
 
+	// Split the query into individual statements
+	$statements = explode(' ', $query);
+	$trueConditions = [];
+	$falseConditions = [];
+	$getFilters = [];
+	$querySettings=[
+		'all'=>false
+	];
 
-	// Check for erroneous spaces around operators and fix silently
-	$originalQuery = $query;
-	$query = preg_replace('/\s([<>=#]=|[<>])\s/', '$1', $query);
-	if ($query !== $originalQuery) {
-		trigger_error("Warning: Extra spaces around operators were removed in query.", E_USER_NOTICE);
-	}
+	// Process each statement
+	foreach ($statements as $statement) {
+		if (strpos($statement, 'qry.') === 0) {
+			list(,$qryset)=explode('.', $statement);
+			$querySettings[$qryset]=true;
+		} elseif (strpos($statement, '=f') !== false) {
+			// NOT (false) condition
+			$falseConditions[] = memeParse(trim(str_replace('=f', '', $statement)))['clause'];
+		} elseif (strpos($statement, '=g') !== false) {
+			// GET (filter) condition
+			$getFilters[] = memeParse(trim(str_replace('=g', '', $statement)))['filter'];
+		} else {
+			// Default AND (true) condition
+			$parsed = memeParse(trim($statement));
+			$trueConditions[] = $parsed['clause'];
 
-	// Identify positions of NOT and GET
-	$notPos = strpos($query, 'NOT');
-	$getPos = strpos($query, 'GET');
-
-	// Error handling: if NOT appears after GET, throw an error
-	if ($notPos !== false && $getPos !== false && $notPos > $getPos) {
-		throw new Exception("Error: 'NOT' must be before 'GET' in the query.");
-	}
-
-	// Initialize clause variables
-	$andClause = '';
-	$andNotClause = '';
-	$filterClause = '';
-
-	// Parse based on the presence and order of NOT and GET
-	if ($notPos === false && $getPos === false) {
-		// Only AND clause is present
-		$andClause = $query;
-	} elseif ($notPos !== false && $getPos === false) {
-		// AND and NOT clauses are present
-		$andClause = trim(substr($query, 0, $notPos));
-		$andNotClause = trim(substr($query, $notPos + 3));
-	} elseif ($notPos === false && $getPos !== false) {
-		// AND and GET clauses are present
-		$andClause = trim(substr($query, 0, $getPos));
-		$filterClause = trim(substr($query, $getPos + 3));
-	} else {
-		// AND, NOT, and GET clauses are present
-		$andClause = trim(substr($query, 0, $notPos));
-		$andNotClause = trim(substr($query, $notPos + 3, $getPos - $notPos - 3));
-		$filterClause = trim(substr($query, $getPos + 3));
-	}
-
-	$expressions = explode(' ', trim($andClause));
-
-	// Output a simpler SQL query if only the AND clause has conditions and no GET or NOT is present
-	if ($getPos === false && $notPos === false & count($expressions)===1) {
-		$conditions = [];
-		foreach ($expressions as $expr) {
-			$result = memeParse($expr);
-			$conditions[] = $result['clause'];
+			// Populate $getFilters with 'filter' from parsed result
+			if (!empty($parsed['filter'])) {
+				$getFilters[] = $parsed['filter'];
+			}
 		}
-		return "SELECT * FROM " . DB_TABLE . " WHERE " . implode(" AND ", $conditions);
 	}
 
-	// Generate complex SQL query with HAVING
+	if ($querySettings['all'] && empty($trueConditions) && empty($falseConditions)) 
+		return "SELECT * FROM " . DB_TABLE;
+
+	// Simple query if there is exactly one AND condition, no NOT or GET clauses, and no ALL
+	if (count($trueConditions) == 1 && empty($falseConditions) && empty($getFilters) && !$querySettings['all']) {
+		return "SELECT * FROM " . DB_TABLE . " WHERE " . implode(" AND ", $trueConditions);
+	}
+
+	// Clear filters if ALL is present
+	if ($querySettings['all']) $getFilters = [];
+
+	// Generate SQL query for complex cases
 	return "SELECT m.* FROM " . DB_TABLE . " m " . 
-	       memeJunction($andClause, $andNotClause, $filterClause);
+	       memeJunction($trueConditions, $falseConditions, $getFilters);
 }
 
-// Handle AND, AND-NOT, and EXTRA FILTER conditions based on clause type
-function memeJunction($andClause, $andNotClause, $filterClause) {
-	$filters = [];
+// Generate the SQL query junction for AND, NOT, and GET
+function memeJunction($trueConditions, $falseConditions, $getFilters) {
 	$havingConditions = [];
-	$notConditions = [];
+	$filters = [];
+	$whereClause = ''; // Initialize to avoid undefined variable warnings
 
-	// Process AND conditions (true matches)
-	if ($andClause) {
-		$expressions = explode(' ', trim($andClause));
-		foreach ($expressions as $expr) {
-			$result = memeParse($expr);
-			$havingConditions[] = "SUM(CASE WHEN " . $result['clause'] . " THEN 1 ELSE 0 END) > 0";
-			if ($result['filter']) {
-				$filters[] = "(" . $result['filter'] . ")";
+	// Process AND conditions
+	foreach ($trueConditions as $condition) {
+		$havingConditions[] = "SUM(CASE WHEN $condition THEN 1 ELSE 0 END) > 0";
+	}
+
+	// Process NOT conditions
+	foreach ($falseConditions as $condition) {
+		$havingConditions[] = "SUM(CASE WHEN $condition THEN 1 ELSE 0 END) = 0";
+	}
+
+	// Process GET filters (only if ALL is not specified)
+	if (!empty($getFilters)) {
+		foreach ($getFilters as $filter) {
+			if ($filter) {
+				$filters[] = "($filter)";
 			}
 		}
+		$whereClause = " WHERE " . implode(" OR ", memeFilterGroup($filters));
 	}
 
-	// Process AND-NOT conditions (false matches)
-	if ($andNotClause) {
-		$expressions = explode(' ', trim($andNotClause));
-		foreach ($expressions as $expr) {
-			$result = memeParse($expr);
-			$notConditions[] = "SUM(CASE WHEN " . $result['clause'] . " THEN 1 ELSE 0 END) = 0";
-		}
-	}
+	$havingClause = implode(" AND ", $havingConditions);
 
-	// Clear filters if the filterClause is "ALL"
-	if ($filterClause === 'ALL') $filters = [];
-
-	// Process EXTRA FILTER conditions (GET clause)
-	elseif ($filterClause !== '') {
-		$expressions = explode(' ', trim($filterClause));
-		foreach ($expressions as $expr) {
-			$filterResult = memeParse($expr);
-			if ($filterResult['filter']) {
-				$filters[] = "(" . $filterResult['filter'] . ")";
-			}
-		}
-	}
-
-	$whereClause = !empty($filters) ? " WHERE " . implode(" OR ", memeFilterGroup($filters)) : "";
-	$havingClause = implode(" AND ", array_merge($havingConditions, $notConditions));
-	return "JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING " . $havingClause . ") AS aids ON m.aid = aids.aid" . $whereClause;
+	return "JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING $havingClause) AS aids ON m.aid = aids.aid" . $whereClause;
 }
 
 // Parse individual components of a memelang query
 function memeParse($query) {
-	$pattern = '/^([A-Za-z0-9\_]*)\.?([A-Za-z0-9\_]*):?([A-Za-z0-9\_]*)?([<>=#]*)?(-?\d*\.?\d*)$/';
+	$query = preg_replace('/=t$/', '', $query);
+	$pattern = '/^([A-Za-z0-9\_]*)\.?([A-Za-z0-9\_]*):?([A-Za-z0-9\_]*)?([\!<>=]*)?(-?\d*\.?\d*)$/';
 	$matches = [];
 	if (preg_match($pattern, $query, $matches)) {
 		$aid = $matches[1] ?: null;
 		$rid = $matches[2] ?: null;
 		$bid = $matches[3] ?: null;
-		$operator = str_replace('#=', '=', $matches[4] ?: '!=');
+		$operator = $matches[4] ?: '!=';
 		$qnt = $matches[5] !== '' ? $matches[5] : '0';
 
 		// Set default quantity condition to "qnt!=0" if no operator and quantity are specified
@@ -192,5 +168,3 @@ function memeOut($results) {
 	}
 	return implode(";\n", $memelangOutput);
 }
-
-?>

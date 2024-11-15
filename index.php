@@ -17,8 +17,9 @@ body { line-height:150%; background:rgb(11,11,11); color:rgb(230,230,230); font-
 a { color:rgb(170,170,192); text-decoration:none; }
 a:hover { text-decoration:underline; }
 main { max-width: 700px; width: 94%; margin:0 auto; }
-pre.code { display: block; padding:20px; font-size:1.1rem; margin-block-end:2.5em; border-left:4px solid rgb(85,85,85); font-family:monospace; font-size:1rem; background:rgb(43,43,43); white-space:pre-wrap; }
-pre.code.sql { color:rgb(0,170,0); font-style:italic; }
+pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); background:rgb(43,43,43); white-space:pre-wrap; }
+.code { font-family:monospace; font-size:1rem; }
+.code.sql { color:rgb(0,170,0); font-style:italic; }
 
 table { width:100%; margin-bottom:2.5em; }
 th { text-align:left; background:rgb(43,43,43); padding:6px; }
@@ -64,50 +65,68 @@ try {
 
 <?php } ?>
 
-<pre class="code" style="color:rgb(213,128,85);">// HELP WITH MEMELANG QUERIES
-  
-// Show all data in this DB
-<a href="?q=GET%20ALL">GET ALL</a>
 
-//// Use partial A.R:B=Q statements for query clauses ////
+<table>
+<tr>
+	<th colspan="2"><b>Example Queries</b> (<a href="//memelang.net/">Help</a>)</th>
+</tr>
 
-// All about George Washington
-<a href="?q=george_washington">george_washington</a>
+<tr>
+	<td class="code"><a href="?q=qry.all">qry.all</a></td>
+	<td class="expl">Show all data in this DB.</td>
+</tr>
 
-// Which presidents had children?
-<a href="?q=.child">.child</a>
+<tr>
+	<td class="code"><a href="?q=george_washington">george_washington</a></td>
+	<td class="expl">All about George Washington.</td>
+</tr>
 
-// Which presidents were lawyers?
-<a href="?q=:lawyer">:lawyer</a>
+<tr>
+	<td class="code"><a href="?q=.child">.child</a></td>
+	<td class="expl">Who were children of the presidents?</td>
+</tr>
 
-// Which presidents attended Harvard for college?
-<a href="?q=.college:harvard">.college:harvard</a>
+<tr>
+	<td class="code"><a href="?q=:lawyer">:lawyer</a></td>
+	<td class="expl">Which presidents were lawyers?</td>
+</tr>
 
-// Who was the tenth president?
-<a href="?q=.pres_order%23=10">.pres_order#=10</a>
+<tr>
+	<td class="code"><a href="?q=.college:harvard">.college:harvard</a></td>
+	<td class="expl">Which presidents attended Harvard for college?</td>
+</tr>
 
+<tr>
+	<td class="code"><a href="?q=.pres_order%3D10">.pres_order=10</a></td>
+	<td class="expl">Who was the tenth president?</td>
+</tr>
 
-//// Separate AND expressions with spaces ////
+<tr>
+	<td class="code"><a href="?q=.college:columbia%20.occupation:lawyer">.college:columbia .occupation:lawyer</a></td>
+	<td class="expl">Which presidents attended Columbia and were lawyers?</td>
+</tr>
 
-// Which presidents attended Columbia and were lawyers?
-<a href="?q=.college:columbia_university%20.occupation:lawyer">.college:columbia .occupation:lawyer</a>
+<tr>
+	<td class="code"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30">.pres_order&gt;=20 .pres_order&lt;=30</a></td>
+	<td class="expl">Who were the twentieth through thirtieth presidents?</td>
+</tr>
 
-// Who were the twentieth through thirtieth presidents?
-<a href="?q=.pres_order%3E=20%20.pres_order%3C=30">.pres_order>=20 .pres_order<=30</a>
+<tr>
+	<td class="code"><a href="?q=.pres_order%20.child%3Df">.pres_order .child=f</a></td>
+	<td class="expl">Which presidents did NOT have children?</td>
+</tr>
 
-//// Specify NOT clauses ////
+<tr>
+	<td class="code"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg">.pres_order&gt;=20 .pres_order&lt;=30 .spouse=g</a></td>
+	<td class="expl">Who were the spouses of the twentieth through thirtieth presidents?</td>
+</tr>
 
-// Which presidents did NOT have children?
-<a href="?q=.pres_order%3E0%20NOT%20.child">.pres_order>0 NOT .child</a>
+<tr>
+	<td class="code"><a href="?q=.college:harvard%20.college:columbia%20qry.all">.college:harvard .college:columbia qry.all</a></td>
+	<td class="expl">Use <code>qry.all</code> to return relation to the returned As.</td>
+</tr>
 
-
-//// Return additional relations with GET ////
-
-// Who were the spouses of the twentieth through thirtieth presidents?
-<a href="?q=.pres_order%3E=20%20.pres_order%3C=30%20GET%20.spouse">.pres_order>=20 .pres_order<=30 GET .spouse</a>
-
-// Use GET ALL to return relation to the returned As:
-<a href="?q=.college:harvard%20NOT%20.college:columbia%20GET%20ALL">.college:harvard NOT .college:columbia GET ALL</pre></a>
+</table>
 
 
 </main>
