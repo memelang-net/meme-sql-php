@@ -1,5 +1,10 @@
 <?php
 
+define('A', 2);
+define('R', 3);
+define('B', 5);
+define('EQ', 6);
+
 global $XCMD, $CMD, $rCMD;
 
 $XCMD = [
@@ -7,29 +12,22 @@ $XCMD = [
 	':' => 1
 ];
 
-define('A', 1);
-define('R', 2);
-define('B', 4);
-define('EQ', 5);
-
-
 $CMD = [
 	'@'	 => A,
 	'.'  => R,
-	'\'' => 3,
+	'\'' => 4,
 	':'  => B,
 	'='  => EQ,
-	'>'  => 6,
-	'<'  => 7,
-	'>=' => 8,
-	'<=' => 9,
+//	'==' => 8,
+	'=>' => 9,
 	'!=' => 10,
-	'=>' => 11,
-	'==' => 12
+//	'!==' => 11,
+	'>'  => 12,
+	'>=' => 13,
+	'<'  => 14,
+	'<=' => 15,
 ];
 $rCMD=array_flip($CMD);
-
-
 
 // Parse a Memelang query into expressionss
 // $pattern = '/^([A-Za-z0-9\_]*)\.?([A-Za-z0-9\_]*):?([A-Za-z0-9\_]*)?([\!<>=]*)?(-?\d*\.?\d*)$/';
