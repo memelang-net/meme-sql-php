@@ -6,6 +6,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 require __DIR__.'/meme-sql-conf.php';
 require __DIR__.'/meme-sql-lib.php';
+require __DIR__.'/meme-parse.php';
 
 ?>
 <!DOCTYPE HTML>
@@ -35,11 +36,30 @@ th.q, td.q {width:10%; text-align: right; }
 <main>
 
 <form style="display: block; margin-block-end:2.5em;">
-	<input type="text" name="q" value="<?=htmlentities($_GET['q'])?>" style="font-size:2rem;width:75%;" id="q"/>
+	<input type="text" name="q" value="<?=htmlentities($_GET['q'])?>" style="font-size:2rem;width:75%;" id="q" placeholder="Enter query"/>
 	<input type="submit" name="" value="Go" style="font-size:2rem; width:20%; float: right;" />
 </form>
 
 <?php if ($_GET['q']) { ?>
+
+<pre class="code sql"><?php 
+try {
+    echo "/* SQL */\n".memeSQL($_GET['q']) . ';';
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+?></pre>
+
+
+<?php if ($_GET['t']) { ?>
+<pre class="code"><?php 
+	$statements=memeDecode($_GET['q']);
+	print_r($statements);
+	print "\n\n";
+	print memeEncode($statements, array('html'=>1));
+?></pre>
+<?php } ?>
+
 <table>
 	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
 	<?php 
@@ -55,15 +75,9 @@ th.q, td.q {width:10%; text-align: right; }
 	?>
 </table>
 
-<pre class="code sql"><?php 
-try {
-    echo "// SQL\n".memeSQL($_GET['q']) . ';';
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-?></pre>
 
 <?php } ?>
+
 
 
 <table>
@@ -123,7 +137,7 @@ try {
 
 <tr>
 	<td class="code"><a href="?q=.college:harvard%20.college:columbia%20qry.all">.college:harvard .college:columbia qry.all</a></td>
-	<td class="expl">Use <code>qry.all</code> to return relation to the returned As.</td>
+	<td class="expl">Use <code>qry.all</code> to return all memes related to the matching As.</td>
 </tr>
 
 </table>

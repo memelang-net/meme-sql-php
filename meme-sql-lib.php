@@ -20,14 +20,15 @@ function memeQuery($memelangQuery) {
 	}
 }
 
-function memeSQL($query) {
-	$query = preg_replace('/\s+/', ' ', trim($query)); // Normalize whitespace
+function memeSQL($memelangQuery) {
+	$queries=[];
+	$commands=memeDecode($memelangQuery);
+	foreach ($commands as $command) $queries[]=memeCmdSQL($command);
+	return implode(' UNION ', $queries);
+}
 
-	// Automatically remove spaces around operators
-	$query = preg_replace('/\s*([\!<>=]+)\s*/', '$1', $query);
+function memeCmdSQL ($command) {
 
-	// Split the query into individual statements
-	$statements = explode(' ', $query);
 	$trueConditions = [];
 	$falseConditions = [];
 	$getFilters = [];
@@ -35,103 +36,82 @@ function memeSQL($query) {
 		'all'=>false
 	];
 
-	// Process each statement
-	foreach ($statements as $statement) {
-		if (strpos($statement, 'qry.') === 0) {
-			list(,$qryset)=explode('.', $statement);
-			$querySettings[$qryset]=true;
-		} elseif (strpos($statement, '=f') !== false) {
-			// NOT (false) condition
-			$falseConditions[] = memeParse(trim(str_replace('=f', '', $statement)))['clause'];
-		} elseif (strpos($statement, '=g') !== false) {
-			// GET (filter) condition
-			$getFilters[] = memeParse(trim(str_replace('=g', '', $statement)))['filter'];
-		} else {
-			// Default AND (true) condition
-			$parsed = memeParse(trim($statement));
-			$trueConditions[] = $parsed['clause'];
+	foreach ($command as $statement) {
+		if ($statement[0][0]===A && $statement[0][1]==='qry') {
+			$querySettings[$statement[1][1]]=true;
+			continue;
+		}
 
-			// Populate $getFilters with 'filter' from parsed result
-			if (!empty($parsed['filter'])) {
-				$getFilters[] = $parsed['filter'];
+		$lastexp=end($statement);
+
+		if ($lastexp[0]===EQ) {
+			if ($lastexp[1]==='f') {
+				$falseConditions[]=array_slice($statement, 0, -1);
+				continue;
+			}
+			if ($lastexp[1]==='g') {
+				$getFilters[]=array_slice($statement, 0, -1);
+				continue;
 			}
 		}
+
+		$trueConditions[]=$statement;
+		$getFilters[]=$statement;
 	}
 
+	// Get all
 	if ($querySettings['all'] && empty($trueConditions) && empty($falseConditions)) 
 		return "SELECT * FROM " . DB_TABLE;
 
-	// Simple query if there is exactly one AND condition, no NOT or GET clauses, and no ALL
-	if (count($trueConditions) == 1 && empty($falseConditions) && empty($getFilters) && !$querySettings['all']) {
-		return "SELECT * FROM " . DB_TABLE . " WHERE " . implode(" AND ", $trueConditions);
-	}
+	// Simple query
+	if (count($trueConditions)==1 && empty($falseConditions) && count($getFilters)==1 && !$querySettings['all'])
+		return "SELECT * FROM " . DB_TABLE . " WHERE " . memeWhere($trueConditions[0]);
 
 	// Clear filters if ALL is present
 	if ($querySettings['all']) $getFilters = [];
 
 	// Generate SQL query for complex cases
-	return "SELECT m.* FROM " . DB_TABLE . " m " . 
-	       memeJunction($trueConditions, $falseConditions, $getFilters);
-}
 
-// Generate the SQL query junction for AND, NOT, and GET
-function memeJunction($trueConditions, $falseConditions, $getFilters) {
 	$havingConditions = [];
 	$filters = [];
 	$whereClause = ''; // Initialize to avoid undefined variable warnings
 
 	// Process AND conditions
-	foreach ($trueConditions as $condition) {
-		$havingConditions[] = "SUM(CASE WHEN $condition THEN 1 ELSE 0 END) > 0";
+	foreach ($trueConditions as $statement) {
+		$havingConditions[] = "SUM(CASE WHEN (".memeWhere($statement).") THEN 1 ELSE 0 END) > 0";
 	}
 
 	// Process NOT conditions
-	foreach ($falseConditions as $condition) {
-		$havingConditions[] = "SUM(CASE WHEN $condition THEN 1 ELSE 0 END) = 0";
+	foreach ($falseConditions as $statement) {
+		$havingConditions[] = "SUM(CASE WHEN (".memeWhere($statement).") THEN 1 ELSE 0 END) = 0";
 	}
 
 	// Process GET filters (only if ALL is not specified)
 	if (!empty($getFilters)) {
-		foreach ($getFilters as $filter) {
-			if ($filter) {
-				$filters[] = "($filter)";
-			}
-		}
+		foreach ($getFilters as $statement)
+			$filters[] = "(".memeWhere($statement).")";
+
 		$whereClause = " WHERE " . implode(" OR ", memeFilterGroup($filters));
 	}
 
 	$havingClause = implode(" AND ", $havingConditions);
 
-	return "JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING $havingClause) AS aids ON m.aid = aids.aid" . $whereClause;
+	return "SELECT m.* FROM " . DB_TABLE . " m JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING $havingClause) AS aids ON m.aid = aids.aid" . $whereClause;
 }
 
-// Parse individual components of a memelang query
-function memeParse($query) {
-	$query = preg_replace('/=t$/', '', $query);
-	$pattern = '/^([A-Za-z0-9\_]*)\.?([A-Za-z0-9\_]*):?([A-Za-z0-9\_]*)?([\!<>=]*)?(-?\d*\.?\d*)$/';
-	$matches = [];
-	if (preg_match($pattern, $query, $matches)) {
-		$aid = $matches[1] ?: null;
-		$rid = $matches[2] ?: null;
-		$bid = $matches[3] ?: null;
-		$operator = $matches[4] ?: '!=';
-		$qnt = $matches[5] !== '' ? $matches[5] : '0';
 
-		// Set default quantity condition to "qnt!=0" if no operator and quantity are specified
-		$conditions = [];
-		if ($aid) $conditions[] = "aid='$aid'";
-		if ($rid) $conditions[] = "rid='$rid'";
-		if ($bid) $conditions[] = "bid='$bid'";
-		$conditions[] = ($matches[4] === '' && $matches[5] === '') ? "qnt!=0" : "qnt$operator$qnt";
-
-		$filterConditions = [];
-		if ($rid) $filterConditions[] = "rid='$rid'";
-		if ($bid) $filterConditions[] = "bid='$bid'";
-		return ["clause" => "(" . implode(' AND ', $conditions) . ")", "filter" => implode(' AND ', $filterConditions)];
-	} else {
-		throw new Exception("Invalid memelang format: $query");
+function memeWhere ($statement, $qnt=true) {
+	global $rCMD;
+	$kv=[];
+	foreach ($statement as $exp) {
+		if ($exp[0]===A) $kv[]="aid='{$exp[1]}'";
+		else if ($exp[0]===R) $kv[]="rid='{$exp[1]}'";
+		else if ($exp[0]===B) $kv[]="bid='{$exp[1]}'";
+		else if ($qnt && $rCMD[$exp[0]] && is_float($exp[1])) $kv[]="qnt{$rCMD[$exp[0]]}{$exp[1]}";
 	}
+	return implode (' AND ', $kv);
 }
+
 
 // Group filters to reduce SQL complexity, applied only in the WHERE clause
 function memeFilterGroup($filters) {
@@ -161,7 +141,7 @@ function memeFilterGroup($filters) {
 }
 
 // Format query results as memelang
-function memeOut($results) {
+function memeTupOut ($results) {
 	$memelangOutput = [];
 	foreach ($results as $row) {
 		$memelangOutput[] = "{$row['aid']}.{$row['rid']}:{$row['bid']}={$row['qnt']}";
