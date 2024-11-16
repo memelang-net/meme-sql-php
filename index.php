@@ -42,24 +42,6 @@ th.q, td.q {width:10%; text-align: right; }
 
 <?php if ($_GET['q']) { ?>
 
-<pre class="code sql"><?php 
-try {
-    echo "/* SQL */\n".memeSQL($_GET['q']) . ';';
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-?></pre>
-
-
-<?php if ($_GET['t']) { ?>
-<pre class="code"><?php 
-	$statements=memeDecode($_GET['q']);
-	print_r($statements);
-	print "\n\n";
-	print memeEncode($statements, array('html'=>1));
-?></pre>
-<?php } ?>
-
 <table>
 	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
 	<?php 
@@ -75,6 +57,13 @@ try {
 	?>
 </table>
 
+<pre class="code sql"><?php 
+try {
+    echo "/* SQL */\n".memeSQL($_GET['q']) . ';';
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+?></pre>
 
 <?php } ?>
 
@@ -139,6 +128,14 @@ try {
 	<td class="code"><a href="?q=.college:harvard%20.college:columbia%20qry.all">.college:harvard .college:columbia qry.all</a></td>
 	<td class="expl">Use <code>qry.all</code> to return all memes related to the matching As.</td>
 </tr>
+
+<tr>
+	<td class="code"><a href="?q=james_carter;%20ronald_reagan">james_carter; ronald_reagan</a></td>
+	<td class="expl">Get all about James Carter as well as Ronald Reagan</td>
+</tr>
+
+
+
 
 </table>
 
