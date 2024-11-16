@@ -6,14 +6,10 @@ function memeQuery($memelangQuery) {
 		$sqlQuery = memeSQL($memelangQuery);
 
 		switch (DB_TYPE) {
-			case 'sqlite3':
-				return memeSQLite3($sqlQuery);
-			case 'mysql':
-				return memeMySQL($sqlQuery);
-			case 'postgres':
-				return memePostgres($sqlQuery);
-			default:
-				throw new Exception("Unsupported database type: " . DB_TYPE);
+			case 'sqlite3': return memeSQLite3($sqlQuery);
+			case 'mysql': return memeMySQL($sqlQuery);
+			case 'postgres': return memePostgres($sqlQuery);
+			default: throw new Exception("Unsupported database type: " . DB_TYPE);
 		}
 	} catch (Exception $e) {
 		return "Error: " . $e->getMessage();
@@ -45,7 +41,7 @@ function memeCmdSQL ($command) {
 		$lastexp=end($statement);
 
 		if ($lastexp[0]===EQ) {
-			if ($lastexp[1]==='f') {
+			if ($lastexp[1]===0) {
 				$falseConditions[]=array_slice($statement, 0, -1);
 				continue;
 			}
@@ -73,8 +69,6 @@ function memeCmdSQL ($command) {
 	// Generate SQL query for complex cases
 
 	$havingConditions = [];
-	$filters = [];
-	$whereClause = ''; // Initialize to avoid undefined variable warnings
 
 	// Process AND conditions
 	foreach ($trueConditions as $statement) {
@@ -87,28 +81,40 @@ function memeCmdSQL ($command) {
 	}
 
 	// Process GET filters (only if ALL is not specified)
+	$filters = [];
+	$whereClause = '';
 	if (!empty($getFilters)) {
-		foreach ($getFilters as $statement)
-			$filters[] = "(".memeWhere($statement).")";
-
+		foreach ($getFilters as $statement) $filters[] = "(".memeWhere($statement, false).")";
 		$whereClause = " WHERE " . implode(" OR ", memeFilterGroup($filters));
 	}
 
-	$havingClause = implode(" AND ", $havingConditions);
-
-	return "SELECT m.* FROM " . DB_TABLE . " m JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING $havingClause) AS aids ON m.aid = aids.aid" . $whereClause;
+	return "SELECT m.* FROM " . DB_TABLE . " m JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING ".implode(" AND ", $havingConditions).") AS aids ON m.aid = aids.aid" . $whereClause;
 }
 
 
 function memeWhere ($statement, $qnt=true) {
-	global $rCMD;
+	global $rOPR;
+	$qFound=false;
 	$kv=[];
+	$count=count($statement);
+
 	foreach ($statement as $exp) {
 		if ($exp[0]===A) $kv[]="aid='{$exp[1]}'";
 		else if ($exp[0]===R) $kv[]="rid='{$exp[1]}'";
 		else if ($exp[0]===B) $kv[]="bid='{$exp[1]}'";
-		else if ($qnt && $rCMD[$exp[0]] && is_float($exp[1])) $kv[]="qnt{$rCMD[$exp[0]]}{$exp[1]}";
+		else if ($qnt && $rOPR[$exp[0]]) {
+			$qFound=true;
+			
+			if ($exp[0]===EQ) $kv[]="qnt!=0";
+			else {
+				if ($exp[0]===DEQ) $exp[0]=EQ;
+				$kv[]='qnt' . $rOPR[$exp[0]] . $exp[1];
+			}
+		}
 	}
+
+	if ($qnt && !$qFound) $kv[]="qnt!=0";
+
 	return implode (' AND ', $kv);
 }
 
@@ -120,9 +126,9 @@ function memeFilterGroup($filters) {
 	$complexFilters = [];
 
 	foreach ($filters as $filter) {
-		if (preg_match("/^\\(rid='([A-Za-z0-9]+)'\\)$/", $filter, $matches)) {
+		if (preg_match("/^\\(rid='([A-Za-z0-9\_]+)'\\)$/", $filter, $matches)) {
 			$ridValues[] = $matches[1];
-		} elseif (preg_match("/^\\(bid='([A-Za-z0-9]+)'\\)$/", $filter, $matches)) {
+		} elseif (preg_match("/^\\(bid='([A-Za-z0-9\_]+)'\\)$/", $filter, $matches)) {
 			$bidValues[] = $matches[1];
 		} else {
 			$complexFilters[] = $filter;
@@ -131,10 +137,10 @@ function memeFilterGroup($filters) {
 
 	$grouped = [];
 	if (!empty($ridValues)) {
-		$grouped[] = "m.rid IN ('" . implode("','", $ridValues) . "')";
+		$grouped[] = "m.rid IN ('" . implode("','", array_unique($ridValues)) . "')";
 	}
 	if (!empty($bidValues)) {
-		$grouped[] = "m.bid IN ('" . implode("','", $bidValues) . "')";
+		$grouped[] = "m.bid IN ('" . implode("','", array_unique($bidValues)) . "')";
 	}
 
 	return array_merge($grouped, $complexFilters);
