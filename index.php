@@ -13,24 +13,7 @@ require __DIR__.'/meme-parse.php';
 <html lang="en-US">
 <head>
 <title>Memelang SQL Querier</title>
-<style type="text/css">
-body { line-height:150%; background:rgb(11,11,11); color:rgb(230,230,230); font-family:sans-serif; margin:60px 0 100px 0; }
-a { color:rgb(170,170,192); text-decoration:none; }
-a:hover { text-decoration:underline; }
-main { max-width: 700px; width: 94%; margin:0 auto; }
-pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); background:rgb(43,43,43); white-space:pre-wrap; }
-.code { font-family:monospace; font-size:1rem; }
-.code.sql { color:rgb(0,170,0); font-style:italic; }
-
-table { width:100%; margin-bottom:2.5em; }
-th { text-align:left; background:rgb(43,43,43); padding:6px; }
-td { background:rgb(36,36,36); padding:6px; }
-td.a {width:30%;}
-td.r {width:30%;}
-td.b {width:30%;}
-th.q, td.q {width:10%; text-align: right; }
-
-</style>
+<link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 <main>

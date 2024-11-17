@@ -6,7 +6,7 @@ define('A', 2);
 define('R', 3);
 define('B', 5);
 define('EQ', 6);
-define('DEQ', 18);
+define('DEQ', 16);
 
 global $OPR, $xOPR, $rOPR;
 
@@ -154,6 +154,7 @@ function memeEncode ($commands, $set=[]) {
 	global $OPR, $rOPR;
 	$parts=[];
 	foreach ($commands as $i=>$statements) {
+		$statementArray=[];
 		$commandArray[$i]='';
 		foreach ($statements as $j=>$statement) {
 			$statementArray[$j]='';
