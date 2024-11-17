@@ -159,7 +159,18 @@ function memeEncode ($commands, $set=[]) {
 			$statementArray[$j]='';
 			foreach ($statement as $exp) {
 				$oprstr = $exp[0]===A ? '' : $rOPR[$exp[0]];
-				if ($set['html']) $statementArray[$j].=$oprstr.htmlspecialchars($exp[1]).'</var>';
+
+				if ($oprstr==='=') {
+					if ($exp[1]===0) $exp[1]='f';
+					if ($exp[1]===1) $exp[1]='t';
+				}
+
+				else if ($oprstr==='#=') {
+					$oprstr='=';
+					if (strpos($exp[1], '.') === false) $exp[1]=(string)$exp[1] . '.0';
+				}
+
+				if ($set['html']) $statementArray[$j].=$oprstr.'<var class="v'.$exp[0].'">'.htmlspecialchars($exp[1]).'</var>';
 				else $statementArray[$j].=$oprstr.$exp[1];
 			}
 		}

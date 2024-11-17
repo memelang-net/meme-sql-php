@@ -338,7 +338,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'election_year',
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'time_served', 'year', 4);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'college', 'union', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'occupation', 'collector_of_customs_for_the_port_of_new_york', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'occupation', 'customs_collector_port_of_new_york', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'spouse', 'ellen_lewis_herndon_arthur', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'child', 'william_arthur', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'child', 'chester_alan_arthur', 1);
@@ -619,7 +619,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'occupation', 'geo
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'occupation', 'navy_submarine_officer', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'spouse', 'rosalynn_carter', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'john_william_carter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'james_earl_carteri', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'james_earl_carter', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'amy_carter', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'pres_order', 'first', 40);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'birth_year', 'ad1911', 1);

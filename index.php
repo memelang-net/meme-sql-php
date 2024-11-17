@@ -96,7 +96,12 @@ try {
 
 <tr>
 	<td class="code"><a href="?q=.college:harvard">.college:harvard</a></td>
-	<td class="expl">Which presidents attended Harvard for college?</td>
+	<td class="expl">Which presidents attended Harvard?</td>
+</tr>
+
+<tr>
+	<td class="code"><a href="?q=.college:harvard%3Df">.college .college:harvard=f</a></td>
+	<td class="expl">Which presidents did NOT attended Harvard?</td>
 </tr>
 
 <tr>
@@ -134,11 +139,7 @@ try {
 	<td class="expl">Get all about James Carter as well as Ronald Reagan</td>
 </tr>
 
-
-
-
 </table>
-
 
 </main>
 
