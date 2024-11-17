@@ -1,21 +1,23 @@
 <?php
 
-define('F', 0);
-define('T', 1);
-define('A', 2);
-define('R', 3);
-define('B', 5);
-define('EQ', 6);
-define('DEQ', 16);
+define('MEME_FALSE', 0);
+define('MEME_TRUE', 1);
+define('MEME_A', 2);
+define('MEME_R', 3);
+define('MEME_B', 5);
+define('MEME_EQ', 6);
+define('MEME_DEQ', 16);
+define('MEME_GET', 40);
+define('MEME_ORG', 41);
 
 global $OPR, $xOPR, $rOPR;
 
 $OPR = [
-	'@'	 => A,
-	'.'  => R,
+	'@'	 => MEME_A,
+	'.'  => MEME_R,
 	'\'' => 4,
-	':'  => B,
-	'='  => EQ,
+	':'  => MEME_B,
+	'='  => MEME_EQ,
 //	'==' => 8,
 	'=>' => 9,
 	'!=' => 10,
@@ -24,7 +26,7 @@ $OPR = [
 	'>=' => 13,
 	'<'  => 14,
 	'<=' => 15,
- 	'#=' => DEQ,
+ 	'#=' => MEME_DEQ,
 ];
 $rOPR=array_flip($OPR);
 
@@ -48,6 +50,8 @@ function memeDecode ($memelang) {
 
 	// Prepend decimals with a zero
 	$memelang = preg_replace('/([<>=])(\-?)\.([0-9])/', '${1}${2}0.${3}', $memelang);
+
+	if ($memelang === '' || $memelang === ';') throw new Exception("Error: Empty query provided.");
 
 	$commands = [];
 	$statements = [];
@@ -115,14 +119,18 @@ function memeDecode ($memelang) {
 			}
 			
 			if ($oprstr==='=') {
-				if ($varstr==='t') $expressions[] = [EQ, T];
-				else if ($varstr==='f') $expressions[] = [EQ, F];
+				if ($varstr==='t') $expressions[] = [MEME_EQ, MEME_TRUE];
+				else if ($varstr==='f') $expressions[] = [MEME_EQ, MEME_FALSE];
+				else if (preg_match('/t(\d+)$/', $varstr, $tm)) {
+					$expressions[] = [MEME_EQ, MEME_TRUE];
+					$expressions[] = [MEME_ORG, (int)$tm[1]];
+				}
 			}
 			else {
-				if (!$oprstr) $oprstr = '@';
-				$expressions[] = [$OPR[$oprstr], (string)$varstr];
+				if (!$oprstr) $expressions[] = [MEME_A, (string)$varstr];
+				else $expressions[] = [$OPR[$oprstr], (string)$varstr];
 
-				if ($OPR[$oprstr]===B) $bFound=true;
+				if ($OPR[$oprstr]===MEME_B) $bFound=true;
 			}
 			$oprstr='';
 			$i--;
@@ -159,7 +167,7 @@ function memeEncode ($commands, $set=[]) {
 		foreach ($statements as $j=>$statement) {
 			$statementArray[$j]='';
 			foreach ($statement as $exp) {
-				$oprstr = $exp[0]===A ? '' : $rOPR[$exp[0]];
+				$oprstr = $exp[0]===MEME_A ? '' : $rOPR[$exp[0]];
 
 				if ($oprstr==='=') {
 					if ($exp[1]===0) $exp[1]='f';

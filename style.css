@@ -19,6 +19,7 @@ code.meme var { font-style:normal; }
 .meme .v14 { color:rgb(0,192,0); } /* <Q */
 .meme .v15 { color:rgb(0,192,0); } /* <=Q */
 .meme .v16 { color:rgb(0,192,0); } /* #=Q */
+.meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
 
 
 table { width:100%; margin-bottom:2.5em; }

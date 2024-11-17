@@ -83,7 +83,7 @@ try {
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.college:harvard%3Df">.college .college:harvard=f</a></td>
+	<td class="code"><a href="?q=.college%20.college:harvard%3Df">.college .college:harvard=f</a></td>
 	<td class="expl">Which presidents did NOT attended Harvard?</td>
 </tr>
 
