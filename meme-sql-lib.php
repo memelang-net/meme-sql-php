@@ -127,6 +127,7 @@ function memeWhere($statement, $qnt = true) {
 		elseif ($qnt && isset($rOPR[$exp[0]])) {
 			$qFound = true;
 			if ($exp[0]===MEME_EQ && $exp[1]===MEME_TRUE) $kv[] = "qnt!=0";
+			else if ($exp[0]===MEME_DEQ) $kv[] = "qnt=" . $exp[1];
 			else $kv[] = 'qnt' . $rOPR[$exp[0]] . $exp[1];
 		}
 	}

@@ -3,11 +3,13 @@ a { color:rgb(170,170,192); text-decoration:none; }
 a:hover { text-decoration:underline; }
 main { max-width: 700px; width: 94%; margin:0 auto; }
 pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); background:rgb(43,43,43); white-space:pre-wrap; font-size:1rem; }
-pre code { display:block; }
 
 .code.sql { color:rgb(0,170,0); font-style:italic; }
 
-code.meme var { font-style:normal; }
+code { background:rgba(255,255,255,0.1); padding:2px 4px; font-size:1rem; }
+td code, pre code { background:none; }
+
+var { font-style:normal; }
 .meme .v2 { color:rgb(0,170,170); } /* A */
 .meme .v3 { color:rgb(213,128,0); } /* .R */
 .meme .v4 { color:rgb(213,128,0); font-style:italic; } /* 'R */
@@ -22,10 +24,17 @@ code.meme var { font-style:normal; }
 .meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
 
 
-table { width:100%; margin-bottom:2.5em; }
+textarea { width:100%; font-size:1.1rem; box-sizing:border-box; }
+input { width:100%; box-sizing:border-box; font-size: 1.1rem; text-align:center; }
+form { display:block; margin-bottom:20px; text-align:center; }
+form, pre, table, .mbe { width:100%; margin-bottom:20px; box-sizing: border-box; }
+
 th { text-align:left; background:rgb(43,43,43); padding:6px; }
 td { background:rgb(36,36,36); padding:6px; }
 td.a {width:30%;}
 td.r {width:30%;}
 td.b {width:30%;}
 th.q, td.q {width:10%; text-align: right; }
+
+td.code { padding:12px; display:block; white-space:pre-wrap; }
+td.spa { margin-bottom:6px; }

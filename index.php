@@ -12,18 +12,20 @@ require __DIR__.'/meme-parse.php';
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-<title>Memelang SQL Querier</title>
+<title>Memelang SQL Demo</title>
 <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 <main>
 
-<form style="display: block; margin-block-end:2.5em;">
-	<input type="text" name="q" value="<?=htmlentities($_GET['q'])?>" style="font-size:2rem;width:75%;" id="q" placeholder="Enter query"/>
-	<input type="submit" name="" value="Go" style="font-size:2rem; width:20%; float: right;" />
+<form>
+	<textarea name="q" style="height:80px;" id="q" placeholder="Enter Memelang query"><?=htmlentities($_GET['q'])?></textarea><br/>
+	<input type="submit" name="" value="Search" />
 </form>
 
-<?php if ($_GET['q']) { ?>
+
+
+<?php if (strlen($_GET['q'])) { ?>
 
 <table>
 	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
@@ -31,98 +33,139 @@ require __DIR__.'/meme-parse.php';
 		$rows=memeQuery($_GET['q']);
 		foreach ($rows as $row) {
 			print "<tr>";
-			print '<td class="a"><a href="?q='.htmlentities($row['aid']).'">'.$row['aid'].'</a></td>';
-			print '<td class="r"><a href="?q=.'.htmlentities($row['rid']).'">.'.$row['rid'].'</a></td>';
-			print '<td class="b"><a href="?q=:'.htmlentities($row['bid']).'">:'.$row['bid'].'</a></td>';
-			print '<td class="q">='.$row['qnt'].'</td>';
+			print '<td class="a meme"><a href="?q='.htmlentities($row['aid']).'"><var class="v2">'.$row['aid'].'</var></a></td>';
+			print '<td class="r meme"><a href="?q=.'.htmlentities($row['rid']).'">.<var class="v3">'.$row['rid'].'</var></a></td>';
+			print '<td class="b meme"><a href="?q=:'.htmlentities($row['bid']).'">:<var class="v5">'.$row['bid'].'</var></a></td>';
+			print '<td class="q meme">=<var class="v16">'.$row['qnt'].'</var></td>';
 			print '</tr>';
 		}
 	?>
 </table>
 
-<pre class="code sql"><?php 
+<table>
+	<tr><th>SQL Query</th></tr>
+	<tr><td style="padding:12px"><code class="meme code sql"><?php 
 try {
-    echo "/* SQL */\n".memeSQL($_GET['q']) . ';';
+    echo memeSQL($_GET['q']) . ';';
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-?></pre>
+?></code></td></tr></table>
 
 <?php } ?>
 
+<table>
 
+<tr>
+	<th>Memelang SQL Demo</th>
+</tr>
+<tr>
+	<td class="code">This is demonstration of translating <a href="https://memelang.net">Memelang</a> to SQL for querying relational databases. See the <a href="https://github.com/memelang-net/meme-sql-php">PHP code in GitHub</a>. A Python version is coming soon. Example queries:</td>
+</tr>
+</table>
 
 <table>
 <tr>
-	<th colspan="2"><b>Example Queries</b> (<a href="//memelang.net/">Help</a>)</th>
+	<th>Show all data in this DB.</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=qry.all"><code class="meme"><var class="v2">qry</var>.<var class="v3">all</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=qry.all">qry.all</a></td>
-	<td class="expl">Show all data in this DB.</td>
+	<th>All about George Washington.</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=george_washington"><code class="meme"><var class="v2">george_washington</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=george_washington">george_washington</a></td>
-	<td class="expl">All about George Washington.</td>
+	<th>Who were children of the presidents?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.child"><code class="meme">.<var class="v3">child</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.child">.child</a></td>
-	<td class="expl">Who were children of the presidents?</td>
+	<th>Which presidents were members of the Whig party?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.party:whig"><code class="meme">.<var class="v3">party</var>:<var class="v5">whig</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=:lawyer">:lawyer</a></td>
-	<td class="expl">Which presidents were lawyers?</td>
+	<th>Which presidents attended Harvard?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.college:harvard"><code class="meme">.<var class="v3">college</var>:<var class="v5">harvard</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.college:harvard">.college:harvard</a></td>
-	<td class="expl">Which presidents attended Harvard?</td>
+	<th>Which presidents attended a college that was NOT Harvard?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.college%20.college:harvard%3Df"><code class="meme">.<var class="v3">college</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.college%20.college:harvard%3Df">.college .college:harvard=f</a></td>
-	<td class="expl">Which presidents did NOT attended Harvard?</td>
+	<th>Which presidents were born before 1820?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.birth_year:year%3C1820"><code class="meme">.<var class="v3">birth_year</var>:<var class="v5">year</var>&lt;<var class="v16">1820</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.pres_order%3D10">.pres_order=10</a></td>
-	<td class="expl">Who was the tenth president?</td>
+	<th>Which presidents attended Columbia and were lawyers?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.college:columbia%20.occupation:lawyer"><code class="meme">.<var class="v3">college</var>:<var class="v5">columbia</var> .<var class="v3">occupation</var>:<var class="v5">lawyer</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.college:columbia%20.occupation:lawyer">.college:columbia .occupation:lawyer</a></td>
-	<td class="expl">Which presidents attended Columbia and were lawyers?</td>
+	<th>Who were the twentieth through thirtieth presidents?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30"><code class="meme">.<var class="v3">pres_order</var>>=<var class="v13">20</var> .<var class="v3">pres_order</var><=<var class="v15">30</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30">.pres_order&gt;=20 .pres_order&lt;=30</a></td>
-	<td class="expl">Who were the twentieth through thirtieth presidents?</td>
+	<th>Which presidents did NOT have children?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.pres_order%20.child%3Df"><code class="meme">.<var class="v3">pres_order</var> .<var class="v3">child</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.pres_order%20.child%3Df">.pres_order .child=f</a></td>
-	<td class="expl">Which presidents did NOT have children?</td>
+	<th>Who were the spouses of the twentieth through thirtieth presidents?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">pres_order</var>>=<var class="v13">20</var> .<var class="v3">pres_order</var><=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg">.pres_order&gt;=20 .pres_order&lt;=30 .spouse=g</a></td>
-	<td class="expl">Who were the spouses of the twentieth through thirtieth presidents?</td>
+	<th>Use <i>qry.all</i> to return all memes related to the matching As.</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.college:harvard%20.college:columbia%20qry.all"><code class="meme">.<var class="v3">college</var>:<var class="v5">harvard</var> .<var class="v3">college</var>:<var class="v5">columbia</var> <var class="v2">qry</var>.<var class="v3">all</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=.college:harvard%20.college:columbia%20qry.all">.college:harvard .college:columbia qry.all</a></td>
-	<td class="expl">Use <code>qry.all</code> to return all memes related to the matching As.</td>
+	<th>Get all about James Carter as well as Ronald Reagan.</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=james_carter;%20ronald_reagan"><code class="meme"><var class="v2">james_carter</var>; <var class="v2">ronald_reagan</var></code></a></td>
 </tr>
 
 <tr>
-	<td class="code"><a href="?q=james_carter;%20ronald_reagan">james_carter; ronald_reagan</a></td>
-	<td class="expl">Get all about James Carter as well as Ronald Reagan</td>
+	<th>Which presidents were lawyers that attended Harvard <u>or</u> William and Mary?</th>
 </tr>
+<tr>
+	<td class="code spa"><a href="?q=.occupation:lawyer%20.college:harvard=t1%20.college:william_and_mary=t1"><code class="meme">.<var class="v3">occupation</var>:<var class="v5">lawyer</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">t</var><var class="v41">1</var> .<var class="v3">college</var>:<var class="v5">william_and_mary</var>=<var class="v6">t</var><var class="v41">1</var></code></a></td>
+</tr>
+
 
 </table>
+
 
 </main>
 
