@@ -101,13 +101,6 @@ try {
 </tr>
 
 <tr>
-	<th>Which presidents attended a college that was NOT Harvard?</th>
-</tr>
-<tr>
-	<td class="code spa"><a href="?q=.college%20.college:harvard%3Df"><code class="meme">.<var class="v3">college</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">f</var></code></a></td>
-</tr>
-
-<tr>
 	<th>Which presidents were born before 1820?</th>
 </tr>
 <tr>
@@ -121,11 +114,19 @@ try {
 	<td class="code spa"><a href="?q=.college:columbia%20.occupation:lawyer"><code class="meme">.<var class="v3">college</var>:<var class="v5">columbia</var> .<var class="v3">occupation</var>:<var class="v5">lawyer</var></code></a></td>
 </tr>
 
+
 <tr>
 	<th>Who were the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
 	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30"><code class="meme">.<var class="v3">pres_order</var>>=<var class="v13">20</var> .<var class="v3">pres_order</var><=<var class="v15">30</var></code></a></td>
+</tr>
+
+<tr>
+	<th>Which presidents attended a college that was NOT Harvard?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.college%20.college:harvard%3Df"><code class="meme">.<var class="v3">college</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
@@ -163,6 +164,13 @@ try {
 	<td class="code spa"><a href="?q=.occupation:lawyer%20.college:harvard=t1%20.college:william_and_mary=t1"><code class="meme">.<var class="v3">occupation</var>:<var class="v5">lawyer</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">t</var><var class="v41">1</var> .<var class="v3">college</var>:<var class="v5">william_and_mary</var>=<var class="v6">t</var><var class="v41">1</var></code></a></td>
 </tr>
 
+
+<tr>
+	<th>Which presidents has children that became presidents?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=.child.pres_order"><code class="meme">.<var class="v3">child</var>.<var class="v3">pres_order</var></a></td>
+</tr>
 
 </table>
 

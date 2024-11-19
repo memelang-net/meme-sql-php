@@ -113,30 +113,62 @@ function memeCmdSQL($command) {
 
 
 // Translate an $statement array of ARBQ into an SQL WHERE clause
-function memeWhere($statement, $qnt = true) {
+function memeWhere($statement, $useQnt = true) {
 	global $rOPR;
 
-	$qFound = false;
-	$kv = [];
-	$count = count($statement);
+	$conditions = [];
+	$rids = [];
+	$aid = null;
+	$bid = null;
+	$opr = null;
+	$qnt = null;
+	$ridNest = '';
+
+	if ($useQnt) {
+		$opr = '!=';
+		$qnt = 0;
+	}
 
 	foreach ($statement as $exp) {
-		if ($exp[0] === MEME_A) $kv[] = "aid='{$exp[1]}'";
-		elseif ($exp[0] === MEME_R) $kv[] = "rid='{$exp[1]}'";
-		elseif ($exp[0] === MEME_B) $kv[] = "bid='{$exp[1]}'";
-		elseif ($qnt && isset($rOPR[$exp[0]])) {
-			$qFound = true;
-			if ($exp[0]===MEME_EQ && $exp[1]===MEME_TRUE) $kv[] = "qnt!=0";
-			else if ($exp[0]===MEME_DEQ) $kv[] = "qnt=" . $exp[1];
-			else $kv[] = 'qnt' . $rOPR[$exp[0]] . $exp[1];
+		if ($exp[0] === MEME_A) $aid = $exp[1];
+		elseif ($exp[0] === MEME_R) $rids[] = $exp[1];
+		elseif ($exp[0] === MEME_B) $bid = $exp[1];
+		elseif ($useQnt && isset($rOPR[$exp[0]])) {
+			$opr = $exp[0]===MEME_DEQ ? '=' : $rOPR[$exp[0]];
+			$qnt = $exp[1];
 		}
 	}
 
-	// default to not false
-	if ($qnt && !$qFound) $kv[] = "qnt!=0";
 
-	return implode(' AND ', $kv);
+	$ridCount=count($rids);
+	if ($ridCount>1) {
+		for ($i=1;$i<$ridCount; $i++) {
+			if ($i>1) $ridNest.=' AND ';
+			$ridNest.="bid in (SELECT aid FROM " . DB_TABLE . " WHERE rid='{$rids[$i]}'";
+			if ($i===$ridCount-1) {
+				if ($bid) $ridNest.= "AND bid='$bid'";
+				if ($useQnt) $ridNest.= " AND qnt$opr$qnt";
+			}
+		}
+
+		$ridNest .= str_repeat(')', $ridCount - 1);
+		$bid=null;
+		$useQnt=null;
+	}
+
+	if ($aid) $conditions[] = "aid='$aid'";
+	if (!empty($rids)) $conditions[] = "rid='{$rids[0]}'";
+	if ($bid) $conditions[] = "bid='$bid'";
+	if ($useQnt) $conditions[] = "qnt$opr$qnt";
+	if ($ridNest) $conditions[] = $ridNest;
+
+	return implode(' AND ', $conditions);
 }
+
+
+
+
+
 
 
 // Group filters to reduce SQL complexity, applied only in the WHERE clause

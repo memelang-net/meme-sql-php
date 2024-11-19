@@ -76,7 +76,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'dip
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'governor', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'spouse', 'elizabeth_kortright_monroe', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'child', 'eliza_monroe_hay', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'child', 'james_monroe', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'child', 'james_monroe_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'pres_order', 'first', 6);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'birth_year', 'year', 1767);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'birth_country', 'usa', 1);
@@ -91,7 +91,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'occupation',
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'occupation', 'secretary_of_state', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'spouse', 'louisa_catherine_johnson_adams', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'george_washington_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'john_adams', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'john_adams_iii', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'charles_francis_adams', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'brooks_adams', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'pres_order', 'first', 7);
@@ -121,7 +121,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'occupation', 
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'spouse', 'hannah_hoes_van_buren', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'abraham_van_buren', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'john_van_buren', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'martin_van_buren', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'martin_van_buren_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'and_james_van_buren', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'pres_order', 'first', 9);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'birth_year', 'year', 1773);
@@ -140,7 +140,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'eliz
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'john_scott_harrison', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'lucy_harrison', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'william_henry_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'benjamin_harrison', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'benjamin_harrison_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'pres_order', 'first', 10);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'birth_year', 'year', 1790);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'birth_country', 'usa', 1);
@@ -159,7 +159,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'david_gard
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'john_alexander_tyler', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'mary_tyler', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'robert_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'john_tyler', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'john_tyler_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'letitia_tyler', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'elizabeth_tyler', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'anna_tyler', 1);
@@ -207,7 +207,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 'congressman', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 'new_york_state_comptroller', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'spouse', 'abigail_powers_fillmore', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'child', 'millard_fillmore', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'child', 'millard_fillmore_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'child', 'mary_abigail_fillmore', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'pres_order', 'first', 14);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'birth_year', 'year', 1804);
@@ -270,7 +270,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'occupation', 's
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'spouse', 'eliza_mccardle_johnson', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'martha_johnson_patterson', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'charles_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'andrew_johnson', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'andrew_johnson_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'robert_johnson', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'and_william_johnson', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'pres_order', 'first', 18);
@@ -408,7 +408,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'occupation'
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'spouse', 'alice_hathaway_lee_roosevelt', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'spouse', 'edith_kermit_carow', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'alice_lee_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'theodore_roosevelt', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'theodore_roosevelt_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'kermit_roosevelt', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'ethel_roosevelt', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'and_quentin_roosevelt', 1);
@@ -477,7 +477,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'occupation', '
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'occupation', 'vice_president', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'spouse', 'grace_anna_goodhue_coolidge', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'john_coolidge', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'calvin_coolidge', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'calvin_coolidge_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'and_a_daughter', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'elizabeth_coolidge', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'pres_order', 'first', 31);
@@ -493,7 +493,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'e
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'mining_executive', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'secretary_of_commerce', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'spouse', 'lou_henry_hoover', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'child', 'herbert_hoover', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'child', 'herbert_hoover_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'child', 'allan_hoover', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'pres_order', 'first', 32);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'birth_year', 'year', 1882);
@@ -711,7 +711,7 @@ INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'college', 'univer
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'occupation', 'businessman', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'occupation', 'television_personality', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'spouse', 'melania_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'donald_trump', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'donald_trump_jr', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'ivanka_trump', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'eric_trump', 1);
 INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'tiffany_trump', 1);
