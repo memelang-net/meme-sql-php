@@ -21,7 +21,20 @@ function memeSQL($memelangQuery) {
 	$queries=[];
 	$commands=memeDecode($memelangQuery);
 	foreach ($commands as $command) $queries[]=memeCmdSQL($command);
-	return implode(' UNION ', $queries);
+	$sql=implode(' UNION ', $queries);
+
+	// consolidate subqueries into CTE
+	if (!preg_match_all('/ bid IN \(([^\)]+)\)/', $sql, $matches)) return $sql;
+
+	$with='WITH ';
+	$matches[1]=array_unique($matches[1]);
+
+	foreach ($matches[1] as $i=>$subquery) {
+		$with.=($i>0?', ':'')." sq$i AS ($subquery)";
+		$sql=str_replace($subquery, 'SELECT aid FROM sq'.$i, $sql);
+	}
+
+   return $with.' '.$sql;
 }
 
 // Translate one Memelang command into SQL
@@ -120,14 +133,9 @@ function memeWhere($statement, $useQnt = true) {
 	$rids = [];
 	$aid = null;
 	$bid = null;
-	$opr = null;
-	$qnt = null;
+	$opr = '!=';
+	$qnt = 0;
 	$ridNest = '';
-
-	if ($useQnt) {
-		$opr = '!=';
-		$qnt = 0;
-	}
 
 	foreach ($statement as $exp) {
 		if ($exp[0] === MEME_A) $aid = $exp[1];
@@ -144,10 +152,10 @@ function memeWhere($statement, $useQnt = true) {
 	if ($ridCount>1) {
 		for ($i=1;$i<$ridCount; $i++) {
 			if ($i>1) $ridNest.=' AND ';
-			$ridNest.="bid in (SELECT aid FROM " . DB_TABLE . " WHERE rid='{$rids[$i]}'";
+			$ridNest.="bid IN (SELECT aid FROM " . DB_TABLE . " WHERE rid='{$rids[$i]}'";
 			if ($i===$ridCount-1) {
 				if ($bid) $ridNest.= "AND bid='$bid'";
-				if ($useQnt) $ridNest.= " AND qnt$opr$qnt";
+				$ridNest.= " AND qnt$opr$qnt"; // always uses qnt for later consolidattion
 			}
 		}
 
@@ -164,11 +172,6 @@ function memeWhere($statement, $useQnt = true) {
 
 	return implode(' AND ', $conditions);
 }
-
-
-
-
-
 
 
 // Group filters to reduce SQL complexity, applied only in the WHERE clause

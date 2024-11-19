@@ -27,6 +27,18 @@ require __DIR__.'/meme-parse.php';
 
 <?php if (strlen($_GET['q'])) { ?>
 
+
+<table>
+	<tr><th>SQL Query</th></tr>
+	<tr><td style="padding:12px"><code class="meme code sql"><?php 
+try {
+    echo memeSQL($_GET['q']) . ';';
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+?></code></td></tr></table>
+
+
 <table>
 	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
 	<?php 
@@ -41,16 +53,6 @@ require __DIR__.'/meme-parse.php';
 		}
 	?>
 </table>
-
-<table>
-	<tr><th>SQL Query</th></tr>
-	<tr><td style="padding:12px"><code class="meme code sql"><?php 
-try {
-    echo memeSQL($_GET['q']) . ';';
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-?></code></td></tr></table>
 
 <?php } ?>
 
