@@ -24,7 +24,7 @@ function memeSQL($memelangQuery) {
 	$sql=implode(' UNION ', $queries);
 
 	// consolidate subqueries into CTE
-	if (!preg_match_all('/ bid IN \(([^\)]+)\)/', $sql, $matches)) return $sql;
+	if (!strpos($sql, 'm.*') || !preg_match_all('/ bid IN \(([^\)]+)\)/', $sql, $matches)) return $sql;
 
 	$with='WITH ';
 	$matches[1]=array_unique($matches[1]);

@@ -6,8 +6,7 @@ pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); backgro
 
 .code.sql { color:rgb(0,170,0); font-style:italic; }
 
-code { background:rgba(255,255,255,0.1); padding:2px 4px; font-size:1rem; }
-td code, pre code { background:none; }
+code { font-size:1rem; }
 
 var { font-style:normal; }
 .meme .v2 { color:rgb(0,170,170); } /* A */
@@ -29,12 +28,12 @@ input { width:100%; box-sizing:border-box; font-size: 1.1rem; text-align:center;
 form { display:block; margin-bottom:20px; text-align:center; }
 form, pre, table, .mbe { width:100%; margin-bottom:20px; box-sizing: border-box; }
 
-th { text-align:left; background:rgb(43,43,43); padding:6px; }
-td { background:rgb(36,36,36); padding:6px; }
+th { text-align:left; background:rgb(43,43,43); padding:8px 12px; }
+td { background:rgb(36,36,36); padding:8px 12px; }
 td.a {width:30%;}
 td.r {width:30%;}
 td.b {width:30%;}
 th.q, td.q {width:10%; text-align: right; }
 
-td.code { padding:12px; display:block; white-space:pre-wrap; }
+td.code { display:block; white-space:pre-wrap; }
 td.spa { margin-bottom:6px; }

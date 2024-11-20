@@ -23,23 +23,20 @@ require __DIR__.'/meme-parse.php';
 	<input type="submit" name="" value="Search" />
 </form>
 
-
-
 <?php if (strlen($_GET['q'])) { ?>
 
+<?php 
 
-<table>
-	<tr><th>SQL Query</th></tr>
-	<tr><td style="padding:12px"><code class="meme code sql"><?php 
 try {
-    echo memeSQL($_GET['q']) . ';';
+    $sql=memeSQL($_GET['q']) . ';';
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-?></code></td></tr></table>
 
+?>
 
 <table>
+	<tr><th colspan="4">Results</th></tr>
 	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
 	<?php 
 		$rows=memeQuery($_GET['q']);
@@ -54,10 +51,16 @@ try {
 	?>
 </table>
 
+
+<table>
+	<tr><th>SQL Query</th></tr>
+	<tr><td style="padding:12px"><code class="meme code sql"><?php echo $sql; ?></code></td></tr>
+</table>
+
+
 <?php } ?>
 
 <table>
-
 <tr>
 	<th>Memelang SQL Demo</th>
 </tr>
@@ -121,7 +124,7 @@ try {
 	<th>Who were the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30"><code class="meme">.<var class="v3">pres_order</var>>=<var class="v13">20</var> .<var class="v3">pres_order</var><=<var class="v15">30</var></code></a></td>
+	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30"><code class="meme">.<var class="v3">pres_order</var>&gt;=<var class="v13">20</var> .<var class="v3">pres_order</var>&lt;=<var class="v15">30</var></code></a></td>
 </tr>
 
 <tr>
@@ -142,7 +145,7 @@ try {
 	<th>Who were the spouses of the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">pres_order</var>>=<var class="v13">20</var> .<var class="v3">pres_order</var><=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
+	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">pres_order</var>&gt;=<var class="v13">20</var> .<var class="v3">pres_order</var>&lt;=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
 </tr>
 
 <tr>
@@ -171,7 +174,7 @@ try {
 	<th>Which presidents has children that became presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.child.pres_order"><code class="meme">.<var class="v3">child</var>.<var class="v3">pres_order</var></a></td>
+	<td class="code spa"><a href="?q=.child.pres_order"><code class="meme">.<var class="v3">child</var>.<var class="v3">pres_order</var></code></a></td>
 </tr>
 
 </table>
