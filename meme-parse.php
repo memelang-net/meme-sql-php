@@ -3,19 +3,22 @@
 define('MEME_FALSE', 0);
 define('MEME_TRUE',  1);
 define('MEME_A',     2);
-define('MEME_R',     3);
+define('MEME_RI',    3);
+define('MEME_R',     4);
 define('MEME_B',     5);
 define('MEME_EQ',    6);
 define('MEME_DEQ',  16);
 define('MEME_GET',  40);
 define('MEME_ORG',  41);
+define('MEME_TERM', 99);
+
 
 global $OPR, $xOPR, $rOPR;
 
 $OPR = [
 	'@'	 => MEME_A,
 	'.'  => MEME_R,
-	'\'' => 4,
+	'\'' => MEME_RI,
 	':'  => MEME_B,
 	'='  => MEME_EQ,
 //	'==' => 8,
@@ -37,48 +40,54 @@ $xOPR = [
 ];
 
 // Parse a Memelang query into expressionss
-function memeDecode($memelang) {
+function memeDecode($memeString) {
 	global $xOPR, $OPR;
 
 	// Normalize and clean input
-	$memelang = preg_replace('/\s+/', ' ', trim($memelang));
-	$memelang = preg_replace('/\s*([\!<>=]+)\s*/', '$1', $memelang);
-	$memelang = preg_replace('/([<>=])(\-?)\.([0-9])/', '${1}${2}0.${3}', $memelang);
+	$memeString = preg_replace('/\s+/', ' ', trim($memeString));
+	$memeString = preg_replace('/\s*([\!<>=]+)\s*/', '$1', $memeString);
+	$memeString = preg_replace('/([<>=])(\-?)\.([0-9])/', '${1}${2}0.${3}', $memeString);
 
-	if ($memelang === '' || $memelang === ';') 
+	if ($memeString === '' || $memeString === ';') 
 		throw new Exception("Error: Empty query provided.");
 
-	$commands = [];
-	$statements = [];
-	$expressions = [];
-	$chars = str_split($memelang);
+	$memeCommands = [];
+	$memeStatements = [];
+	$memeExpressions = [];
+	$chars = str_split($memeString);
 	$count = count($chars);
-	$bFound = false;
+	$bFound = 0;
+	$oFound = 0;
+	$opid = MEME_A;
 	$oprstr = '';
 
 	for ($i = 0; $i < $count; $i++) {
 		$varstr = '';
 
 		switch (true) {
-			// Space separates statements
-			case ctype_space($chars[$i]):
-				$bFound = false;
-				if (!empty($expressions)) {
-					$statements[] = $expressions;
-					$expressions = [];
+			// Semicolon separates commands
+			case $chars[$i] === ';':
+				$opid = MEME_A;
+				$bFound = 0;
+				$oFound = 0;
+				if (!empty($memeExpressions)) {
+					$memeStatements[] = $memeExpressions;
+					$memeExpressions = [];
+				}
+				if (!empty($memeStatements)) {
+					$memeCommands[] = $memeStatements;
+					$memeStatements = [];
 				}
 				break;
 
-			// Semicolon separates commands
-			case $chars[$i] === ';':
-				$bFound = false;
-				if (!empty($expressions)) {
-					$statements[] = $expressions;
-					$expressions = [];
-				}
-				if (!empty($statements)) {
-					$commands[] = $statements;
-					$statements = [];
+			// Space separates statements
+			case ctype_space($chars[$i]):
+				$opid = MEME_A;
+				$bFound = 0;
+				$oFound = 0;
+				if (!empty($memeExpressions)) {
+					$memeStatements[] = $memeExpressions;
+					$memeExpressions = [];
 				}
 				break;
 
@@ -95,10 +104,17 @@ function memeDecode($memelang) {
 						$oprstr .= $chars[$i + $j];
 					} else break;
 				}
-				if (!isset($OPR[$oprstr])) 
-					throw new Exception("Operator '$oprstr' not recognized at character $i in $memelang");
-				if ($bFound && $oprstr === '.') 
-					throw new Exception("Invalid R after B at $i in $memelang");
+				
+				if (!isset($OPR[$oprstr])) throw new Exception("Operator '$oprstr' not recognized at char $i in $memeString");
+
+				$opid = $OPR[$oprstr];
+
+				if ($bFound && $opid < MEME_EQ) throw new Exception("Errant operator after B at char $i in $memeString");
+
+				if ($opid >= MEME_EQ && ++$oFound>1) throw new Exception("Double operator at char $i in $memeString");
+
+				if ($opid === MEME_B) $bFound = 1;
+
 				$i += strlen($oprstr) - 1;
 				break;
 
@@ -109,26 +125,28 @@ function memeDecode($memelang) {
 
 				$i--; // Adjust for last increment
 
-				if ($oprstr === '=') {
+				if ($opid === MEME_EQ) {
 
 					// =t
-					if ($varstr === 't') $expressions[] = [MEME_EQ, MEME_TRUE];
+					if ($varstr === 't') $memeExpressions[] = [MEME_EQ, MEME_TRUE];
 
 					// =f
-					elseif ($varstr === 'f') $expressions[] = [MEME_EQ, MEME_FALSE];
+					elseif ($varstr === 'f') $memeExpressions[] = [MEME_EQ, MEME_FALSE];
+
+					// =g
+					elseif ($varstr === 'g') $memeExpressions[] = [MEME_EQ, MEME_GET];
 
 					// =tn OR grouping
 					elseif (preg_match('/t(\d+)$/', $varstr, $tm)) {
-						$expressions[] = [MEME_EQ, MEME_TRUE];
-						$expressions[] = [MEME_ORG, (int)$tm[1]];
+						$memeExpressions[] = [MEME_EQ, MEME_TRUE];
+						$memeExpressions[] = [MEME_ORG, (int)$tm[1]];
 					}
 
 				// <>=quantity
 				} else {
-					$expressions[] = [$oprstr ? $OPR[$oprstr] : MEME_A, (string)$varstr];
-					if ($oprstr && $OPR[$oprstr] === MEME_B) $bFound = true;
+					$memeExpressions[] = [$opid, (string)$varstr];
 				}
-				$oprstr = '';
+				$opid = null;
 				break;
 
 			// Numbers (integers or decimals)
@@ -137,53 +155,59 @@ function memeDecode($memelang) {
 					$varstr .= $chars[$i++];
 
 				$i--; // Adjust for last increment
-				$oprstr = $oprstr === '=' ? '#=' : $oprstr;
-				$expressions[] = [$OPR[$oprstr], (float)$varstr];
-				$oprstr = '';
+				if ($opid===MEME_EQ) $opid=MEME_DEQ;
+				$memeExpressions[] = [$opid, (float)$varstr];
+				$opid = null;
 				break;
 
 			default:
-				throw new Exception("Unexpected character '{$chars[$i]}' at position $i in $memelang");
+				throw new Exception("Unexpected character '{$chars[$i]}' at char $i in $memeString");
 		}
 	}
 
 	// Finalize parsing
-	if (!empty($expressions)) $statements[] = $expressions;
-	if (!empty($statements)) $commands[] = $statements;
+	if (!empty($memeExpressions)) $memeStatements[] = $memeExpressions;
+	if (!empty($memeStatements)) $memeCommands[] = $memeStatements;
 
-	return $commands;
+	return $memeCommands;
 }
 
 
-function memeEncode($commands, $set = []) {
+function memeEncode($memeCommands, $set = []) {
 	global $OPR, $rOPR;
 
 	// Initialize the result array for encoded commands
 	$commandArray = [];
 
-	foreach ($commands as $i => $statements) {
+	foreach ($memeCommands as $i => $memeStatements) {
 		$statementArray = [];
 
 		// Process each statement within a command
-		foreach ($statements as $statement) {
+		foreach ($memeStatements as $statement) {
 			$encodedStatement = '';
 
 			// Process each expression within a statement
 			foreach ($statement as $exp) {
+
 				// Determine the operator string (empty for MEME_A)
-				$oprstr = $exp[0] === MEME_A ? '' : $rOPR[$exp[0]];
+				if ($exp[0] === MEME_A) $oprstr='';
 
 				// Handle special cases for operator "=" (e.g., true/false values)
-				if ($oprstr === '=') {
-					$exp[1] = ($exp[1] === 0) ? 'f' : (($exp[1] === 1) ? 't' : $exp[1]);
+				else if ($exp[0] === MEME_EQ) {
+					$oprstr='=';
+					if ($exp[1] === MEME_FALSE) $exp[1] = 'f';
+					elseif ($exp[1] === MEME_TRUE) $exp[1] = 't';
+					else if ($exp[1] === MEME_GET) $exp[1] = 'g';
 				}
 
 				// Handle special case for operator "#=" (decimal comparison)
-				elseif ($oprstr === '#=') {
+				elseif ($exp[0] === MEME_DEQ) {
 					$oprstr = '=';
 					if (strpos((string)$exp[1], '.') === false)
 						$exp[1] = (string)$exp[1] . '.0';
 				}
+
+				else $oprstr = $rOPR[$exp[0]];
 
 				// Append the encoded expression to the statement
 
@@ -203,8 +227,8 @@ function memeEncode($commands, $set = []) {
 	}
 
 	// Return all commands as a semicolon-separated string (optionally in HTML format)
-	if (!empty($set['html'])) return '<code class="meme">' . implode(';</code><code class="meme">', $commandArray) . ';</code>';
-	else return implode(';', $commandArray);
+	if (!empty($set['html'])) return '<code class="meme">' . implode(';</code> <code class="meme">', $commandArray) . ';</code>';
+	else return implode('; ', $commandArray);
 }
 
 

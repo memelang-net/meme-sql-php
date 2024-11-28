@@ -1,9 +1,91 @@
 <?php
 
+
+
+function memeDeterm ($memeCommands, $write=false) {
+	global $MEME_TERMS;
+	
+	$lookups=[];
+	$missings=[];
+
+	foreach ($memeCommands as $i=>&$memeCommand) {
+		foreach ($memeCommand as $j=>&$memeStatement) {
+			foreach ($memeStatement as $k=>&$memeExpression) {
+				if (ctype_alpha(substr($memeExpression[1], 0, 1))) {
+
+					if ($MEME_TERMS[$memeExpression[1]]) $memeExpression[1]=$MEME_TERMS[$memeExpression[1]];
+
+					else {
+						if (!isset($lookups[$memeExpression[1]])) $lookups[$memeExpression[1]]=MEME_A;
+
+						if ($write) {
+							if ($memeExpression[0]===MEME_R) $lookups[$memeExpression[1]]=MEME_R;
+							else if ($memeExpression[0]===MEME_RI) $lookups[$memeExpression[1]]=MEME_R;
+
+							// work on this
+							else if ($memeStatement[$k+1][1]==='is' && $memeStatement[$k+2][1]==='rel') $lookups[$memeExpression[1]]=MEME_R;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if (empty($lookups)) return $memeCommands;
+
+//	print_r($lookups);
+
+	$sqlQuery='SELECT * FROM '. DB_TABLE_TERM .' WHERE str IN (\''.implode("','", array_keys($lookups)).'\')';
+
+//	$rows=memeSQLDB($sqlQuery);
+
+	foreach ($rows as $row) $MEME_TERMS[$row['str']]=$row['aid'];
+
+	foreach ($memeCommands as $i=>&$memeCommand) {
+		foreach ($memeCommand as $j=>&$memeStatement) {
+			foreach ($memeStatement as $k=>&$memeExpression) {
+				if (ctype_alpha(substr($memeExpression[1], 0, 1))) {
+					if ($MEME_TERMS[$memeExpression[1]]) $memeExpression[1]=$MEME_TERMS[$memeExpression[1]];
+					else $missings[$memeExpression[1]]=1;
+				}
+			}
+		}
+	}
+
+	if (!empty($missings)) {
+		$writtings=[];
+		if (!$write) throw new Exception("Unidentified terms: " . implode(', ', array_keys($missings)));
+		else {
+
+//			$maxq=memeSQLDB('SELECT MAX(aid) FROM '.DB_TABLE_TERM);
+			$maxq=[[110]];
+			$max=(int)current(current($maxq));
+
+			foreach ($missings as $word=>$x) {
+				$max++;
+				if ($lookups[$word]===MEME_R || $lookups[$word]===MEME_RI) {
+					if ($max%2===1) $max++;
+				}
+				$MEME_TERMS[$word]=$max;
+				$writtings[]='('.$max.','.MEME_TERM.',\''.$word.'\')';
+			}
+		}
+
+		$writeSQL='INSERT INTO '.DB_TABLE_TERM.' (aid,rid,str) VALUES '.implode(',', $writtings);
+		print $writeSQL;
+//		memeSQLDB($writeSQL);
+	}
+
+	unset($lookups,$missings,$writtings);
+
+	return $memeCommands;
+}
+
+
 // Main function to process memelang query and return results
-function memeQuery($memelangQuery) {
+function memeQuery($memeString) {
 	try {
-		$sqlQuery = memeSQL($memelangQuery);
+		$sqlQuery = memeSQL($memeString);
 
 		switch (DB_TYPE) {
 			case 'sqlite3': return memeSQLite3($sqlQuery);
@@ -17,10 +99,10 @@ function memeQuery($memelangQuery) {
 }
 
 // Translate a Memelang query (which may contain multiple commands) into SQL
-function memeSQL($memelangQuery) {
+function memeSQL($memeString) {
 	$queries=[];
-	$commands=memeDecode($memelangQuery);
-	foreach ($commands as $command) $queries[]=memeCmdSQL($command);
+	$memeCommands=memeDecode($memeString);
+	foreach ($memeCommands as $memeCommand) $queries[]=memeCmdSQL($memeCommand);
 	$sql=implode(' UNION ', $queries);
 
 	// consolidate subqueries into CTE
@@ -38,173 +120,209 @@ function memeSQL($memelangQuery) {
 }
 
 // Translate one Memelang command into SQL
-function memeCmdSQL($command) {
+function memeCmdSQL($memeCommand) {
 	$trueGroup = [];
 	$falseGroup = [];
-	$filterGroup = [];
+	$getGroup = [];
 	$orGroups = []; // To hold statements grouped by t$n
 	$querySettings = ['all' => false];
+	$trueCount=0;
 
-	foreach ($command as $statement) {
-		if ($statement[0][0] === MEME_A && $statement[0][1] === 'qry') {
-			$querySettings[$statement[1][1]] = true;
+	foreach ($memeCommand as $memeStatement) {
+		if ($memeStatement[0][0] === MEME_A && $memeStatement[0][1] === 'qry') {
+			$querySettings[$memeStatement[1][1]] = true;
 			continue;
 		}
 
-		$lastexp = !empty($statement) ? end($statement) : null;
+		$lastexp = !empty($memeStatement) ? end($memeStatement) : null;
 
 		if (!$lastexp) continue;
 
 		if ($lastexp[0] === MEME_EQ) {
 			if ($lastexp[1] === MEME_FALSE) {
-				$falseGroup[] = array_slice($statement, 0, -1);
+				$falseGroup[] = array_slice($memeStatement, 0, -1);
 				continue;
 			}
 			if ($lastexp[1] === MEME_GET) {
-				$filterGroup[] = array_slice($statement, 0, -1);
+				$getGroup[] = array_slice($memeStatement, 0, -1);
 				continue;
 			}
 		}
 
 		// Group =tn into OR groups
 		if ($lastexp[0] === MEME_ORG) {
-			$orGroups[$lastexp[1]][] = array_slice($statement,0,-1);
-			$filterGroup[] = array_slice($statement, 0, -1);
+			$orGroups[$lastexp[1]][] = array_slice($memeStatement,0,-1);
 			continue;
 		}
 
 		// Default: Add to true conditions
-		$trueGroup[] = $statement;
-		$filterGroup[] = $statement;
+
+		$aid=null;
+		$rids=[];
+		$bid=null;
+		foreach ($memeStatement as $exp) {
+			if ($exp[0] === MEME_A) $aid=$exp[1];
+			elseif ($exp[0] === MEME_R) $rids[] = $exp[1];
+			elseif ($exp[0] === MEME_B) $bid = $exp[1];
+		}
+
+		$trueGroup[$aid][implode('.', $rids)][$bid][] = $memeStatement;
+		$trueCount++;
 	}
 
 	// Get all
-	if ($querySettings['all'] && empty($trueGroup) && empty($falseGroup) && empty($orGroups)) {
-		return "SELECT * FROM " . DB_TABLE;
+	if ($querySettings['all'] && $trueCount===0 && empty($falseGroup) && empty($orGroups)) {
+		return "SELECT * FROM " . DB_TABLE_MEME;
 	}
 
 	// Simple query
-	if (count($trueGroup) == 1 && empty($falseGroup) && empty($orGroups) && count($filterGroup) == 1 && !$querySettings['all']) {
-		return "SELECT * FROM " . DB_TABLE . " WHERE " . memeWhere($trueGroup[0]);
+	if ($trueCount===1 && count($memeCommand)===1) {
+		return implode(' WHERE ', memeWhere($memeStatement));
 	}
 
-	// Clear filters if qry.all is present
-	if ($querySettings['all']) $filterGroup = [];
 
 	// Generate SQL query for complex cases
-	$havingSQL = [];
+	$cteSQL = [];
+	$cteCount=-1;
 
 	// Process AND conditions
-	foreach ($trueGroup as $statement) {
-		$havingSQL[] = "SUM(CASE WHEN (" . memeWhere($statement) . ") THEN 1 ELSE 0 END) > 0";
+	foreach ($trueGroup as $aidGroup) {
+		foreach ($aidGroup as $ridGroup) {
+			foreach ($ridGroup as $bidGroup) {
+				$wheres=[];
+				$cteCount++;
+
+				foreach ($bidGroup as $memeStatement) {
+					list($select, $where)=memeWhere($memeStatement);
+					if (empty($wheres)) $wheres[]=$where;
+					else $wheres[]=substr($where, strpos($where, 'qnt')-4, 99);
+				}
+
+				if ($cteCount>0) $wheres[]='m0.aid IN (SELECT aid FROM z'.($cteCount-1).')';
+
+				$cteSQL[$cteCount] = "z$cteCount AS ($select WHERE ". implode(' AND ', $wheres).')';
+				$cteOut[]=$cteCount;
+			}
+		}
 	}
 
 	// Process grouped OR conditions
 	foreach ($orGroups as $orGroup) {
+		$cteCount++;
 		$orSQL = [];
-		foreach ($orGroup as $orState) $orSQL[] = '('.memeWhere($orState).')';
-		$havingSQL[] = "SUM(CASE WHEN (" . implode(" OR ", $orSQL) . ") THEN 1 ELSE 0 END) > 0";
+		foreach ($orGroup as $memeStatement) {
+			$orSQL[]=implode(' WHERE ', memeWhere($memeStatement))
+				.($cteCount>0 ? ' AND m0.aid IN (SELECT aid FROM z'.($cteCount-1).')' : '');
+		}
+		$cteSQL[$cteCount] = "z$cteCount AS (".implode(' UNION ALL ', $orSQL).')';
+		$cteOut[]=$cteCount;
 	}
 
 	// Process NOT conditions
-	foreach ($falseGroup as $statement) {
-		$havingSQL[] = "SUM(CASE WHEN (" . memeWhere($statement) . ") THEN 1 ELSE 0 END) = 0";
+	foreach ($falseGroup as $memeStatement) {
+		if ($cteCount===-1) throw new Exception('Query cannot contain only false statements.');
+		$cteSQL[0] = substr($cteSQL[0], 0, -1). ' AND m0.aid NOT IN (SELECT aid FROM '.DB_TABLE_MEME.' WHERE '. end(memeWhere($memeStatement)).'))';
 	}
 
-	// Process GET filters (only if ALL is not specified)
-	$filterSQL = [];
-	$whereSQL = '';
-	if (!empty($filterGroup)) {
-		foreach ($filterGroup as $statement) {
-			$filterSQL[] = "(" . memeWhere($statement, false) . ")";
+
+	$selectSQL=[];
+
+	if ($querySettings['all']) {
+		$selectSQL[]='SELECT * FROM '.DB_TABLE_MEME." WHERE aid IN (SELECT aid FROM z{$cteCount})";
+		$selectSQL[]='SELECT bid as aid, CONCAT("\'", rid), aid as bid, qnt FROM '.DB_TABLE_MEME." WHERE bid IN (SELECT aid FROM z{$cteCount})";
+	}
+	else {
+		foreach ($getGroup as $memeStatement) {
+			$selectSQL[]=implode(' WHERE ', memeWhere($memeStatement))." AND m0.aid IN (SELECT aid FROM z{$cteCount})";
 		}
-		$whereSQL = " WHERE " . implode(" OR ", memeFilterGroup($filterSQL));
 	}
 
-	return "SELECT m.* FROM " . DB_TABLE . " m JOIN (SELECT aid FROM " . DB_TABLE . " GROUP BY aid HAVING " . implode(" AND ", $havingSQL) . ") AS aids ON m.aid = aids.aid" . $whereSQL;
+	foreach ($cteOut as $cteNum) {
+		$selectSQL[]="SELECT * FROM z{$cteNum}" .($cteNum===$cteCount ? '' : " WHERE aid IN (SELECT aid FROM z{$cteCount})");
+	}
+
+	return 'WITH '.implode(', ', $cteSQL).' '.implode(' UNION ', $selectSQL);
 }
 
 
-// Translate an $statement array of ARBQ into an SQL WHERE clause
-function memeWhere($statement, $useQnt = true) {
+// Translate an $memeStatement array of ARBQ into an SQL WHERE clause
+function memeWhere($memeStatement) {
 	global $rOPR;
 
-	$conditions = [];
+	$wheres = [];
 	$rids = [];
 	$aid = null;
 	$bid = null;
 	$opr = '!=';
 	$qnt = 0;
-	$ridNest = '';
+	$selects=['*'];
+	$joins=[];
 
-	foreach ($statement as $exp) {
+	foreach ($memeStatement as $exp) {
 		if ($exp[0] === MEME_A) $aid = $exp[1];
-		elseif ($exp[0] === MEME_R) $rids[] = $exp[1];
+		elseif ($exp[0] === MEME_R || $exp[0] === MEME_RI) $rids[] = $exp;
 		elseif ($exp[0] === MEME_B) $bid = $exp[1];
-		elseif ($useQnt && isset($rOPR[$exp[0]])) {
+		elseif (isset($rOPR[$exp[0]])) {
 			$opr = $exp[0]===MEME_DEQ ? '=' : $rOPR[$exp[0]];
 			$qnt = $exp[1];
 		}
 	}
 
-
 	$ridCount=count($rids);
-	if ($ridCount>1) {
-		for ($i=1;$i<$ridCount; $i++) {
-			if ($i>1) $ridNest.=' AND ';
-			$ridNest.="bid IN (SELECT aid FROM " . DB_TABLE . " WHERE rid='{$rids[$i]}'";
-			if ($i===$ridCount-1) {
-				if ($bid) $ridNest.= "AND bid='$bid'";
-				$ridNest.= " AND qnt$opr$qnt"; // always uses qnt for later consolidattion
+	$ridLast=$ridCount?$ridCount-1:0;
+	$lastAB=null;
+
+	if ($ridCount) {
+		$ridConcat=[];
+		$bidConcat=[];
+		$qntConcat=[];
+		for ($i=0;$i<$ridCount; $i++) {
+			$wheres[]="m$i.rid=\"{$rids[$i][1]}\"";
+			$ridConcat[]=($rids[$i][0] === MEME_RI ? "'" : '') . $rids[$i][1];
+			$qntConcat[]=($rids[$i][0] === MEME_RI ? "IIF(m$i.qnt=0, 0, 1/m$i.qnt)" : "m$i.qnt");
+
+			if ($i>0) {
+				$joins[]=$rids[$i][0] === MEME_RI ? "JOIN meme m$i ON $lastAB=m$i.bid" : "JOIN meme m$i ON $lastAB=m$i.aid";
 			}
+
+			$lastAB = $rids[$i][0] === MEME_RI ? "m$i.aid" : "m$i.bid";
+			$bidConcat[]=$lastAB;
 		}
 
-		$ridNest .= str_repeat(')', $ridCount - 1);
-		$bid=null;
-		$useQnt=null;
-	}
-
-	if ($aid) $conditions[] = "aid='$aid'";
-	if (!empty($rids)) $conditions[] = "rid='{$rids[0]}'";
-	if ($bid) $conditions[] = "bid='$bid'";
-	if ($useQnt) $conditions[] = "qnt$opr$qnt";
-	if ($ridNest) $conditions[] = $ridNest;
-
-	return implode(' AND ', $conditions);
-}
-
-
-// Group filters to reduce SQL complexity, applied only in the WHERE clause
-function memeFilterGroup($filters) {
-	$ridValues = [];
-	$bidValues = [];
-	$mixedValues = [];
-
-	foreach ($filters as $filter) {
-		if (preg_match("/^\\(rid='([A-Za-z0-9\_]+)'\\)$/", $filter, $matches)) {
-			$ridValues[] = $matches[1];
-		} elseif (preg_match("/^\\(bid='([A-Za-z0-9\_]+)'\\)$/", $filter, $matches)) {
-			$bidValues[] = $matches[1];
-		} else {
-			$mixedValues[] = $filter;
+//		if ($ridCount>1) {
+			$selects=[
+				($rids[0][0] === MEME_RI ? 'm0.bid AS aid' : 'm0.aid AS aid'),
+				'"'.implode('	', $ridConcat).'" AS rid',
+				'CONCAT('.implode(",'	', ", $bidConcat).') AS bid',
+				'CONCAT('.implode(",'	', ", $qntConcat).') AS qnt',
+			];
 		}
+//	}
+
+	if ($aid) {
+		//if (!$bid && !$ridCount) $wheres[0] = "(m0.aid='{$aid}' OR m0.bid='{$aid}')";
+		if ($rids[0][0]) $wheres[] = "m0.bid='{$aid}'";
+		else $wheres[] = "m0.aid='{$aid}'";
 	}
 
-	$grouped = [];
-	if (!empty($ridValues)) {
-		$grouped[] = "m.rid IN ('" . implode("','", array_unique($ridValues)) . "')";
-	}
-	if (!empty($bidValues)) {
-		$grouped[] = "m.bid IN ('" . implode("','", array_unique($bidValues)) . "')";
+	if ($bid) {
+		if ($rids[$ridLast][0]===MEME_RI) $wheres[] = "m{$ridLast}.aid='$bid'";
+		else $wheres[] = "m{$ridLast}.bid='$bid'";
 	}
 
-	return array_merge($grouped, $mixedValues);
+	$wheres[] = "m{$ridLast}.qnt$opr$qnt";
+
+	return [
+		'SELECT '.implode(', ', $selects).' FROM '.DB_TABLE_MEME.' m0 '.implode(' ', $joins),
+		implode(' AND ', $wheres)
+	];
 }
+
 
 // Tokenize DB output
-function memeDbDecode ($triples) {
-	$commands=[];
-	foreach ($triples as $row) {
+function memeDbDecode ($memeTriples) {
+	$memeCommands=[];
+	foreach ($memeTriples as $row) {
 
 		if ($row['qnt']==1) {
 			$opr=MEME_EQ;
@@ -219,19 +337,19 @@ function memeDbDecode ($triples) {
 			$qnt=(float)$row['qnt'];
 		}
 
-		$commands[]=[[
+		$memeCommands[]=[[
 			[MEME_A, $row['aid']],
 			[MEME_R, $row['rid']],
 			[MEME_B, $row['bid']],
 			[$opr, $qnt]
 		]];
 	}
-	return $commands;
+	return $memeCommands;
 }
 
 // Output DB data
-function memeDBOut ($triples, $set=[]) {
-	print memeEncode(memeDbDecode($triples), $set);
+function memeDBOut ($memeTriples, $set=[]) {
+	print memeEncode(memeDbDecode($memeTriples), $set);
 }
 
 ?>

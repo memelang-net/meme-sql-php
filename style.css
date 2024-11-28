@@ -4,8 +4,6 @@ a:hover { text-decoration:underline; }
 main { max-width: 700px; width: 94%; margin:0 auto; }
 pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); background:rgb(43,43,43); white-space:pre-wrap; font-size:1rem; }
 
-.code.sql { color:rgb(0,170,0); font-style:italic; }
-
 code { font-size:1rem; }
 
 var { font-style:normal; }
@@ -37,3 +35,10 @@ th.q, td.q {width:10%; text-align: right; }
 
 td.code { display:block; white-space:pre-wrap; }
 td.spa { margin-bottom:6px; }
+
+
+table.err th { background:rgb(85,21,21); }
+table.err td { background:rgb(43,11,11); }
+
+table.sql th { background:rgb(30,43,30);  }
+table.sql td { background:rgb(30,36,30); color:rgb(192,230,192); font-style:italic;  }

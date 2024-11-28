@@ -30,32 +30,38 @@ require __DIR__.'/meme-parse.php';
 try {
     $sql=memeSQL($_GET['q']) . ';';
 } catch (Exception $e) {
-    echo $e->getMessage();
+	print '<table class="err"><tr><th>ERROR</th></tr><tr><td style="padding:12px">'.htmlentities($e->getMessage()).'</td></tr></table>';
 }
 
 ?>
 
+<table class="sql">
+	<tr><th>SQL Query</th></tr>
+	<tr><td style="padding:12px"><code class="meme code sql"><?php echo $sql; ?></code></td></tr>
+</table>
+
 <table>
 	<tr><th colspan="4">Results</th></tr>
-	<tr><th class="a">A</th><th class="r">.R</th><th class="b">:B</th><th class="q">=Q</th></tr>
+	<tr><th class="a">A</th><th class="r">R</th><th class="b">B</th><th class="q">Q</th></tr>
 	<?php 
 		$rows=memeQuery($_GET['q']);
 		foreach ($rows as $row) {
+
 			print "<tr>";
-			print '<td class="a meme"><a href="?q='.htmlentities($row['aid']).'"><var class="v2">'.$row['aid'].'</var></a></td>';
-			print '<td class="r meme"><a href="?q=.'.htmlentities($row['rid']).'">.<var class="v3">'.$row['rid'].'</var></a></td>';
-			print '<td class="b meme"><a href="?q=:'.htmlentities($row['bid']).'">:<var class="v5">'.$row['bid'].'</var></a></td>';
-			print '<td class="q meme">=<var class="v16">'.$row['qnt'].'</var></td>';
+			print '<td class="a meme"><a href="?q='.htmlentities($row[COL_AID]).'"><var class="v2">'.$row[COL_AID].'</var></a></td>';
+
+			print '<td class="r meme"><a href="?q='.(strpos($row[COL_RID],"'")===0?'':'.').urlencode($row[COL_RID]).'"><var class="v3">'.htmlentities($row[COL_RID]).'</var></a></td>';
+
+			print '<td class="b meme"><a href="?q='.urlencode($row[COL_BID]).'"><var class="v5">'.htmlentities($row[COL_BID]).'</var></a></td>';
+
+			print '<td class="q meme"><var class="v16">'.$row[COL_QNT].'</var></td>';
+
 			print '</tr>';
 		}
 	?>
 </table>
 
 
-<table>
-	<tr><th>SQL Query</th></tr>
-	<tr><td style="padding:12px"><code class="meme code sql"><?php echo $sql; ?></code></td></tr>
-</table>
 
 
 <?php } ?>
@@ -109,7 +115,7 @@ try {
 	<th>Which presidents were born before 1820?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.birth_year:year%3C1820"><code class="meme">.<var class="v3">birth_year</var>:<var class="v5">year</var>&lt;<var class="v16">1820</var></code></a></td>
+	<td class="code spa"><a href="?q=.birth.year:year%3C1820"><code class="meme">.<var class="v3">birth.year</var>:<var class="v5">year</var>&lt;<var class="v16">1820</var></code></a></td>
 </tr>
 
 <tr>
@@ -124,7 +130,7 @@ try {
 	<th>Who were the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30"><code class="meme">.<var class="v3">pres_order</var>&gt;=<var class="v13">20</var> .<var class="v3">pres_order</var>&lt;=<var class="v15">30</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order%3E%3D20%20.president_order%3C%3D30"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var></code></a></td>
 </tr>
 
 <tr>
@@ -138,14 +144,14 @@ try {
 	<th>Which presidents did NOT have children?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.pres_order%20.child%3Df"><code class="meme">.<var class="v3">pres_order</var> .<var class="v3">child</var>=<var class="v6">f</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order%20.child%3Df"><code class="meme">.<var class="v3">president_order</var> .<var class="v3">child</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
 	<th>Who were the spouses of the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.pres_order%3E%3D20%20.pres_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">pres_order</var>&gt;=<var class="v13">20</var> .<var class="v3">pres_order</var>&lt;=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order%3E%3D20%20.president_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
 </tr>
 
 <tr>
@@ -174,7 +180,7 @@ try {
 	<th>Which presidents has children that became presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.child.pres_order"><code class="meme">.<var class="v3">child</var>.<var class="v3">pres_order</var></code></a></td>
+	<td class="code spa"><a href="?q=.child.president_order"><code class="meme">.<var class="v3">child</var>.<var class="v3">president_order</var></code></a></td>
 </tr>
 
 </table>

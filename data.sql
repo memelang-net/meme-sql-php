@@ -3,730 +3,910 @@ CREATE TABLE meme (aid varchar(255), rid varchar(255), bid varchar(255), qnt DEC
 CREATE UNIQUE INDEX arb ON meme (aid,rid,bid);
 CREATE INDEX rid ON meme (rid);
 CREATE INDEX bid ON meme (bid);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'pres_order', 'first', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'birth_year', 'year', 1732);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'death_year', 'year', 1799);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'party', 'independent', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'election_year', 'year', 1789);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'occupation', 'surveyor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'occupation', 'planter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_washington', 'spouse', 'martha_washington', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'pres_order', 'first', 2);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'birth_year', 'year', 1735);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'birth_state', 'massachusetts', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'death_year', 'year', 1826);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'party', 'federalist', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'election_year', 'year', 1796);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'occupation', 'diplomat', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'spouse', 'abigail_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'child', 'abigail_adams_smith', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'child', 'john_quincy_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'child', 'charles_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_adams', 'child', 'thomas_boylston_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'pres_order', 'first', 3);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'birth_year', 'year', 1743);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'death_year', 'year', 1826);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'party', 'democratic_republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'election_year', 'year', 1800);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'college', 'william_and_mary', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'occupation', 'planter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'occupation', 'diplomat', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'occupation', 'governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'spouse', 'martha_wayles_skelton_jefferson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'child', 'martha_jefferson_randolph', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'child', 'mary_jefferson_eppes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('thomas_jefferson', 'child', 'lucy_elizabeth_jefferson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'pres_order', 'first', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'birth_year', 'year', 1751);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'death_year', 'year', 1836);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'party', 'democratic_republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'election_year', 'year', 1808);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'college', 'princeton', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'occupation', 'planter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'occupation', 'secretary_of_state', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_madison', 'spouse', 'dolley_madison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'pres_order', 'first', 5);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'birth_year', 'year', 1758);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'death_year', 'year', 1831);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'party', 'democratic_republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'election_year', 'year', 1816);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'college', 'william_and_mary', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'planter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'diplomat', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'occupation', 'governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'spouse', 'elizabeth_kortright_monroe', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'child', 'eliza_monroe_hay', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_monroe', 'child', 'james_monroe_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'pres_order', 'first', 6);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'birth_year', 'year', 1767);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'birth_state', 'massachusetts', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'death_year', 'year', 1848);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'party', 'democratic_republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'election_year', 'year', 1824);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'occupation', 'diplomat', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'occupation', 'secretary_of_state', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'spouse', 'louisa_catherine_johnson_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'george_washington_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'john_adams_iii', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'charles_francis_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_quincy_adams', 'child', 'brooks_adams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'pres_order', 'first', 7);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'birth_year', 'year', 1767);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'birth_state', 'south_carolina', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'death_year', 'year', 1845);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'election_year', 'year', 1828);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'occupation', 'planter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'occupation', 'military_leader', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_jackson', 'spouse', 'rachel_donelson_jackson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'pres_order', 'first', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'birth_year', 'year', 1782);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'birth_state', 'new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'death_year', 'year', 1862);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'election_year', 'year', 1836);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'occupation', 'new_york_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'spouse', 'hannah_hoes_van_buren', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'abraham_van_buren', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'john_van_buren', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'martin_van_buren_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('martin_van_buren', 'child', 'and_james_van_buren', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'pres_order', 'first', 9);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'birth_year', 'year', 1773);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'death_year', 'year', 1841);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'party', 'whig', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'election_year', 'year', 1840);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'time_served', 'year', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'college', 'hampden_sydney', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'occupation', 'diplomat', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'occupation', 'governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'spouse', 'anna_tuthill_symmes_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'elizabeth_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'john_scott_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'lucy_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'william_henry_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_harrison', 'child', 'benjamin_harrison_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'pres_order', 'first', 10);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'birth_year', 'year', 1790);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'death_year', 'year', 1862);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'party', 'whig', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'election_year', 'year', 1841);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'time_served', 'year', 3);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'college', 'william_and_mary', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'occupation', 'virginia_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'spouse', 'letitia_christian_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'spouse', 'julia_gardiner_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'david_gardiner_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'john_alexander_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'mary_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'robert_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'john_tyler_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'letitia_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'elizabeth_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'anna_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'augusta_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'lyon_gardiner_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_tyler', 'child', 'pearl_tyler', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'pres_order', 'first', 11);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'birth_year', 'year', 1795);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'birth_state', 'north_carolina', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'death_year', 'year', 1849);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'election_year', 'year', 1844);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'college', 'chapel_hill', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'occupation', 'tennessee_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_polk', 'spouse', 'sarah_childress_polk', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'pres_order', 'first', 12);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'birth_year', 'year', 1784);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'death_year', 'year', 1850);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'party', 'whig', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'election_year', 'year', 1848);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'time_served', 'year', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'spouse', 'margaret_mackall_smith_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'ann_mackall_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'sarah_knox_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'octavia_pannill_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'margaret_smith_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'mary_elizabeth_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('zachary_taylor', 'child', 'richard_scott_taylor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'pres_order', 'first', 13);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'birth_year', 'year', 1800);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'birth_state', 'new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'death_year', 'year', 1874);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'party', 'whig', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'election_year', 'year', 1850);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'time_served', 'year', 3);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'occupation', 'new_york_state_comptroller', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'spouse', 'abigail_powers_fillmore', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'child', 'millard_fillmore_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('millard_fillmore', 'child', 'mary_abigail_fillmore', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'pres_order', 'first', 14);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'birth_year', 'year', 1804);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'birth_state', 'new_hampshire', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'death_year', 'year', 1869);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'election_year', 'year', 1852);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'college', 'bowdoin', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'spouse', 'jane_means_appleton_pierce', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'child', 'frank_robert_pierce', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_pierce', 'child', 'benjamin_pierce', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'pres_order', 'first', 15);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'birth_year', 'year', 1791);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'birth_state', 'pennsylvania', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'death_year', 'year', 1868);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'election_year', 'year', 1856);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'college', 'dickinson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'occupation', 'minister_to_the_united_kingdom', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_buchanan', 'occupation', 'secretary_of_state', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'pres_order', 'first', 16);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'birth_year', 'year', 1809);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'birth_state', 'kentucky', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'death_year', 'year', 1865);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'election_year', 'year', 1860);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'occupation', 'military_leader', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'spouse', 'mary_todd_lincoln', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'child', 'robert_todd_lincoln', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'child', 'edward_baker_lincoln', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'child', 'william_wallace_lincoln', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('abraham_lincoln', 'child', 'thomas_"tad"_lincoln', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'pres_order', 'first', 17);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'birth_year', 'year', 1808);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'birth_state', 'north_carolina', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'death_year', 'year', 1875);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'election_year', 'year', 1865);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'time_served', 'year', 3);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'occupation', 'tailor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'occupation', 'tennessee_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'spouse', 'eliza_mccardle_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'martha_johnson_patterson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'charles_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'andrew_johnson_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'robert_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('andrew_johnson', 'child', 'and_william_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'pres_order', 'first', 18);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'birth_year', 'year', 1822);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'death_year', 'year', 1885);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'election_year', 'year', 1868);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'college', 'west_point', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'occupation', 'president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'spouse', 'julia_dent_grant', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'child', 'frederick_dent_grant', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'child', 'ulysses_simpson_grant', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'child', 'jesse_root_grant', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ulysses_grant', 'child', 'ellen_wrenshall_grant', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'pres_order', 'first', 19);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'birth_year', 'year', 1822);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'death_year', 'year', 1893);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'election_year', 'year', 1876);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'college', 'kenyon', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'occupation', 'ohio_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'spouse', 'lucy_webb_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'sardis_birchard_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'james_webb_cook_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'rutherford_platt_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'joseph_thompson_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'george_crook_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'fanny_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'scott_russell_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('rutherford_hayes', 'child', 'manning_force_hayes', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'pres_order', 'first', 20);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'birth_year', 'year', 1831);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'death_year', 'year', 1881);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'election_year', 'year', 1880);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'time_served', 'year', 0);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'college', 'williams', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'spouse', 'lucretia_rudolph_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'child', 'harry_augustus_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'child', 'james_rudolph_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'child', 'mary_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'child', 'irvin_mcdowell_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_garfield', 'child', 'and_edward_garfield', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'pres_order', 'first', 21);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'birth_year', 'year', 1829);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'birth_state', 'vermont', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'death_year', 'year', 1886);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'election_year', 'year', 1881);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'college', 'union', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'occupation', 'customs_collector_port_of_new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'spouse', 'ellen_lewis_herndon_arthur', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'child', 'william_arthur', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('chester_arthur', 'child', 'chester_alan_arthur', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'pres_order', 'first', 22);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'birth_year', 'year', 1837);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'birth_state', 'new_jersey', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'death_year', 'year', 1908);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'election_year', 'year', 1884);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'college', 'princeton', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'occupation', 'buffalo_mayor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'occupation', 'new_york_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'spouse', 'frances_folsom_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'child', 'ruth_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'child', 'esther_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'child', 'marion_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'child', 'richard_folsom_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'child', 'and_francis_cleveland', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'pres_order', 'first', 23);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'birth_year', 'year', 1833);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'death_year', 'year', 1901);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'election_year', 'year', 1888);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'college', 'miami', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'spouse', 'lavinia_scott_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'child', 'russell_benjamin_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'child', 'mary_scott_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('benjamin_harrison', 'child', 'and_elizabeth_harrison', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('grover_cleveland', 'pres_order', 'second', 24);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'pres_order', 'first', 25);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'birth_year', 'year', 1843);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'death_year', 'year', 1901);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'election_year', 'year', 1896);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'college', 'allegheny', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'occupation', 'ohio_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'spouse', 'ida_saxton_mckinley', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'child', 'katherine_mckinley', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_mckinley', 'child', 'ida_mckinley', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'pres_order', 'first', 26);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'birth_year', 'year', 1858);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'birth_state', 'new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'death_year', 'year', 1919);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'election_year', 'year', 1904);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'occupation', 'author', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'occupation', 'new_york_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'spouse', 'alice_hathaway_lee_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'spouse', 'edith_kermit_carow', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'alice_lee_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'theodore_roosevelt_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'kermit_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'ethel_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('theodore_roosevelt', 'child', 'and_quentin_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'pres_order', 'first', 27);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'birth_year', 'year', 1857);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'death_year', 'year', 1930);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'election_year', 'year', 1908);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'college', 'yale', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'college', 'university_of_cincinnati', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'occupation', 'solicitor_general', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'occupation', 'judge', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'occupation', 'governor_general_of_the_philippines', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'occupation', 'secretary_of_war', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'spouse', 'helen_herron_taft', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'child', 'robert_taft', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'child', 'helen_taft_manning', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_taft', 'child', 'charles_phelps_taft', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'pres_order', 'first', 28);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'birth_year', 'year', 1856);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'birth_state', 'virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'death_year', 'year', 1924);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'election_year', 'year', 1912);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'college', 'princeton', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'college', 'university_of_virginia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'occupation', 'academic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'occupation', 'president_of_princeton_university', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'occupation', 'new_jersey_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'spouse', 'ellen_louise_axson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'spouse', 'edith_wilson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'child', 'margaret_woodrow_wilson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'child', 'jessie_wilson_sayre', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('woodrow_wilson', 'child', 'eleanor_wilson_mcadoo', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'pres_order', 'first', 29);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'birth_year', 'year', 1865);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'birth_state', 'ohio', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'death_year', 'year', 1923);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'election_year', 'year', 1920);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'time_served', 'year', 2);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'time_served', 'died_in_office', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'college', 'ohio_central', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'occupation', 'newspaper_publisher', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'spouse', 'florence_kling_harding', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('warren_harding', 'child', 'elizabeth_harding', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'pres_order', 'first', 30);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'birth_year', 'year', 1872);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'birth_state', 'vermont', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'death_year', 'year', 1933);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'election_year', 'year', 1924);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'time_served', 'year', 6);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'college', 'amherst', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'occupation', 'massachusetts_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'spouse', 'grace_anna_goodhue_coolidge', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'john_coolidge', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'calvin_coolidge_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'and_a_daughter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('calvin_coolidge', 'child', 'elizabeth_coolidge', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'pres_order', 'first', 31);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'birth_year', 'year', 1874);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'birth_state', 'iowa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'death_year', 'year', 1964);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'election_year', 'year', 1928);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'college', 'stanford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'engineer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'mining_executive', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'occupation', 'secretary_of_commerce', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'spouse', 'lou_henry_hoover', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'child', 'herbert_hoover_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('herbert_hoover', 'child', 'allan_hoover', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'pres_order', 'first', 32);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'birth_year', 'year', 1882);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'birth_state', 'new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'death_year', 'year', 1945);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'election_year', 'year', 1932);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'time_served', 'year', 12);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'occupation', 'new_york_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'occupation', 'assistant_secretary_of_the_navy', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'spouse', 'eleanor_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'anna_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'james_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'elliott_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'franklin_d._roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'john_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('franklin_roosevelt', 'child', 'and_patricia_roosevelt', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'pres_order', 'first', 33);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'birth_year', 'year', 1884);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'birth_state', 'missouri', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'death_year', 'year', 1972);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'election_year', 'year', 1948);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'occupation', 'farmer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'occupation', 'clerk', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'spouse', 'bess_truman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('harry_truman', 'child', 'margaret_truman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'pres_order', 'first', 34);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'birth_year', 'year', 1890);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'birth_state', 'texas', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'death_year', 'year', 1969);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'election_year', 'year', 1952);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'college', 'west_point', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'occupation', 'military_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'occupation', 'supreme_allied_commander', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'spouse', 'mamie_eisenhower', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'child', 'doud_eisenhower', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'child', 'john_eisenhower', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('dwight_eisenhower', 'child', 'and_edgar_eisenhower', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'pres_order', 'first', 35);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'birth_year', 'year', 1917);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'birth_state', 'massachusetts', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'death_year', 'year', 1963);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'election_year', 'year', 1960);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'time_served', 'year', 3);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'occupation', 'naval_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'spouse', 'jacqueline_kennedy_onassis', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'child', 'caroline_kennedy', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'child', 'john_f._kennedy', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('john_kennedy', 'child', 'patrick_bouvier_kennedy', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'pres_order', 'first', 36);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'birth_year', 'year', 1908);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'birth_state', 'texas', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'death_year', 'year', 1973);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'election_year', 'year', 1964);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'time_served', 'year', 5);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'college', 'southwest_texas_state_teachers', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'spouse', 'lady_bird_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'child', 'lynda_bird_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('lyndon_johnson', 'child', 'luci_baines_johnson', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'pres_order', 'first', 37);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'birth_year', 'year', 1913);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'birth_state', 'california', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'death_year', 'year', 1994);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'election_year', 'year', 1968);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'time_served', 'year', 5);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'college', 'whittier', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'college', 'duke', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'spouse', 'pat_nixon', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'child', 'tricia_nixon_cox', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('richard_nixon', 'child', 'julie_nixon_eisenhower', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'pres_order', 'first', 38);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'birth_year', 'year', 1913);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'birth_state', 'nebraska', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'death_year', 'year', 2006);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'election_year', 'year', 1974);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'time_served', 'year', 2);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'college', 'university_of_michigan', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'college', 'yale', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'spouse', 'betty_ford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'child', 'michael_ford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'child', 'john_ford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'child', 'steven_ford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('gerald_ford', 'child', 'susan_ford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'pres_order', 'first', 39);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'birth_year', 'year', 1924);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'birth_state', 'georgia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'election_year', 'year', 1976);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'college', 'usa_naval_academy', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'occupation', 'georgia_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'occupation', 'navy_submarine_officer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'spouse', 'rosalynn_carter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'john_william_carter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'james_earl_carter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('james_carter', 'child', 'amy_carter', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'pres_order', 'first', 40);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'birth_year', 'year', 1911);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'birth_state', 'illinois', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'death_year', 'year', 2004);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'election_year', 'year', 1980);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'college', 'eureka', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'occupation', 'actor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'occupation', 'california_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'spouse', 'nancy_reagan', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'child', 'maureen_reagan', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'child', 'michael_reagan', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'child', 'patti_davis', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('ronald_reagan', 'child', 'ron_reagan', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'pres_order', 'first', 41);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'birth_year', 'year', 1924);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'birth_state', 'massachusetts', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'death_year', 'year', 2018);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'election_year', 'year', 1988);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'college', 'yale', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'occupation', 'congressman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'occupation', 'cia_director', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'spouse', 'barbara_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'child', 'george_w._bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'child', 'jeb_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'child', 'neil_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'child', 'marvin_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_bush', 'child', 'dorothy_bush_koch', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'pres_order', 'first', 42);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'birth_year', 'year', 1946);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'birth_state', 'arkansas', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'election_year', 'year', 1992);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'college', 'georgetown', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'college', 'oxford', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'college', 'yale', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'occupation', 'arkansas governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'occupation', 'arkansas_attorney_general', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'spouse', 'hillary_clinton', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('william_clinton', 'child', 'chelsea_clinton', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'pres_order', 'first', 43);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'birth_year', 'year', 1946);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'birth_state', 'connecticut', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'election_year', 'year', 2000);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'college', 'yale', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'occupation', 'texas_governor', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'occupation', 'businessman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'occupation', 'air_force_reserve', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'spouse', 'laura_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'child', 'jenna_bush_hager', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('george_hw_bush', 'child', 'barbara_bush', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'pres_order', 'first', 44);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'birth_year', 'year', 1961);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'birth_state', 'hawaii', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'election_year', 'year', 2008);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'time_served', 'year', 8);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'college', 'occidental', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'college', 'columbia', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'college', 'harvard', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'occupation', 'illinois_state_senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'occupation', 'lawyer', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'spouse', 'michelle_obama', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'child', 'malia_obama', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('barack_obama', 'child', 'sasha_obama', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'pres_order', 'first', 45);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'birth_year', 'year', 1946);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'birth_state', 'new_york', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'party', 'republican', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'election_year', 'year', 2016);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'time_served', 'year', 4);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'college', 'university_of_pennsylvania', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'occupation', 'businessman', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'occupation', 'television_personality', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'spouse', 'melania_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'donald_trump_jr', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'ivanka_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'eric_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'tiffany_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('donald_trump', 'child', 'barron_trump', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'pres_order', 'first', 46);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'birth_year', 'year', 1942);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'birth_country', 'usa', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'birth_state', 'pennsylvania', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'party', 'democratic', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'election_year', 'year', 2020);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'college', 'university_of_delaware', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'college', 'syracuse', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'occupation', 'senator', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'occupation', 'vice_president', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'spouse', 'jill_biden', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'child', 'beau_biden', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'child', 'hunter_biden', 1);
-INSERT INTO meme (aid, rid, bid, qnt) VALUES ('joseph_biden', 'child', 'ashley_biden', 1);
+INSERT INTO meme (aid, rid, bid, qnt) VALUES 
+('george_washington', 'president_order', 'first', 1),
+('george_washington', 'birth_year', 'year', 1732),
+('george_washington', 'birth_country', 'usa', 1),
+('george_washington', 'birth_state', 'virginia', 1),
+('george_washington', 'birth', 'george_washington_birth', 1),
+('george_washington_birth', 'year', 'ad', 1732),
+('george_washington_birth', 'country', 'usa', 1),
+('george_washington_birth', 'state', 'virginia', 1),
+('george_washington', 'died', 'year', 1799),
+('george_washington', 'party', 'independent', 1),
+('george_washington', 'elected', 'year', 1789),
+('george_washington', 'termlength', 'year', 8),
+('george_washington', 'occupation', 'surveyor', 1),
+('george_washington', 'occupation', 'planter', 1),
+('george_washington', 'occupation', 'military_officer', 1),
+('george_washington', 'spouse', 'martha_washington', 1),
+('john_adams', 'president_order', 'first', 2),
+('john_adams', 'birth_year', 'year', 1735),
+('john_adams', 'birth_country', 'usa', 1),
+('john_adams', 'birth_state', 'massachusetts', 1),
+('john_adams', 'birth', 'john_adams_birth', 1),
+('john_adams_birth', 'year', 'ad', 1735),
+('john_adams_birth', 'country', 'usa', 1),
+('john_adams_birth', 'state', 'massachusetts', 1),
+('john_adams', 'died', 'year', 1826),
+('john_adams', 'party', 'federalist', 1),
+('john_adams', 'elected', 'year', 1796),
+('john_adams', 'termlength', 'year', 4),
+('john_adams', 'college', 'harvard', 1),
+('john_adams', 'occupation', 'lawyer', 1),
+('john_adams', 'occupation', 'diplomat', 1),
+('john_adams', 'spouse', 'abigail_adams', 1),
+('john_adams', 'child', 'abigail_adams_smith', 1),
+('john_adams', 'child', 'john_quincy_adams', 1),
+('john_adams', 'child', 'charles_adams', 1),
+('john_adams', 'child', 'thomas_boylston_adams', 1),
+('thomas_jefferson', 'president_order', 'first', 3),
+('thomas_jefferson', 'birth_year', 'year', 1743),
+('thomas_jefferson', 'birth_country', 'usa', 1),
+('thomas_jefferson', 'birth_state', 'virginia', 1),
+('thomas_jefferson', 'birth', 'thomas_jefferson_birth', 1),
+('thomas_jefferson_birth', 'year', 'ad', 1743),
+('thomas_jefferson_birth', 'country', 'usa', 1),
+('thomas_jefferson_birth', 'state', 'virginia', 1),
+('thomas_jefferson', 'died', 'year', 1826),
+('thomas_jefferson', 'party', 'democratic_republican', 1),
+('thomas_jefferson', 'elected', 'year', 1800),
+('thomas_jefferson', 'termlength', 'year', 8),
+('thomas_jefferson', 'college', 'william_and_mary', 1),
+('thomas_jefferson', 'occupation', 'lawyer', 1),
+('thomas_jefferson', 'occupation', 'planter', 1),
+('thomas_jefferson', 'occupation', 'diplomat', 1),
+('thomas_jefferson', 'occupation', 'governor', 1),
+('thomas_jefferson', 'spouse', 'martha_wayles_skelton_jefferson', 1),
+('thomas_jefferson', 'child', 'martha_jefferson_randolph', 1),
+('thomas_jefferson', 'child', 'mary_jefferson_eppes', 1),
+('thomas_jefferson', 'child', 'lucy_elizabeth_jefferson', 1),
+('james_madison', 'president_order', 'first', 4),
+('james_madison', 'birth_year', 'year', 1751),
+('james_madison', 'birth_country', 'usa', 1),
+('james_madison', 'birth_state', 'virginia', 1),
+('james_madison', 'birth', 'james_madison_birth', 1),
+('james_madison_birth', 'year', 'ad', 1751),
+('james_madison_birth', 'country', 'usa', 1),
+('james_madison_birth', 'state', 'virginia', 1),
+('james_madison', 'died', 'year', 1836),
+('james_madison', 'party', 'democratic_republican', 1),
+('james_madison', 'elected', 'year', 1808),
+('james_madison', 'termlength', 'year', 8),
+('james_madison', 'college', 'princeton', 1),
+('james_madison', 'occupation', 'planter', 1),
+('james_madison', 'occupation', 'lawyer', 1),
+('james_madison', 'occupation', 'secretary_of_state', 1),
+('james_madison', 'spouse', 'dolley_madison', 1),
+('james_monroe', 'president_order', 'first', 5),
+('james_monroe', 'birth_year', 'year', 1758),
+('james_monroe', 'birth_country', 'usa', 1),
+('james_monroe', 'birth_state', 'virginia', 1),
+('james_monroe', 'birth', 'james_monroe_birth', 1),
+('james_monroe_birth', 'year', 'ad', 1758),
+('james_monroe_birth', 'country', 'usa', 1),
+('james_monroe_birth', 'state', 'virginia', 1),
+('james_monroe', 'died', 'year', 1831),
+('james_monroe', 'party', 'democratic_republican', 1),
+('james_monroe', 'elected', 'year', 1816),
+('james_monroe', 'termlength', 'year', 8),
+('james_monroe', 'college', 'william_and_mary', 1),
+('james_monroe', 'occupation', 'lawyer', 1),
+('james_monroe', 'occupation', 'planter', 1),
+('james_monroe', 'occupation', 'diplomat', 1),
+('james_monroe', 'occupation', 'governor', 1),
+('james_monroe', 'spouse', 'elizabeth_kortright_monroe', 1),
+('james_monroe', 'child', 'eliza_monroe_hay', 1),
+('james_monroe', 'child', 'james_monroe_jr', 1),
+('john_quincy_adams', 'president_order', 'first', 6),
+('john_quincy_adams', 'birth_year', 'year', 1767),
+('john_quincy_adams', 'birth_country', 'usa', 1),
+('john_quincy_adams', 'birth_state', 'massachusetts', 1),
+('john_quincy_adams', 'birth', 'john_quincy_adams_birth', 1),
+('john_quincy_adams_birth', 'year', 'ad', 1767),
+('john_quincy_adams_birth', 'country', 'usa', 1),
+('john_quincy_adams_birth', 'state', 'massachusetts', 1),
+('john_quincy_adams', 'died', 'year', 1848),
+('john_quincy_adams', 'party', 'democratic_republican', 1),
+('john_quincy_adams', 'elected', 'year', 1824),
+('john_quincy_adams', 'termlength', 'year', 4),
+('john_quincy_adams', 'college', 'harvard', 1),
+('john_quincy_adams', 'occupation', 'diplomat', 1),
+('john_quincy_adams', 'occupation', 'senator', 1),
+('john_quincy_adams', 'occupation', 'secretary_of_state', 1),
+('john_quincy_adams', 'spouse', 'louisa_catherine_johnson_adams', 1),
+('john_quincy_adams', 'child', 'george_washington_adams', 1),
+('john_quincy_adams', 'child', 'john_adams_iii', 1),
+('john_quincy_adams', 'child', 'charles_francis_adams', 1),
+('john_quincy_adams', 'child', 'brooks_adams', 1),
+('andrew_jackson', 'president_order', 'first', 7),
+('andrew_jackson', 'birth_year', 'year', 1767),
+('andrew_jackson', 'birth_country', 'usa', 1),
+('andrew_jackson', 'birth_state', 'south_carolina', 1),
+('andrew_jackson', 'birth', 'andrew_jackson_birth', 1),
+('andrew_jackson_birth', 'year', 'ad', 1767),
+('andrew_jackson_birth', 'country', 'usa', 1),
+('andrew_jackson_birth', 'state', 'south_carolina', 1),
+('andrew_jackson', 'died', 'year', 1845),
+('andrew_jackson', 'party', 'democratic', 1),
+('andrew_jackson', 'elected', 'year', 1828),
+('andrew_jackson', 'termlength', 'year', 8),
+('andrew_jackson', 'occupation', 'lawyer', 1),
+('andrew_jackson', 'occupation', 'planter', 1),
+('andrew_jackson', 'occupation', 'military_leader', 1),
+('andrew_jackson', 'occupation', 'senator', 1),
+('andrew_jackson', 'spouse', 'rachel_donelson_jackson', 1),
+('martin_van_buren', 'president_order', 'first', 8),
+('martin_van_buren', 'birth_year', 'year', 1782),
+('martin_van_buren', 'birth_country', 'usa', 1),
+('martin_van_buren', 'birth_state', 'new_york', 1),
+('martin_van_buren', 'birth', 'martin_van_buren_birth', 1),
+('martin_van_buren_birth', 'year', 'ad', 1782),
+('martin_van_buren_birth', 'country', 'usa', 1),
+('martin_van_buren_birth', 'state', 'new_york', 1),
+('martin_van_buren', 'died', 'year', 1862),
+('martin_van_buren', 'party', 'democratic', 1),
+('martin_van_buren', 'elected', 'year', 1836),
+('martin_van_buren', 'termlength', 'year', 4),
+('martin_van_buren', 'occupation', 'lawyer', 1),
+('martin_van_buren', 'occupation', 'senator', 1),
+('martin_van_buren', 'occupation', 'new_york_governor', 1),
+('martin_van_buren', 'spouse', 'hannah_hoes_van_buren', 1),
+('martin_van_buren', 'child', 'abraham_van_buren', 1),
+('martin_van_buren', 'child', 'john_van_buren', 1),
+('martin_van_buren', 'child', 'martin_van_buren_jr', 1),
+('martin_van_buren', 'child', 'and_james_van_buren', 1),
+('william_harrison', 'president_order', 'first', 9),
+('william_harrison', 'birth_year', 'year', 1773),
+('william_harrison', 'birth_country', 'usa', 1),
+('william_harrison', 'birth_state', 'virginia', 1),
+('william_harrison', 'birth', 'william_harrison_birth', 1),
+('william_harrison_birth', 'year', 'ad', 1773),
+('william_harrison_birth', 'country', 'usa', 1),
+('william_harrison_birth', 'state', 'virginia', 1),
+('william_harrison', 'died', 'year', 1841),
+('william_harrison', 'party', 'whig', 1),
+('william_harrison', 'elected', 'year', 1840),
+('william_harrison', 'termlength', 'year', 1),
+('william_harrison', 'college', 'hampden_sydney', 1),
+('william_harrison', 'occupation', 'military_officer', 1),
+('william_harrison', 'occupation', 'diplomat', 1),
+('william_harrison', 'occupation', 'governor', 1),
+('william_harrison', 'spouse', 'anna_tuthill_symmes_harrison', 1),
+('william_harrison', 'child', 'elizabeth_harrison', 1),
+('william_harrison', 'child', 'john_scott_harrison', 1),
+('william_harrison', 'child', 'lucy_harrison', 1),
+('william_harrison', 'child', 'william_henry_harrison', 1),
+('william_harrison', 'child', 'benjamin_harrison_jr', 1),
+('john_tyler', 'president_order', 'first', 10),
+('john_tyler', 'birth_year', 'year', 1790),
+('john_tyler', 'birth_country', 'usa', 1),
+('john_tyler', 'birth_state', 'virginia', 1),
+('john_tyler', 'birth', 'john_tyler_birth', 1),
+('john_tyler_birth', 'year', 'ad', 1790),
+('john_tyler_birth', 'country', 'usa', 1),
+('john_tyler_birth', 'state', 'virginia', 1),
+('john_tyler', 'died', 'year', 1862),
+('john_tyler', 'party', 'whig', 1),
+('john_tyler', 'elected', 'year', 1841),
+('john_tyler', 'termlength', 'year', 3),
+('john_tyler', 'college', 'william_and_mary', 1),
+('john_tyler', 'occupation', 'lawyer', 1),
+('john_tyler', 'occupation', 'senator', 1),
+('john_tyler', 'occupation', 'virginia_governor', 1),
+('john_tyler', 'spouse', 'letitia_christian_tyler', 1),
+('john_tyler', 'spouse', 'julia_gardiner_tyler', 1),
+('john_tyler', 'child', 'david_gardiner_tyler', 1),
+('john_tyler', 'child', 'john_alexander_tyler', 1),
+('john_tyler', 'child', 'mary_tyler', 1),
+('john_tyler', 'child', 'robert_tyler', 1),
+('john_tyler', 'child', 'john_tyler_jr', 1),
+('john_tyler', 'child', 'letitia_tyler', 1),
+('john_tyler', 'child', 'elizabeth_tyler', 1),
+('john_tyler', 'child', 'anna_tyler', 1),
+('john_tyler', 'child', 'augusta_tyler', 1),
+('john_tyler', 'child', 'lyon_gardiner_tyler', 1),
+('john_tyler', 'child', 'pearl_tyler', 1),
+('james_polk', 'president_order', 'first', 11),
+('james_polk', 'birth_year', 'year', 1795),
+('james_polk', 'birth_country', 'usa', 1),
+('james_polk', 'birth_state', 'north_carolina', 1),
+('james_polk', 'birth', 'james_polk_birth', 1),
+('james_polk_birth', 'year', 'ad', 1795),
+('james_polk_birth', 'country', 'usa', 1),
+('james_polk_birth', 'state', 'north_carolina', 1),
+('james_polk', 'died', 'year', 1849),
+('james_polk', 'party', 'democratic', 1),
+('james_polk', 'elected', 'year', 1844),
+('james_polk', 'termlength', 'year', 4),
+('james_polk', 'college', 'chapel_hill', 1),
+('james_polk', 'occupation', 'lawyer', 1),
+('james_polk', 'occupation', 'congressman', 1),
+('james_polk', 'occupation', 'tennessee_governor', 1),
+('james_polk', 'spouse', 'sarah_childress_polk', 1),
+('zachary_taylor', 'president_order', 'first', 12),
+('zachary_taylor', 'birth_year', 'year', 1784),
+('zachary_taylor', 'birth_country', 'usa', 1),
+('zachary_taylor', 'birth_state', 'virginia', 1),
+('zachary_taylor', 'birth', 'zachary_taylor_birth', 1),
+('zachary_taylor_birth', 'year', 'ad', 1784),
+('zachary_taylor_birth', 'country', 'usa', 1),
+('zachary_taylor_birth', 'state', 'virginia', 1),
+('zachary_taylor', 'died', 'year', 1850),
+('zachary_taylor', 'party', 'whig', 1),
+('zachary_taylor', 'elected', 'year', 1848),
+('zachary_taylor', 'termlength', 'year', 1),
+('zachary_taylor', 'occupation', 'military_officer', 1),
+('zachary_taylor', 'spouse', 'margaret_mackall_smith_taylor', 1),
+('zachary_taylor', 'child', 'ann_mackall_taylor', 1),
+('zachary_taylor', 'child', 'sarah_knox_taylor', 1),
+('zachary_taylor', 'child', 'octavia_pannill_taylor', 1),
+('zachary_taylor', 'child', 'margaret_smith_taylor', 1),
+('zachary_taylor', 'child', 'mary_elizabeth_taylor', 1),
+('zachary_taylor', 'child', 'richard_scott_taylor', 1),
+('millard_fillmore', 'president_order', 'first', 13),
+('millard_fillmore', 'birth_year', 'year', 1800),
+('millard_fillmore', 'birth_country', 'usa', 1),
+('millard_fillmore', 'birth_state', 'new_york', 1),
+('millard_fillmore', 'birth', 'millard_fillmore_birth', 1),
+('millard_fillmore_birth', 'year', 'ad', 1800),
+('millard_fillmore_birth', 'country', 'usa', 1),
+('millard_fillmore_birth', 'state', 'new_york', 1),
+('millard_fillmore', 'died', 'year', 1874),
+('millard_fillmore', 'party', 'whig', 1),
+('millard_fillmore', 'elected', 'year', 1850),
+('millard_fillmore', 'termlength', 'year', 3),
+('millard_fillmore', 'occupation', 'lawyer', 1),
+('millard_fillmore', 'occupation', 'congressman', 1),
+('millard_fillmore', 'occupation', 'new_york_state_comptroller', 1),
+('millard_fillmore', 'spouse', 'abigail_powers_fillmore', 1),
+('millard_fillmore', 'child', 'millard_fillmore_jr', 1),
+('millard_fillmore', 'child', 'mary_abigail_fillmore', 1),
+('franklin_pierce', 'president_order', 'first', 14),
+('franklin_pierce', 'birth_year', 'year', 1804),
+('franklin_pierce', 'birth_country', 'usa', 1),
+('franklin_pierce', 'birth_state', 'new_hampshire', 1),
+('franklin_pierce', 'birth', 'franklin_pierce_birth', 1),
+('franklin_pierce_birth', 'year', 'ad', 1804),
+('franklin_pierce_birth', 'country', 'usa', 1),
+('franklin_pierce_birth', 'state', 'new_hampshire', 1),
+('franklin_pierce', 'died', 'year', 1869),
+('franklin_pierce', 'party', 'democratic', 1),
+('franklin_pierce', 'elected', 'year', 1852),
+('franklin_pierce', 'termlength', 'year', 4),
+('franklin_pierce', 'college', 'bowdoin', 1),
+('franklin_pierce', 'occupation', 'lawyer', 1),
+('franklin_pierce', 'occupation', 'congressman', 1),
+('franklin_pierce', 'occupation', 'senator', 1),
+('franklin_pierce', 'occupation', 'military_officer', 1),
+('franklin_pierce', 'spouse', 'jane_means_appleton_pierce', 1),
+('franklin_pierce', 'child', 'frank_robert_pierce', 1),
+('franklin_pierce', 'child', 'benjamin_pierce', 1),
+('james_buchanan', 'president_order', 'first', 15),
+('james_buchanan', 'birth_year', 'year', 1791),
+('james_buchanan', 'birth_country', 'usa', 1),
+('james_buchanan', 'birth_state', 'pennsylvania', 1),
+('james_buchanan', 'birth', 'james_buchanan_birth', 1),
+('james_buchanan_birth', 'year', 'ad', 1791),
+('james_buchanan_birth', 'country', 'usa', 1),
+('james_buchanan_birth', 'state', 'pennsylvania', 1),
+('james_buchanan', 'died', 'year', 1868),
+('james_buchanan', 'party', 'democratic', 1),
+('james_buchanan', 'elected', 'year', 1856),
+('james_buchanan', 'termlength', 'year', 4),
+('james_buchanan', 'college', 'dickinson', 1),
+('james_buchanan', 'occupation', 'lawyer', 1),
+('james_buchanan', 'occupation', 'senator', 1),
+('james_buchanan', 'occupation', 'minister_to_the_united_kingdom', 1),
+('james_buchanan', 'occupation', 'secretary_of_state', 1),
+('abraham_lincoln', 'president_order', 'first', 16),
+('abraham_lincoln', 'birth_year', 'year', 1809),
+('abraham_lincoln', 'birth_country', 'usa', 1),
+('abraham_lincoln', 'birth_state', 'kentucky', 1),
+('abraham_lincoln', 'birth', 'abraham_lincoln_birth', 1),
+('abraham_lincoln_birth', 'year', 'ad', 1809),
+('abraham_lincoln_birth', 'country', 'usa', 1),
+('abraham_lincoln_birth', 'state', 'kentucky', 1),
+('abraham_lincoln', 'died', 'year', 1865),
+('abraham_lincoln', 'party', 'republican', 1),
+('abraham_lincoln', 'elected', 'year', 1860),
+('abraham_lincoln', 'termlength', 'year', 4),
+('abraham_lincoln', 'occupation', 'lawyer', 1),
+('abraham_lincoln', 'occupation', 'congressman', 1),
+('abraham_lincoln', 'occupation', 'senator', 1),
+('abraham_lincoln', 'occupation', 'military_leader', 1),
+('abraham_lincoln', 'spouse', 'mary_todd_lincoln', 1),
+('abraham_lincoln', 'child', 'robert_todd_lincoln', 1),
+('abraham_lincoln', 'child', 'edward_baker_lincoln', 1),
+('abraham_lincoln', 'child', 'william_wallace_lincoln', 1),
+('abraham_lincoln', 'child', 'thomas_"tad"_lincoln', 1),
+('andrew_johnson', 'president_order', 'first', 17),
+('andrew_johnson', 'birth_year', 'year', 1808),
+('andrew_johnson', 'birth_country', 'usa', 1),
+('andrew_johnson', 'birth_state', 'north_carolina', 1),
+('andrew_johnson', 'birth', 'andrew_johnson_birth', 1),
+('andrew_johnson_birth', 'year', 'ad', 1808),
+('andrew_johnson_birth', 'country', 'usa', 1),
+('andrew_johnson_birth', 'state', 'north_carolina', 1),
+('andrew_johnson', 'died', 'year', 1875),
+('andrew_johnson', 'party', 'democratic', 1),
+('andrew_johnson', 'elected', 'year', 1865),
+('andrew_johnson', 'termlength', 'year', 3),
+('andrew_johnson', 'occupation', 'tailor', 1),
+('andrew_johnson', 'occupation', 'congressman', 1),
+('andrew_johnson', 'occupation', 'tennessee_governor', 1),
+('andrew_johnson', 'occupation', 'senator', 1),
+('andrew_johnson', 'spouse', 'eliza_mccardle_johnson', 1),
+('andrew_johnson', 'child', 'martha_johnson_patterson', 1),
+('andrew_johnson', 'child', 'charles_johnson', 1),
+('andrew_johnson', 'child', 'andrew_johnson_jr', 1),
+('andrew_johnson', 'child', 'robert_johnson', 1),
+('andrew_johnson', 'child', 'and_william_johnson', 1),
+('ulysses_grant', 'president_order', 'first', 18),
+('ulysses_grant', 'birth_year', 'year', 1822),
+('ulysses_grant', 'birth_country', 'usa', 1),
+('ulysses_grant', 'birth_state', 'ohio', 1),
+('ulysses_grant', 'birth', 'ulysses_grant_birth', 1),
+('ulysses_grant_birth', 'year', 'ad', 1822),
+('ulysses_grant_birth', 'country', 'usa', 1),
+('ulysses_grant_birth', 'state', 'ohio', 1),
+('ulysses_grant', 'died', 'year', 1885),
+('ulysses_grant', 'party', 'republican', 1),
+('ulysses_grant', 'elected', 'year', 1868),
+('ulysses_grant', 'termlength', 'year', 8),
+('ulysses_grant', 'college', 'west_point', 1),
+('ulysses_grant', 'occupation', 'military_officer', 1),
+('ulysses_grant', 'occupation', 'president', 1),
+('ulysses_grant', 'spouse', 'julia_dent_grant', 1),
+('ulysses_grant', 'child', 'frederick_dent_grant', 1),
+('ulysses_grant', 'child', 'ulysses_simpson_grant', 1),
+('ulysses_grant', 'child', 'jesse_root_grant', 1),
+('ulysses_grant', 'child', 'ellen_wrenshall_grant', 1),
+('rutherford_hayes', 'president_order', 'first', 19),
+('rutherford_hayes', 'birth_year', 'year', 1822),
+('rutherford_hayes', 'birth_country', 'usa', 1),
+('rutherford_hayes', 'birth_state', 'ohio', 1),
+('rutherford_hayes', 'birth', 'rutherford_hayes_birth', 1),
+('rutherford_hayes_birth', 'year', 'ad', 1822),
+('rutherford_hayes_birth', 'country', 'usa', 1),
+('rutherford_hayes_birth', 'state', 'ohio', 1),
+('rutherford_hayes', 'died', 'year', 1893),
+('rutherford_hayes', 'party', 'republican', 1),
+('rutherford_hayes', 'elected', 'year', 1876),
+('rutherford_hayes', 'termlength', 'year', 4),
+('rutherford_hayes', 'college', 'kenyon', 1),
+('rutherford_hayes', 'college', 'harvard', 1),
+('rutherford_hayes', 'occupation', 'lawyer', 1),
+('rutherford_hayes', 'occupation', 'congressman', 1),
+('rutherford_hayes', 'occupation', 'ohio_governor', 1),
+('rutherford_hayes', 'spouse', 'lucy_webb_hayes', 1),
+('rutherford_hayes', 'child', 'sardis_birchard_hayes', 1),
+('rutherford_hayes', 'child', 'james_webb_cook_hayes', 1),
+('rutherford_hayes', 'child', 'rutherford_platt_hayes', 1),
+('rutherford_hayes', 'child', 'joseph_thompson_hayes', 1),
+('rutherford_hayes', 'child', 'george_crook_hayes', 1),
+('rutherford_hayes', 'child', 'fanny_hayes', 1),
+('rutherford_hayes', 'child', 'scott_russell_hayes', 1),
+('rutherford_hayes', 'child', 'manning_force_hayes', 1),
+('james_garfield', 'president_order', 'first', 20),
+('james_garfield', 'birth_year', 'year', 1831),
+('james_garfield', 'birth_country', 'usa', 1),
+('james_garfield', 'birth_state', 'ohio', 1),
+('james_garfield', 'birth', 'james_garfield_birth', 1),
+('james_garfield_birth', 'year', 'ad', 1831),
+('james_garfield_birth', 'country', 'usa', 1),
+('james_garfield_birth', 'state', 'ohio', 1),
+('james_garfield', 'died', 'year', 1881),
+('james_garfield', 'party', 'republican', 1),
+('james_garfield', 'elected', 'year', 1880),
+('james_garfield', 'termlength', 'year', 0.66),
+('james_garfield', 'college', 'williams', 1),
+('james_garfield', 'occupation', 'military_officer', 1),
+('james_garfield', 'occupation', 'congressman', 1),
+('james_garfield', 'spouse', 'lucretia_rudolph_garfield', 1),
+('james_garfield', 'child', 'harry_augustus_garfield', 1),
+('james_garfield', 'child', 'james_rudolph_garfield', 1),
+('james_garfield', 'child', 'mary_garfield', 1),
+('james_garfield', 'child', 'irvin_mcdowell_garfield', 1),
+('james_garfield', 'child', 'and_edward_garfield', 1),
+('chester_arthur', 'president_order', 'first', 21),
+('chester_arthur', 'birth_year', 'year', 1829),
+('chester_arthur', 'birth_country', 'usa', 1),
+('chester_arthur', 'birth_state', 'vermont', 1),
+('chester_arthur', 'birth', 'chester_arthur_birth', 1),
+('chester_arthur_birth', 'year', 'ad', 1829),
+('chester_arthur_birth', 'country', 'usa', 1),
+('chester_arthur_birth', 'state', 'vermont', 1),
+('chester_arthur', 'died', 'year', 1886),
+('chester_arthur', 'party', 'republican', 1),
+('chester_arthur', 'elected', 'year', 1881),
+('chester_arthur', 'termlength', 'year', 4),
+('chester_arthur', 'college', 'union', 1),
+('chester_arthur', 'occupation', 'lawyer', 1),
+('chester_arthur', 'occupation', 'customs_collector_port_of_new_york', 1),
+('chester_arthur', 'spouse', 'ellen_lewis_herndon_arthur', 1),
+('chester_arthur', 'child', 'william_arthur', 1),
+('chester_arthur', 'child', 'chester_alan_arthur', 1),
+('grover_cleveland', 'president_order', 'first', 22),
+('grover_cleveland', 'birth_year', 'year', 1837),
+('grover_cleveland', 'birth_country', 'usa', 1),
+('grover_cleveland', 'birth_state', 'new_jersey', 1),
+('grover_cleveland', 'birth', 'grover_cleveland_birth', 1),
+('grover_cleveland_birth', 'year', 'ad', 1837),
+('grover_cleveland_birth', 'country', 'usa', 1),
+('grover_cleveland_birth', 'state', 'new_jersey', 1),
+('grover_cleveland', 'died', 'year', 1908),
+('grover_cleveland', 'party', 'democratic', 1),
+('grover_cleveland', 'elected', 'year', 1884),
+('grover_cleveland', 'termlength', 'year', 8),
+('grover_cleveland', 'college', 'princeton', 1),
+('grover_cleveland', 'occupation', 'lawyer', 1),
+('grover_cleveland', 'occupation', 'buffalo_mayor', 1),
+('grover_cleveland', 'occupation', 'new_york_governor', 1),
+('grover_cleveland', 'spouse', 'frances_folsom_cleveland', 1),
+('grover_cleveland', 'child', 'ruth_cleveland', 1),
+('grover_cleveland', 'child', 'esther_cleveland', 1),
+('grover_cleveland', 'child', 'marion_cleveland', 1),
+('grover_cleveland', 'child', 'richard_folsom_cleveland', 1),
+('grover_cleveland', 'child', 'and_francis_cleveland', 1),
+('benjamin_harrison', 'president_order', 'first', 23),
+('benjamin_harrison', 'birth_year', 'year', 1833),
+('benjamin_harrison', 'birth_country', 'usa', 1),
+('benjamin_harrison', 'birth_state', 'ohio', 1),
+('benjamin_harrison', 'birth', 'benjamin_harrison_birth', 1),
+('benjamin_harrison_birth', 'year', 'ad', 1833),
+('benjamin_harrison_birth', 'country', 'usa', 1),
+('benjamin_harrison_birth', 'state', 'ohio', 1),
+('benjamin_harrison', 'died', 'year', 1901),
+('benjamin_harrison', 'party', 'republican', 1),
+('benjamin_harrison', 'elected', 'year', 1888),
+('benjamin_harrison', 'termlength', 'year', 4),
+('benjamin_harrison', 'college', 'miami', 1),
+('benjamin_harrison', 'occupation', 'lawyer', 1),
+('benjamin_harrison', 'occupation', 'senator', 1),
+('benjamin_harrison', 'occupation', 'military_officer', 1),
+('benjamin_harrison', 'spouse', 'lavinia_scott_harrison', 1),
+('benjamin_harrison', 'child', 'russell_benjamin_harrison', 1),
+('benjamin_harrison', 'child', 'mary_scott_harrison', 1),
+('benjamin_harrison', 'child', 'and_elizabeth_harrison', 1),
+('grover_cleveland', 'president_order', 'second', 24),
+('william_mckinley', 'president_order', 'first', 25),
+('william_mckinley', 'birth_year', 'year', 1843),
+('william_mckinley', 'birth_country', 'usa', 1),
+('william_mckinley', 'birth_state', 'ohio', 1),
+('william_mckinley', 'birth', 'william_mckinley_birth', 1),
+('william_mckinley_birth', 'year', 'ad', 1843),
+('william_mckinley_birth', 'country', 'usa', 1),
+('william_mckinley_birth', 'state', 'ohio', 1),
+('william_mckinley', 'died', 'year', 1901),
+('william_mckinley', 'party', 'republican', 1),
+('william_mckinley', 'elected', 'year', 1896),
+('william_mckinley', 'termlength', 'year', 4),
+('william_mckinley', 'college', 'allegheny', 1),
+('william_mckinley', 'occupation', 'lawyer', 1),
+('william_mckinley', 'occupation', 'congressman', 1),
+('william_mckinley', 'occupation', 'ohio_governor', 1),
+('william_mckinley', 'spouse', 'ida_saxton_mckinley', 1),
+('william_mckinley', 'child', 'katherine_mckinley', 1),
+('william_mckinley', 'child', 'ida_mckinley', 1),
+('theodore_roosevelt', 'president_order', 'first', 26),
+('theodore_roosevelt', 'birth_year', 'year', 1858),
+('theodore_roosevelt', 'birth_country', 'usa', 1),
+('theodore_roosevelt', 'birth_state', 'new_york', 1),
+('theodore_roosevelt', 'birth', 'theodore_roosevelt_birth', 1),
+('theodore_roosevelt_birth', 'year', 'ad', 1858),
+('theodore_roosevelt_birth', 'country', 'usa', 1),
+('theodore_roosevelt_birth', 'state', 'new_york', 1),
+('theodore_roosevelt', 'died', 'year', 1919),
+('theodore_roosevelt', 'party', 'republican', 1),
+('theodore_roosevelt', 'elected', 'year', 1904),
+('theodore_roosevelt', 'termlength', 'year', 8),
+('theodore_roosevelt', 'college', 'harvard', 1),
+('theodore_roosevelt', 'occupation', 'author', 1),
+('theodore_roosevelt', 'occupation', 'military_officer', 1),
+('theodore_roosevelt', 'occupation', 'congressman', 1),
+('theodore_roosevelt', 'occupation', 'new_york_governor', 1),
+('theodore_roosevelt', 'spouse', 'alice_hathaway_lee_roosevelt', 1),
+('theodore_roosevelt', 'spouse', 'edith_kermit_carow', 1),
+('theodore_roosevelt', 'child', 'alice_lee_roosevelt', 1),
+('theodore_roosevelt', 'child', 'theodore_roosevelt_jr', 1),
+('theodore_roosevelt', 'child', 'kermit_roosevelt', 1),
+('theodore_roosevelt', 'child', 'ethel_roosevelt', 1),
+('theodore_roosevelt', 'child', 'and_quentin_roosevelt', 1),
+('william_taft', 'president_order', 'first', 27),
+('william_taft', 'birth_year', 'year', 1857),
+('william_taft', 'birth_country', 'usa', 1),
+('william_taft', 'birth_state', 'ohio', 1),
+('william_taft', 'birth', 'william_taft_birth', 1),
+('william_taft_birth', 'year', 'ad', 1857),
+('william_taft_birth', 'country', 'usa', 1),
+('william_taft_birth', 'state', 'ohio', 1),
+('william_taft', 'died', 'year', 1930),
+('william_taft', 'party', 'republican', 1),
+('william_taft', 'elected', 'year', 1908),
+('william_taft', 'termlength', 'year', 4),
+('william_taft', 'college', 'yale', 1),
+('william_taft', 'college', 'university_of_cincinnati', 1),
+('william_taft', 'occupation', 'lawyer', 1),
+('william_taft', 'occupation', 'solicitor_general', 1),
+('william_taft', 'occupation', 'judge', 1),
+('william_taft', 'occupation', 'governor_general_of_the_philippines', 1),
+('william_taft', 'occupation', 'secretary_of_war', 1),
+('william_taft', 'spouse', 'helen_herron_taft', 1),
+('william_taft', 'child', 'robert_taft', 1),
+('william_taft', 'child', 'helen_taft_manning', 1),
+('william_taft', 'child', 'charles_phelps_taft', 1),
+('woodrow_wilson', 'president_order', 'first', 28),
+('woodrow_wilson', 'birth_year', 'year', 1856),
+('woodrow_wilson', 'birth_country', 'usa', 1),
+('woodrow_wilson', 'birth_state', 'virginia', 1),
+('woodrow_wilson', 'birth', 'woodrow_wilson_birth', 1),
+('woodrow_wilson_birth', 'year', 'ad', 1856),
+('woodrow_wilson_birth', 'country', 'usa', 1),
+('woodrow_wilson_birth', 'state', 'virginia', 1),
+('woodrow_wilson', 'died', 'year', 1924),
+('woodrow_wilson', 'party', 'democratic', 1),
+('woodrow_wilson', 'elected', 'year', 1912),
+('woodrow_wilson', 'termlength', 'year', 8),
+('woodrow_wilson', 'college', 'princeton', 1),
+('woodrow_wilson', 'college', 'university_of_virginia', 1),
+('woodrow_wilson', 'occupation', 'academic', 1),
+('woodrow_wilson', 'occupation', 'president_of_princeton_university', 1),
+('woodrow_wilson', 'occupation', 'new_jersey_governor', 1),
+('woodrow_wilson', 'spouse', 'ellen_louise_axson', 1),
+('woodrow_wilson', 'spouse', 'edith_wilson', 1),
+('woodrow_wilson', 'child', 'margaret_woodrow_wilson', 1),
+('woodrow_wilson', 'child', 'jessie_wilson_sayre', 1),
+('woodrow_wilson', 'child', 'eleanor_wilson_mcadoo', 1),
+('warren_harding', 'president_order', 'first', 29),
+('warren_harding', 'birth_year', 'year', 1865),
+('warren_harding', 'birth_country', 'usa', 1),
+('warren_harding', 'birth_state', 'ohio', 1),
+('warren_harding', 'birth', 'warren_harding_birth', 1),
+('warren_harding_birth', 'year', 'ad', 1865),
+('warren_harding_birth', 'country', 'usa', 1),
+('warren_harding_birth', 'state', 'ohio', 1),
+('warren_harding', 'died', 'year', 1923),
+('warren_harding', 'party', 'republican', 1),
+('warren_harding', 'elected', 'year', 1920),
+('warren_harding', 'termlength', 'year', 2),
+('warren_harding', 'college', 'ohio_central', 1),
+('warren_harding', 'occupation', 'newspaper_publisher', 1),
+('warren_harding', 'occupation', 'senator', 1),
+('warren_harding', 'spouse', 'florence_kling_harding', 1),
+('warren_harding', 'child', 'elizabeth_harding', 1),
+('calvin_coolidge', 'president_order', 'first', 30),
+('calvin_coolidge', 'birth_year', 'year', 1872),
+('calvin_coolidge', 'birth_country', 'usa', 1),
+('calvin_coolidge', 'birth_state', 'vermont', 1),
+('calvin_coolidge', 'birth', 'calvin_coolidge_birth', 1),
+('calvin_coolidge_birth', 'year', 'ad', 1872),
+('calvin_coolidge_birth', 'country', 'usa', 1),
+('calvin_coolidge_birth', 'state', 'vermont', 1),
+('calvin_coolidge', 'died', 'year', 1933),
+('calvin_coolidge', 'party', 'republican', 1),
+('calvin_coolidge', 'elected', 'year', 1924),
+('calvin_coolidge', 'termlength', 'year', 6),
+('calvin_coolidge', 'college', 'amherst', 1),
+('calvin_coolidge', 'occupation', 'lawyer', 1),
+('calvin_coolidge', 'occupation', 'massachusetts_governor', 1),
+('calvin_coolidge', 'occupation', 'vice_president', 1),
+('calvin_coolidge', 'spouse', 'grace_anna_goodhue_coolidge', 1),
+('calvin_coolidge', 'child', 'john_coolidge', 1),
+('calvin_coolidge', 'child', 'calvin_coolidge_jr', 1),
+('calvin_coolidge', 'child', 'and_a_daughter', 1),
+('calvin_coolidge', 'child', 'elizabeth_coolidge', 1),
+('herbert_hoover', 'president_order', 'first', 31),
+('herbert_hoover', 'birth_year', 'year', 1874),
+('herbert_hoover', 'birth_country', 'usa', 1),
+('herbert_hoover', 'birth_state', 'iowa', 1),
+('herbert_hoover', 'birth', 'herbert_hoover_birth', 1),
+('herbert_hoover_birth', 'year', 'ad', 1874),
+('herbert_hoover_birth', 'country', 'usa', 1),
+('herbert_hoover_birth', 'state', 'iowa', 1),
+('herbert_hoover', 'died', 'year', 1964),
+('herbert_hoover', 'party', 'republican', 1),
+('herbert_hoover', 'elected', 'year', 1928),
+('herbert_hoover', 'termlength', 'year', 4),
+('herbert_hoover', 'college', 'stanford', 1),
+('herbert_hoover', 'occupation', 'engineer', 1),
+('herbert_hoover', 'occupation', 'mining_executive', 1),
+('herbert_hoover', 'occupation', 'secretary_of_commerce', 1),
+('herbert_hoover', 'spouse', 'lou_henry_hoover', 1),
+('herbert_hoover', 'child', 'herbert_hoover_jr', 1),
+('herbert_hoover', 'child', 'allan_hoover', 1),
+('franklin_roosevelt', 'president_order', 'first', 32),
+('franklin_roosevelt', 'birth_year', 'year', 1882),
+('franklin_roosevelt', 'birth_country', 'usa', 1),
+('franklin_roosevelt', 'birth_state', 'new_york', 1),
+('franklin_roosevelt', 'birth', 'franklin_roosevelt_birth', 1),
+('franklin_roosevelt_birth', 'year', 'ad', 1882),
+('franklin_roosevelt_birth', 'country', 'usa', 1),
+('franklin_roosevelt_birth', 'state', 'new_york', 1),
+('franklin_roosevelt', 'died', 'year', 1945),
+('franklin_roosevelt', 'party', 'democratic', 1),
+('franklin_roosevelt', 'elected', 'year', 1932),
+('franklin_roosevelt', 'termlength', 'year', 12),
+('franklin_roosevelt', 'college', 'harvard', 1),
+('franklin_roosevelt', 'occupation', 'lawyer', 1),
+('franklin_roosevelt', 'occupation', 'new_york_governor', 1),
+('franklin_roosevelt', 'occupation', 'assistant_secretary_of_the_navy', 1),
+('franklin_roosevelt', 'spouse', 'eleanor_roosevelt', 1),
+('franklin_roosevelt', 'child', 'anna_roosevelt', 1),
+('franklin_roosevelt', 'child', 'james_roosevelt', 1),
+('franklin_roosevelt', 'child', 'elliott_roosevelt', 1),
+('franklin_roosevelt', 'child', 'franklin_d._roosevelt', 1),
+('franklin_roosevelt', 'child', 'john_roosevelt', 1),
+('franklin_roosevelt', 'child', 'and_patricia_roosevelt', 1),
+('harry_truman', 'president_order', 'first', 33),
+('harry_truman', 'birth_year', 'year', 1884),
+('harry_truman', 'birth_country', 'usa', 1),
+('harry_truman', 'birth_state', 'missouri', 1),
+('harry_truman', 'birth', 'harry_truman_birth', 1),
+('harry_truman_birth', 'year', 'ad', 1884),
+('harry_truman_birth', 'country', 'usa', 1),
+('harry_truman_birth', 'state', 'missouri', 1),
+('harry_truman', 'died', 'year', 1972),
+('harry_truman', 'party', 'democratic', 1),
+('harry_truman', 'elected', 'year', 1948),
+('harry_truman', 'termlength', 'year', 8),
+('harry_truman', 'occupation', 'farmer', 1),
+('harry_truman', 'occupation', 'clerk', 1),
+('harry_truman', 'occupation', 'senator', 1),
+('harry_truman', 'occupation', 'vice_president', 1),
+('harry_truman', 'spouse', 'bess_truman', 1),
+('harry_truman', 'child', 'margaret_truman', 1),
+('dwight_eisenhower', 'president_order', 'first', 34),
+('dwight_eisenhower', 'birth_year', 'year', 1890),
+('dwight_eisenhower', 'birth_country', 'usa', 1),
+('dwight_eisenhower', 'birth_state', 'texas', 1),
+('dwight_eisenhower', 'birth', 'dwight_eisenhower_birth', 1),
+('dwight_eisenhower_birth', 'year', 'ad', 1890),
+('dwight_eisenhower_birth', 'country', 'usa', 1),
+('dwight_eisenhower_birth', 'state', 'texas', 1),
+('dwight_eisenhower', 'died', 'year', 1969),
+('dwight_eisenhower', 'party', 'republican', 1),
+('dwight_eisenhower', 'elected', 'year', 1952),
+('dwight_eisenhower', 'termlength', 'year', 8),
+('dwight_eisenhower', 'college', 'west_point', 1),
+('dwight_eisenhower', 'occupation', 'military_officer', 1),
+('dwight_eisenhower', 'occupation', 'supreme_allied_commander', 1),
+('dwight_eisenhower', 'spouse', 'mamie_eisenhower', 1),
+('dwight_eisenhower', 'child', 'doud_eisenhower', 1),
+('dwight_eisenhower', 'child', 'john_eisenhower', 1),
+('dwight_eisenhower', 'child', 'and_edgar_eisenhower', 1),
+('john_kennedy', 'president_order', 'first', 35),
+('john_kennedy', 'birth_year', 'year', 1917),
+('john_kennedy', 'birth_country', 'usa', 1),
+('john_kennedy', 'birth_state', 'massachusetts', 1),
+('john_kennedy', 'birth', 'john_kennedy_birth', 1),
+('john_kennedy_birth', 'year', 'ad', 1917),
+('john_kennedy_birth', 'country', 'usa', 1),
+('john_kennedy_birth', 'state', 'massachusetts', 1),
+('john_kennedy', 'died', 'year', 1963),
+('john_kennedy', 'party', 'democratic', 1),
+('john_kennedy', 'elected', 'year', 1960),
+('john_kennedy', 'termlength', 'year', 3),
+('john_kennedy', 'college', 'harvard', 1),
+('john_kennedy', 'occupation', 'senator', 1),
+('john_kennedy', 'occupation', 'congressman', 1),
+('john_kennedy', 'occupation', 'naval_officer', 1),
+('john_kennedy', 'spouse', 'jacqueline_kennedy_onassis', 1),
+('john_kennedy', 'child', 'caroline_kennedy', 1),
+('john_kennedy', 'child', 'john_f._kennedy', 1),
+('john_kennedy', 'child', 'patrick_bouvier_kennedy', 1),
+('lyndon_johnson', 'president_order', 'first', 36),
+('lyndon_johnson', 'birth_year', 'year', 1908),
+('lyndon_johnson', 'birth_country', 'usa', 1),
+('lyndon_johnson', 'birth_state', 'texas', 1),
+('lyndon_johnson', 'birth', 'lyndon_johnson_birth', 1),
+('lyndon_johnson_birth', 'year', 'ad', 1908),
+('lyndon_johnson_birth', 'country', 'usa', 1),
+('lyndon_johnson_birth', 'state', 'texas', 1),
+('lyndon_johnson', 'died', 'year', 1973),
+('lyndon_johnson', 'party', 'democratic', 1),
+('lyndon_johnson', 'elected', 'year', 1964),
+('lyndon_johnson', 'termlength', 'year', 5),
+('lyndon_johnson', 'college', 'southwest_texas_state_teachers', 1),
+('lyndon_johnson', 'occupation', 'senator', 1),
+('lyndon_johnson', 'occupation', 'congressman', 1),
+('lyndon_johnson', 'occupation', 'vice_president', 1),
+('lyndon_johnson', 'spouse', 'lady_bird_johnson', 1),
+('lyndon_johnson', 'child', 'lynda_bird_johnson', 1),
+('lyndon_johnson', 'child', 'luci_baines_johnson', 1),
+('richard_nixon', 'president_order', 'first', 37),
+('richard_nixon', 'birth_year', 'year', 1913),
+('richard_nixon', 'birth_country', 'usa', 1),
+('richard_nixon', 'birth_state', 'california', 1),
+('richard_nixon', 'birth', 'richard_nixon_birth', 1),
+('richard_nixon_birth', 'year', 'ad', 1913),
+('richard_nixon_birth', 'country', 'usa', 1),
+('richard_nixon_birth', 'state', 'california', 1),
+('richard_nixon', 'died', 'year', 1994),
+('richard_nixon', 'party', 'republican', 1),
+('richard_nixon', 'elected', 'year', 1968),
+('richard_nixon', 'termlength', 'year', 5),
+('richard_nixon', 'college', 'whittier', 1),
+('richard_nixon', 'college', 'duke', 1),
+('richard_nixon', 'occupation', 'congressman', 1),
+('richard_nixon', 'occupation', 'senator', 1),
+('richard_nixon', 'occupation', 'vice_president', 1),
+('richard_nixon', 'spouse', 'pat_nixon', 1),
+('richard_nixon', 'child', 'tricia_nixon_cox', 1),
+('richard_nixon', 'child', 'julie_nixon_eisenhower', 1),
+('gerald_ford', 'president_order', 'first', 38),
+('gerald_ford', 'birth_year', 'year', 1913),
+('gerald_ford', 'birth_country', 'usa', 1),
+('gerald_ford', 'birth_state', 'nebraska', 1),
+('gerald_ford', 'birth', 'gerald_ford_birth', 1),
+('gerald_ford_birth', 'year', 'ad', 1913),
+('gerald_ford_birth', 'country', 'usa', 1),
+('gerald_ford_birth', 'state', 'nebraska', 1),
+('gerald_ford', 'died', 'year', 2006),
+('gerald_ford', 'party', 'republican', 1),
+('gerald_ford', 'elected', 'year', 1974),
+('gerald_ford', 'termlength', 'year', 2),
+('gerald_ford', 'college', 'university_of_michigan', 1),
+('gerald_ford', 'college', 'yale', 1),
+('gerald_ford', 'occupation', 'congressman', 1),
+('gerald_ford', 'occupation', 'vice_president', 1),
+('gerald_ford', 'spouse', 'betty_ford', 1),
+('gerald_ford', 'child', 'michael_ford', 1),
+('gerald_ford', 'child', 'john_ford', 1),
+('gerald_ford', 'child', 'steven_ford', 1),
+('gerald_ford', 'child', 'susan_ford', 1),
+('james_carter', 'president_order', 'first', 39),
+('james_carter', 'birth_year', 'year', 1924),
+('james_carter', 'birth_country', 'usa', 1),
+('james_carter', 'birth_state', 'georgia', 1),
+('james_carter', 'birth', 'james_carter_birth', 1),
+('james_carter_birth', 'year', 'ad', 1924),
+('james_carter_birth', 'country', 'usa', 1),
+('james_carter_birth', 'state', 'georgia', 1),
+('james_carter', 'party', 'democratic', 1),
+('james_carter', 'elected', 'year', 1976),
+('james_carter', 'termlength', 'year', 4),
+('james_carter', 'college', 'usa_naval_academy', 1),
+('james_carter', 'occupation', 'georgia_governor', 1),
+('james_carter', 'occupation', 'navy_submarine_officer', 1),
+('james_carter', 'spouse', 'rosalynn_carter', 1),
+('james_carter', 'child', 'john_william_carter', 1),
+('james_carter', 'child', 'james_earl_carter', 1),
+('james_carter', 'child', 'amy_carter', 1),
+('ronald_reagan', 'president_order', 'first', 40),
+('ronald_reagan', 'birth_year', 'year', 1911),
+('ronald_reagan', 'birth_country', 'usa', 1),
+('ronald_reagan', 'birth_state', 'illinois', 1),
+('ronald_reagan', 'birth', 'ronald_reagan_birth', 1),
+('ronald_reagan_birth', 'year', 'ad', 1911),
+('ronald_reagan_birth', 'country', 'usa', 1),
+('ronald_reagan_birth', 'state', 'illinois', 1),
+('ronald_reagan', 'died', 'year', 2004),
+('ronald_reagan', 'party', 'republican', 1),
+('ronald_reagan', 'elected', 'year', 1980),
+('ronald_reagan', 'termlength', 'year', 8),
+('ronald_reagan', 'college', 'eureka', 1),
+('ronald_reagan', 'occupation', 'actor', 1),
+('ronald_reagan', 'occupation', 'california_governor', 1),
+('ronald_reagan', 'spouse', 'nancy_reagan', 1),
+('ronald_reagan', 'child', 'maureen_reagan', 1),
+('ronald_reagan', 'child', 'michael_reagan', 1),
+('ronald_reagan', 'child', 'patti_davis', 1),
+('ronald_reagan', 'child', 'ron_reagan', 1),
+('george_hw_bush', 'president_order', 'first', 41),
+('george_hw_bush', 'birth_year', 'year', 1924),
+('george_hw_bush', 'birth_country', 'usa', 1),
+('george_hw_bush', 'birth_state', 'massachusetts', 1),
+('george_hw_bush', 'birth', 'george_hw_bush_birth', 1),
+('george_hw_bush_birth', 'year', 'ad', 1924),
+('george_hw_bush_birth', 'country', 'usa', 1),
+('george_hw_bush_birth', 'state', 'massachusetts', 1),
+('george_hw_bush', 'died', 'year', 2018),
+('george_hw_bush', 'party', 'republican', 1),
+('george_hw_bush', 'elected', 'year', 1988),
+('george_hw_bush', 'termlength', 'year', 4),
+('george_hw_bush', 'college', 'yale', 1),
+('george_hw_bush', 'occupation', 'congressman', 1),
+('george_hw_bush', 'occupation', 'cia_director', 1),
+('george_hw_bush', 'occupation', 'vice_president', 1),
+('george_hw_bush', 'spouse', 'barbara_bush', 1),
+('george_hw_bush', 'child', 'george_w._bush', 1),
+('george_hw_bush', 'child', 'jeb_bush', 1),
+('george_hw_bush', 'child', 'neil_bush', 1),
+('george_hw_bush', 'child', 'marvin_bush', 1),
+('george_hw_bush', 'child', 'dorothy_bush_koch', 1),
+('william_clinton', 'president_order', 'first', 42),
+('william_clinton', 'birth_year', 'year', 1946),
+('william_clinton', 'birth_country', 'usa', 1),
+('william_clinton', 'birth_state', 'arkansas', 1),
+('william_clinton', 'birth', 'william_clinton_birth', 1),
+('william_clinton_birth', 'year', 'ad', 1946),
+('william_clinton_birth', 'country', 'usa', 1),
+('william_clinton_birth', 'state', 'arkansas', 1),
+('william_clinton', 'party', 'democratic', 1),
+('william_clinton', 'elected', 'year', 1992),
+('william_clinton', 'termlength', 'year', 8),
+('william_clinton', 'college', 'georgetown', 1),
+('william_clinton', 'college', 'oxford', 1),
+('william_clinton', 'college', 'yale', 1),
+('william_clinton', 'occupation', 'arkansas governor', 1),
+('william_clinton', 'occupation', 'arkansas_attorney_general', 1),
+('william_clinton', 'spouse', 'hillary_clinton', 1),
+('william_clinton', 'child', 'chelsea_clinton', 1),
+('george_w_bush', 'president_order', 'first', 43),
+('george_w_bush', 'birth_year', 'year', 1946),
+('george_w_bush', 'birth_country', 'usa', 1),
+('george_w_bush', 'birth_state', 'connecticut', 1),
+('george_w_bush', 'birth', 'george_w_bush_birth', 1),
+('george_w_bush_birth', 'year', 'ad', 1946),
+('george_w_bush_birth', 'country', 'usa', 1),
+('george_w_bush_birth', 'state', 'connecticut', 1),
+('george_w_bush', 'party', 'republican', 1),
+('george_w_bush', 'elected', 'year', 2000),
+('george_w_bush', 'termlength', 'year', 8),
+('george_w_bush', 'college', 'yale', 1),
+('george_w_bush', 'college', 'harvard', 1),
+('george_w_bush', 'occupation', 'texas_governor', 1),
+('george_w_bush', 'occupation', 'businessman', 1),
+('george_w_bush', 'occupation', 'air_force_reserve', 1),
+('george_w_bush', 'spouse', 'laura_bush', 1),
+('george_w_bush', 'child', 'jenna_bush_hager', 1),
+('george_w_bush', 'child', 'barbara_bush', 1),
+('barack_obama', 'president_order', 'first', 44),
+('barack_obama', 'birth_year', 'year', 1961),
+('barack_obama', 'birth_country', 'usa', 1),
+('barack_obama', 'birth_state', 'hawaii', 1),
+('barack_obama', 'birth', 'barack_obama_birth', 1),
+('barack_obama_birth', 'year', 'ad', 1961),
+('barack_obama_birth', 'country', 'usa', 1),
+('barack_obama_birth', 'state', 'hawaii', 1),
+('barack_obama', 'party', 'democratic', 1),
+('barack_obama', 'elected', 'year', 2008),
+('barack_obama', 'termlength', 'year', 8),
+('barack_obama', 'college', 'occidental', 1),
+('barack_obama', 'college', 'columbia', 1),
+('barack_obama', 'college', 'harvard', 1),
+('barack_obama', 'occupation', 'senator', 1),
+('barack_obama', 'occupation', 'illinois_state_senator', 1),
+('barack_obama', 'occupation', 'lawyer', 1),
+('barack_obama', 'spouse', 'michelle_obama', 1),
+('barack_obama', 'child', 'malia_obama', 1),
+('barack_obama', 'child', 'sasha_obama', 1),
+('donald_trump', 'president_order', 'first', 45),
+('donald_trump', 'birth_year', 'year', 1946),
+('donald_trump', 'birth_country', 'usa', 1),
+('donald_trump', 'birth_state', 'new_york', 1),
+('donald_trump', 'birth', 'donald_trump_birth', 1),
+('donald_trump_birth', 'year', 'ad', 1946),
+('donald_trump_birth', 'country', 'usa', 1),
+('donald_trump_birth', 'state', 'new_york', 1),
+('donald_trump', 'party', 'republican', 1),
+('donald_trump', 'elected', 'year', 2016),
+('donald_trump', 'termlength', 'year', 4),
+('donald_trump', 'college', 'university_of_pennsylvania', 1),
+('donald_trump', 'occupation', 'businessman', 1),
+('donald_trump', 'occupation', 'television_personality', 1),
+('donald_trump', 'spouse', 'melania_trump', 1),
+('donald_trump', 'child', 'donald_trump_jr', 1),
+('donald_trump', 'child', 'ivanka_trump', 1),
+('donald_trump', 'child', 'eric_trump', 1),
+('donald_trump', 'child', 'tiffany_trump', 1),
+('donald_trump', 'child', 'barron_trump', 1),
+('joseph_biden', 'president_order', 'first', 46),
+('joseph_biden', 'birth_year', 'year', 1942),
+('joseph_biden', 'birth_country', 'usa', 1),
+('joseph_biden', 'birth_state', 'pennsylvania', 1),
+('joseph_biden', 'birth', 'joseph_biden_birth', 1),
+('joseph_biden_birth', 'year', 'ad', 1942),
+('joseph_biden_birth', 'country', 'usa', 1),
+('joseph_biden_birth', 'state', 'pennsylvania', 1),
+('joseph_biden', 'party', 'democratic', 1),
+('joseph_biden', 'elected', 'year', 2020),
+('joseph_biden', 'college', 'university_of_delaware', 1),
+('joseph_biden', 'college', 'syracuse', 1),
+('joseph_biden', 'occupation', 'senator', 1),
+('joseph_biden', 'occupation', 'vice_president', 1),
+('joseph_biden', 'spouse', 'jill_biden', 1),
+('joseph_biden', 'child', 'beau_biden', 1),
+('joseph_biden', 'child', 'hunter_biden', 1),
+('joseph_biden', 'child', 'ashley_biden', 1);
