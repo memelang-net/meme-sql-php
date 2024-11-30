@@ -127,6 +127,7 @@ function memeCmdSQL($memeCommand) {
 	$orGroups = []; // To hold statements grouped by t$n
 	$querySettings = ['all' => false];
 	$trueCount=0;
+	$table=DB_TABLE_MEME;
 
 	foreach ($memeCommand as $memeStatement) {
 		if ($memeStatement[0][0] === MEME_A && $memeStatement[0][1] === 'qry') {
@@ -172,7 +173,7 @@ function memeCmdSQL($memeCommand) {
 
 	// Get all
 	if ($querySettings['all'] && $trueCount===0 && empty($falseGroup) && empty($orGroups)) {
-		return "SELECT * FROM " . DB_TABLE_MEME;
+		return "SELECT * FROM $table";
 	}
 
 	// Simple query
@@ -220,16 +221,16 @@ function memeCmdSQL($memeCommand) {
 
 	// Process NOT conditions
 	foreach ($falseGroup as $memeStatement) {
-		if ($cteCount===-1) throw new Exception('Query cannot contain only false statements.');
-		$cteSQL[0] = substr($cteSQL[0], 0, -1). ' AND m0.aid NOT IN (SELECT aid FROM '.DB_TABLE_MEME.' WHERE '. end(memeWhere($memeStatement)).'))';
+		if ($trueCount<1) throw new Exception('A query with a false statements must contain at least one non-OR true statement.');
+		$cteSQL[0] = substr($cteSQL[0], 0, -1). " AND m0.aid NOT IN (SELECT aid FROM $table m0 WHERE ". end(memeWhere($memeStatement)).'))';
 	}
 
 
 	$selectSQL=[];
 
 	if ($querySettings['all']) {
-		$selectSQL[]='SELECT * FROM '.DB_TABLE_MEME." WHERE aid IN (SELECT aid FROM z{$cteCount})";
-		$selectSQL[]='SELECT bid as aid, CONCAT("\'", rid), aid as bid, qnt FROM '.DB_TABLE_MEME." WHERE bid IN (SELECT aid FROM z{$cteCount})";
+		$selectSQL[]="SELECT * FROM $table WHERE aid IN (SELECT aid FROM z{$cteCount})";
+		$selectSQL[]='SELECT bid as aid, CONCAT("\'", rid), aid as bid, qnt FROM '."$table WHERE bid IN (SELECT aid FROM z{$cteCount})";
 	}
 	else {
 		foreach ($getGroup as $memeStatement) {
@@ -241,7 +242,7 @@ function memeCmdSQL($memeCommand) {
 		$selectSQL[]="SELECT * FROM z{$cteNum}" .($cteNum===$cteCount ? '' : " WHERE aid IN (SELECT aid FROM z{$cteCount})");
 	}
 
-	return 'WITH '.implode(', ', $cteSQL).' '.implode(' UNION ', $selectSQL);
+	return 'WITH '.implode(', ', $cteSQL).' '.implode(' UNION ALL ', $selectSQL);
 }
 
 
@@ -273,37 +274,31 @@ function memeWhere($memeStatement) {
 	$lastAB=null;
 
 	if ($ridCount) {
-		$ridConcat=[];
-		$bidConcat=[];
-		$qntConcat=[];
+		$ridList=[];
+		$bidList=[];
+		$qntList=[];
 		for ($i=0;$i<$ridCount; $i++) {
 			$wheres[]="m$i.rid=\"{$rids[$i][1]}\"";
-			$ridConcat[]=($rids[$i][0] === MEME_RI ? "'" : '') . $rids[$i][1];
-			$qntConcat[]=($rids[$i][0] === MEME_RI ? "IIF(m$i.qnt=0, 0, 1/m$i.qnt)" : "m$i.qnt");
+			$ridList[]=($rids[$i][0] === MEME_RI ? "'" : '') . $rids[$i][1];
+			$qntList[]=($rids[$i][0] === MEME_RI ? "IIF(m$i.qnt=0, 0, 1/m$i.qnt)" : "m$i.qnt");
 
 			if ($i>0) {
 				$joins[]=$rids[$i][0] === MEME_RI ? "JOIN meme m$i ON $lastAB=m$i.bid" : "JOIN meme m$i ON $lastAB=m$i.aid";
 			}
 
 			$lastAB = $rids[$i][0] === MEME_RI ? "m$i.aid" : "m$i.bid";
-			$bidConcat[]=$lastAB;
+			$bidList[]=$lastAB;
 		}
 
-//		if ($ridCount>1) {
-			$selects=[
-				($rids[0][0] === MEME_RI ? 'm0.bid AS aid' : 'm0.aid AS aid'),
-				'"'.implode('	', $ridConcat).'" AS rid',
-				'CONCAT('.implode(",'	', ", $bidConcat).') AS bid',
-				'CONCAT('.implode(",'	', ", $qntConcat).') AS qnt',
-			];
-		}
-//	}
-
-	if ($aid) {
-		//if (!$bid && !$ridCount) $wheres[0] = "(m0.aid='{$aid}' OR m0.bid='{$aid}')";
-		if ($rids[0][0]) $wheres[] = "m0.bid='{$aid}'";
-		else $wheres[] = "m0.aid='{$aid}'";
+		$selects=[
+			($rids[0][0] === MEME_RI ? 'm0.bid AS aid' : 'm0.aid AS aid'),
+			'"'.implode('	', $ridList).'" AS rid',
+			$ridCount>1 ? 'CONCAT('.implode(",'	', ", $bidList).') AS bid' : $bidList[0],
+			$ridCount>1 ? 'CONCAT('.implode(",'	', ", $qntList).') AS qnt' : $qntList[0],
+		];
 	}
+
+	if ($aid) $wheres[] = ($rids[0][0]===MEME_RI) ?  "m0.bid='{$aid}'" : "m0.aid='{$aid}'";
 
 	if ($bid) {
 		if ($rids[$ridLast][0]===MEME_RI) $wheres[] = "m{$ridLast}.aid='$bid'";
