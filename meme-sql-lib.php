@@ -1,7 +1,5 @@
 <?php
 
-
-
 function memeDeterm ($memeCommands, $write=false) {
 	global $MEME_TERMS;
 	

@@ -115,7 +115,7 @@ try {
 	<th>Which presidents were born before 1820?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.birth.year:year%3C1820"><code class="meme">.<var class="v3">birth.year</var>:<var class="v5">year</var>&lt;<var class="v16">1820</var></code></a></td>
+	<td class="code spa"><a href="?q=.birth.year:ad%3C1820"><code class="meme">.<var class="v3">birth.year</var>:<var class="v5">ad</var>&lt;<var class="v16">1820</var></code></a></td>
 </tr>
 
 <tr>
