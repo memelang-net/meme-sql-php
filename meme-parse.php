@@ -3,10 +3,11 @@
 define('MEME_FALSE', 0);
 define('MEME_TRUE',  1);
 define('MEME_A',     2);
-define('MEME_RI',    3);
-define('MEME_R',     4);
+define('MEME_RB',    3);
+define('MEME_RA',    4);
+define('MEME_RR',    6);
 define('MEME_B',     5);
-define('MEME_EQ',    6);
+define('MEME_EQ',    7);
 define('MEME_DEQ',  16);
 define('MEME_GET',  40);
 define('MEME_ORG',  41);
@@ -17,8 +18,9 @@ global $OPR, $xOPR, $rOPR;
 
 $OPR = [
 	'@'	 => MEME_A,
-	'.'  => MEME_R,
-	'\'' => MEME_RI,
+	'.'  => MEME_RA,
+	'\'' => MEME_RB,
+	'?' => MEME_RR,
 	':'  => MEME_B,
 	'='  => MEME_EQ,
 //	'==' => 8,
@@ -98,6 +100,11 @@ function memeDecode($memeString) {
 
 			// Operators
 			case isset($OPR[$chars[$i]]):
+
+				if ($opid === MEME_RA) $memeExpressions[] = [MEME_RA, NULL];
+				else if ($opid === MEME_RB) $memeExpressions[] = [MEME_RB, NULL];
+				else if ($i>0 && $opid>0) throw new Exception("Extraneous operator at char $i in $memeString");
+
 				$oprstr = '';
 				for ($j = 0; $j < 4 && isset($chars[$i + $j]); $j++) {
 					if (isset($OPR[$chars[$i + $j]]) && ($j === 0 || !isset($xOPR[$chars[$i + $j]]))) {

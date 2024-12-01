@@ -20,6 +20,7 @@ var { font-style:normal; }
 .meme .v16 { color:rgb(0,192,0); } /* #=Q */
 .meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
 
+.off { color:rgb(128,128,128); font-style:italic; }
 
 textarea { width:100%; font-size:1.1rem; box-sizing:border-box; }
 input { width:100%; box-sizing:border-box; font-size: 1.1rem; text-align:center; }
@@ -28,9 +29,9 @@ form, pre, table, .mbe { width:100%; margin-bottom:20px; box-sizing: border-box;
 
 th { text-align:left; background:rgb(43,43,43); padding:8px 12px; }
 td { background:rgb(36,36,36); padding:8px 12px; }
-td.a {width:30%;}
+td.a {width:30%; max-width:200px; overflow:hidden; }
 td.r {width:30%;}
-td.b {width:30%;}
+td.b {width:30%; max-width:200px; overflow:hidden; }
 th.q, td.q {width:10%; text-align: right; }
 
 td.code { display:block; white-space:pre-wrap; }

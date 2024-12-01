@@ -47,12 +47,17 @@ try {
 		$rows=memeQuery($_GET['q']);
 		foreach ($rows as $row) {
 
+			//if ($row[COL_AID]==='NALL') continue;
+
 			print "<tr>";
-			print '<td class="a meme"><a href="?q='.htmlentities($row[COL_AID]).'"><var class="v2">'.$row[COL_AID].'</var></a></td>';
+			print '<td class="a meme"><a href="?q='.htmlentities($row[COL_AID]).'+qry.all"><var class="v2">'.$row[COL_AID].'</var></a></td>';
 
 			print '<td class="r meme"><a href="?q='.(strpos($row[COL_RID],"'")===0?'':'.').urlencode($row[COL_RID]).'"><var class="v3">'.htmlentities($row[COL_RID]).'</var></a></td>';
 
-			print '<td class="b meme"><a href="?q='.urlencode($row[COL_BID]).'"><var class="v5">'.htmlentities($row[COL_BID]).'</var></a></td>';
+			if ($row[COL_BID]==='NALL')
+				print '<td class="b meme"><var class="off">various</var></td>';
+
+			else print '<td class="b meme"><a href="?q='.urlencode($row[COL_BID]).'+qry.all"><var class="v5">'.htmlentities($row[COL_BID]).'</var></a></td>';
 
 			print '<td class="q meme"><var class="v16">'.$row[COL_QNT].'</var></td>';
 
@@ -122,7 +127,7 @@ try {
 	<th>Which presidents attended Columbia and were lawyers?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.college:columbia%20.occupation:lawyer"><code class="meme">.<var class="v3">college</var>:<var class="v5">columbia</var> .<var class="v3">occupation</var>:<var class="v5">lawyer</var></code></a></td>
+	<td class="code spa"><a href="?q=.college:columbia+.lawyer"><code class="meme">.<var class="v3">college</var>:<var class="v5">columbia</var> .<var class="v3">lawyer</var></code></a></td>
 </tr>
 
 
@@ -130,49 +135,56 @@ try {
 	<th>Who were the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.president_order%3E%3D20%20.president_order%3C%3D30"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order%3E%3D20+.president_order%3C%3D30"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var></code></a></td>
 </tr>
 
 <tr>
-	<th>Which presidents attended a college that was NOT Harvard?</th>
+	<th>Which presidents attended a college that was <u>not</u> Harvard?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.college%20.college:harvard%3Df"><code class="meme">.<var class="v3">college</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">f</var></code></a></td>
+	<td class="code spa"><a href="?q=.college+.college:harvard%3Df"><code class="meme">.<var class="v3">college</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
-	<th>Which presidents did NOT have children?</th>
+	<th>Which presidents did <u>not</u> have children?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.president_order%20.child%3Df"><code class="meme">.<var class="v3">president_order</var> .<var class="v3">child</var>=<var class="v6">f</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order+.child%3Df"><code class="meme">.<var class="v3">president_order</var> .<var class="v3">child</var>=<var class="v6">f</var></code></a></td>
 </tr>
 
 <tr>
 	<th>Who were the spouses of the twentieth through thirtieth presidents?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.president_order%3E%3D20%20.president_order%3C%3D30%20.spouse%3Dg"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
+	<td class="code spa"><a href="?q=.president_order%3E%3D20+.president_order%3C%3D30+.spouse%3Dg"><code class="meme">.<var class="v3">president_order</var>&gt;=<var class="v13">20</var> .<var class="v3">president_order</var>&lt;=<var class="v15">30</var> .<var class="v3">spouse</var></code></a></td>
 </tr>
 
 <tr>
 	<th>Use <i>qry.all</i> to return all memes related to the matching As.</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.college:harvard%20.college:columbia%20qry.all"><code class="meme">.<var class="v3">college</var>:<var class="v5">harvard</var> .<var class="v3">college</var>:<var class="v5">columbia</var> <var class="v2">qry</var>.<var class="v3">all</var></code></a></td>
+	<td class="code spa"><a href="?q=.college:harvard+.college:columbia+qry.all"><code class="meme">.<var class="v3">college</var>:<var class="v5">harvard</var> .<var class="v3">college</var>:<var class="v5">columbia</var> <var class="v2">qry</var>.<var class="v3">all</var></code></a></td>
 </tr>
 
 <tr>
 	<th>Get all about James Carter as well as Ronald Reagan.</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=james_carter;%20ronald_reagan"><code class="meme"><var class="v2">james_carter</var>; <var class="v2">ronald_reagan</var></code></a></td>
+	<td class="code spa"><a href="?q=james_carter;+ronald_reagan"><code class="meme"><var class="v2">james_carter</var>; <var class="v2">ronald_reagan</var></code></a></td>
 </tr>
 
 <tr>
 	<th>Which presidents were lawyers that attended Harvard <u>or</u> William and Mary?</th>
 </tr>
 <tr>
-	<td class="code spa"><a href="?q=.occupation:lawyer%20.college:harvard=t1%20.college:william_and_mary=t1"><code class="meme">.<var class="v3">occupation</var>:<var class="v5">lawyer</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">t</var><var class="v41">1</var> .<var class="v3">college</var>:<var class="v5">william_and_mary</var>=<var class="v6">t</var><var class="v41">1</var></code></a></td>
+	<td class="code spa"><a href="?q=.lawyer+.college:harvard=t1+.college:william_and_mary=t1"><code class="meme">.<var class="v3">lawyer</var> .<var class="v3">college</var>:<var class="v5">harvard</var>=<var class="v6">t</var><var class="v41">1</var> .<var class="v3">college</var>:<var class="v5">william_and_mary</var>=<var class="v6">t</var><var class="v41">1</var></code></a></td>
+</tr>
+
+<tr>
+	<th>What were the professions of the presidents?</th>
+</tr>
+<tr>
+	<td class="code spa"><a href="?q=..profession"><code class="meme">..<var class="v3">profession</var></code></a></td>
 </tr>
 
 

@@ -39,6 +39,7 @@ function memeSQLite3($sqlQuery) {
 			$bids=explode("\t", $row[COL_BID]);
 			$qnts=explode("\t", $row[COL_QNT]);
 			foreach ($rids as $j=>$rid) {
+				if ($aid==='NALL') continue;
 				$results[]=serialize([COL_AID=>$aid,COL_RID=>$rid,COL_BID=>$bids[$j],COL_QNT=>$qnts[$j]]);
 				$aid=$bids[$j];
 			}
@@ -66,8 +67,11 @@ function memeMySQL($sqlQuery) {
 				$rids=explode("\t", $row[COL_RID]);
 				$bids=explode("\t", $row[COL_BID]);
 				$qnts=explode("\t", $row[COL_QNT]);
-				foreach ($rids as $j=>$rid)
+				foreach ($rids as $j=>$rid) {
+					if ($aid==='NALL') continue;
 					$results[]=serialize([COL_AID=>$aid,COL_RID=>$rid,COL_BID=>$bids[$j],COL_QNT=>$qnts[$j]]);
+					$aid=$bids[$j];
+				}
 			}
 		}
 	} else {
@@ -96,8 +100,11 @@ function memePostgres($sqlQuery) {
 				$rids=explode("\t", $row[COL_RID]);
 				$bids=explode("\t", $row[COL_BID]);
 				$qnts=explode("\t", $row[COL_QNT]);
-				foreach ($rids as $j=>$rid)
+				foreach ($rids as $j=>$rid) {
+					if ($aid==='NALL') continue;
 					$results[]=serialize([COL_AID=>$aid,COL_RID=>$rid,COL_BID=>$bids[$j],COL_QNT=>$qnts[$j]]);
+					$aid=$bids[$j];
+				}
 			}
 		}
 	} else {
