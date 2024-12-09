@@ -8,17 +8,26 @@ code { font-size:1rem; }
 
 var { font-style:normal; }
 .meme .v2 { color:rgb(0,170,170); } /* A */
-.meme .v3 { color:rgb(213,128,0); } /* .R */
-.meme .v4 { color:rgb(213,128,0); font-style:italic; } /* 'R */
+.meme .v3 { color:rgb(213,128,0); font-style:italic; } /* 'R */
+.meme .v4 { color:rgb(213,128,0); } /* .R */
 .meme .v5 { color:rgb(213,0,213); } /* :B */
-.meme .v6 { color:rgb(0,192,0); font-style:italic; } /* =Q */
-.meme .v10 { color:rgb(0,192,0); } /* !=Q */
-.meme .v12 { color:rgb(0,192,0); } /* >Q */
-.meme .v13 { color:rgb(0,192,0); } /* >=Q */
-.meme .v14 { color:rgb(0,192,0); } /* <Q */
-.meme .v15 { color:rgb(0,192,0); } /* <=Q */
-.meme .v16 { color:rgb(0,192,0); } /* #=Q */
+.meme .v8 { color:rgb(0,192,0); font-style:italic; } /* =Q */
+.meme .v9 { color:rgb(0,192,0); } /* #=Q */
+
+.meme .v11,
+.meme .v12,
+.meme .v13,
+.meme .v14,
+.meme .v15,
+.meme .v16,
+.meme .v17 { color:rgb(0,192,0); } /* <=Q */
+
 .meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
+
+.meme .v42 { color:rgb(213,170,0); } /* ?R */
+.meme .v43,
+.meme .v44 { color:rgb(213,150,0); } /* .R.R */
+
 
 .off { color:rgb(128,128,128); font-style:italic; }
 
@@ -42,4 +51,7 @@ table.err th { background:rgb(85,21,21); }
 table.err td { background:rgb(43,11,11); }
 
 table.sql th { background:rgb(30,43,30);  }
-table.sql td { background:rgb(30,36,30); color:rgb(192,230,192); font-style:italic;  }
+table.sql td { background:rgb(30,36,30); color:rgb(192,230,192); font-style:italic; padding:20px;  }
+
+table.meme th { background:rgb(43,43,30);  }
+table.meme td { background:rgb(36,36,30); padding:20px;  }
