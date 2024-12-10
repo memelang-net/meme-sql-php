@@ -8,7 +8,6 @@ define('DB_USER', 'username');     	// Username for MySQL/Postgres
 define('DB_PASSWORD', 'password'); 	// Password for MySQL/Postgres
 define('DB_NAME', 'database_name'); // Database name for MySQL/Postgres
 define('DB_TABLE_MEME', 'meme');    // Default table name for meme data
-define('DB_TABLE_TERM', 'term');    // Default table name for term data
 
 define('COL_AID', 0);
 define('COL_RID', 1);
@@ -16,14 +15,22 @@ define('COL_BID', 2);
 define('COL_QNT', 3);
 
 
-function memeSQLDB ($sqlQuery) {
-	switch (DB_TYPE) {
-		case 'sqlite3': return memeSQLite3($sqlQuery);
-		case 'mysql': return memeMySQL($sqlQuery);
-		case 'postgres': return memePostgres($sqlQuery);
-		default: throw new Exception("Unsupported database type: " . DB_TYPE);
+// Main function to process memelang query and return results
+function memeQuery($memeString) {
+	try {
+		$sqlQuery = memeSQL($memeString);
+
+		switch (DB_TYPE) {
+			case 'sqlite3': return memeSQLite3($sqlQuery);
+			case 'mysql': return memeMySQL($sqlQuery);
+			case 'postgres': return memePostgres($sqlQuery);
+			default: throw new Exception("Unsupported database type: " . DB_TYPE);
+		}
+	} catch (Exception $e) {
+		return "Error: " . $e->getMessage();
 	}
 }
+
 
 // SQLite3 database query function
 function memeSQLite3($sqlQuery) {

@@ -2,33 +2,16 @@
 
 define('MEME_BID_AS_AID', 'm0.bid AS aid');
 
-// Main function to process memelang query and return results
-function memeQuery($memeString) {
-	try {
-		$sqlQuery = memeSQL($memeString);
-
-		switch (DB_TYPE) {
-			case 'sqlite3': return memeSQLite3($sqlQuery);
-			case 'mysql': return memeMySQL($sqlQuery);
-			case 'postgres': return memePostgres($sqlQuery);
-			default: throw new Exception("Unsupported database type: " . DB_TYPE);
-		}
-	} catch (Exception $e) {
-		return "Error: " . $e->getMessage();
-	}
-}
-
 // Translate a Memelang query (which may contain multiple commands) into SQL
-function memeSQL($memeString) {
+function memeSQL($memeString, $table=DB_TABLE_MEME) {
 	$queries=[];
 	$memeCommands=memeDecode($memeString);
-	foreach ($memeCommands as $memeCommand) $queries[]=memeCmdSQL($memeCommand);
+	foreach ($memeCommands as $memeCommand) $queries[]=memeCmdSQL($memeCommand, $table);
 	return implode(' UNION ALL ', $queries);
 }
 
 // Translate one Memelang command into SQL
-function memeCmdSQL($memeCommand) {
-	$table=DB_TABLE_MEME;
+function memeCmdSQL($memeCommand, $table=DB_TABLE_MEME) {
 	$querySettings = ['all' => false];
 	$trueGroup = [];
 	$falseGroup = [];
@@ -100,7 +83,7 @@ function memeCmdSQL($memeCommand) {
 				$cteCount++;
 
 				foreach ($bidGroup as $memeStatement) {
-					list($select, $where)=memeSelectWhere($memeStatement);
+					list($select, $where)=memeSelectWhere($memeStatement, $table);
 					if (empty($wheres)) $wheres[]=$where;
 					else $wheres[]=substr($where, strpos($where, 'qnt')-4, 99);
 				}
@@ -119,7 +102,7 @@ function memeCmdSQL($memeCommand) {
 		$cteCount++;
 		$orSQL = [];
 		foreach ($orGroup as $memeStatement) {
-			$orSQL[]=implode(' WHERE ', memeSelectWhere($memeStatement))
+			$orSQL[]=implode(' WHERE ', memeSelectWhere($memeStatement, $table))
 				.($cteCount>0 ? ' AND m0.aid IN (SELECT aid FROM z'.($cteCount-1).')' : '');
 		}
 		$cteSQL[$cteCount] = "z$cteCount AS (".implode(' UNION ALL ', $orSQL).')';
@@ -131,7 +114,7 @@ function memeCmdSQL($memeCommand) {
 		if ($trueCount<1) throw new Exception('A query with a false statements must contain at least one non-OR true statement.');
 
 		$falseSQL=[];
-		foreach ($falseGroup as $memeStatement) $falseSQL[]="aid NOT IN (". implode(' WHERE ', memeSelectWhere($memeStatement, true)).')';
+		foreach ($falseGroup as $memeStatement) $falseSQL[]="aid NOT IN (". implode(' WHERE ', memeSelectWhere($memeStatement, $table, true)).')';
 
 		$fsql="SELECT aid FROM z$cteCount WHERE ".implode(' AND ', $falseSQL);
 		$cteSQL[++$cteCount] = "z$cteCount AS ($fsql)";
@@ -152,7 +135,7 @@ function memeCmdSQL($memeCommand) {
 	// otherwise select the matching and the GET fields
 	else {
 		foreach ($getGroup as $memeStatement)
-			$selectSQL[]=implode(' WHERE ', memeSelectWhere($memeStatement))." AND m0.aid IN (SELECT aid FROM z{$cteCount})";
+			$selectSQL[]=implode(' WHERE ', memeSelectWhere($memeStatement, $table))." AND m0.aid IN (SELECT aid FROM z{$cteCount})";
 	}
 
 	foreach ($cteOut as $cteNum)
@@ -163,7 +146,7 @@ function memeCmdSQL($memeCommand) {
 
 
 // Translate an $memeStatement array of ARBQ into an SQL WHERE clause
-function memeSelectWhere($memeStatement, $aidOnly=false) {
+function memeSelectWhere($memeStatement, $table=DB_TABLE_MEME, $aidOnly=false) {
 	global $OPRSTR;
 
 	$wheres = [];
@@ -272,7 +255,7 @@ function memeSelectWhere($memeStatement, $aidOnly=false) {
 	}
 
 	return [
-		'SELECT '.implode(', ', $selects).' FROM '.DB_TABLE_MEME.' m0 '.implode(' ', $joins),
+		'SELECT '.implode(', ', $selects)." FROM $table m0 ".implode(' ', $joins),
 		implode(' AND ', $wheres)
 	];
 }

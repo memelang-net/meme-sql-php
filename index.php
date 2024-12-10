@@ -4,16 +4,75 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ERROR | E_PARSE);
 
-require __DIR__.'/meme-sql-conf.php';
-require __DIR__.'/meme-sql-lib.php';
+require __DIR__.'/meme-db.php';
 require __DIR__.'/meme-parse.php';
+require __DIR__.'/meme-sql.php';
 
 ?>
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
 <title>Memelang SQL Demo</title>
-<link rel="stylesheet" type="text/css" href="./style.css">
+<style type="text/css">
+	body { line-height:150%; background:rgb(11,11,11); color:rgb(230,230,230); font-family:sans-serif; margin:60px 0 100px 0; }
+a { color:rgb(170,170,192); text-decoration:none; }
+a:hover { text-decoration:underline; }
+main { max-width: 700px; width: 94%; margin:0 auto; }
+pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); background:rgb(43,43,43); white-space:pre-wrap; font-size:1rem; }
+
+code { font-size:1rem; }
+
+var { font-style:normal; }
+.meme .v3 { color:rgb(0,170,170); } /* A */
+.meme .v4 { color:rgb(213,0,213); } /* :B */
+.meme .v5 { color:rgb(213,128,0); font-style:italic; } /* 'R */
+.meme .v6 { color:rgb(213,128,0); } /* .R */
+.meme .v8 { color:rgb(0,192,0); font-style:italic; } /* =Q */
+.meme .v9 { color:rgb(0,192,0); } /* #=Q */
+
+.meme .v11,
+.meme .v12,
+.meme .v13,
+.meme .v14,
+.meme .v15,
+.meme .v16,
+.meme .v17 { color:rgb(0,192,0); } /* <=Q */
+
+.meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
+
+.meme .v33 { color:rgb(213,150,0); } /* .R.R */
+.meme .v34 { color:rgb(213,150,0); font-style:italic; } /* .R'R */
+.meme .v36,
+.meme .v35 { color:rgb(213,170,0); } /* ?R */
+
+
+.off { color:rgb(128,128,128); font-style:italic; }
+
+textarea { width:100%; font-size:1.1rem; box-sizing:border-box; }
+input { width:100%; box-sizing:border-box; font-size: 1.1rem; text-align:center; }
+form { display:block; margin-bottom:20px; text-align:center; }
+form, pre, table, .mbe { width:100%; margin-bottom:20px; box-sizing: border-box; }
+
+th { text-align:left; background:rgb(43,43,43); padding:8px 12px; }
+td { background:rgb(36,36,36); padding:8px 12px; }
+td.a {width:30%; max-width:166px; overflow:hidden; }
+td.r {width:30%; max-width:166px; }
+td.b {width:30%; max-width:166px; overflow:hidden; }
+th.q, td.q {width:10%; text-align: right; }
+
+td.code { display:block; white-space:pre-wrap; }
+td.spa { margin-bottom:6px; }
+
+
+table.err th { background:rgb(85,21,21); }
+table.err td { background:rgb(43,11,11); }
+
+table.sql th { background:rgb(30,43,30);  }
+table.sql td { background:rgb(30,36,30); color:rgb(192,230,192); font-style:italic; padding:20px;  }
+
+table.meme th { background:rgb(43,43,30);  }
+table.meme td { background:rgb(36,36,30); padding:20px;  }
+</style>
 </head>
 <body>
 <main>
