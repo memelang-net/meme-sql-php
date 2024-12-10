@@ -19,11 +19,13 @@ Installation on Ubuntu for SQLite:
 	# Create database
 	cat ./data.sql | sqlite3 ./data.sqlite
 
+	# Execute in CLI
+	php index.php john_adams.child
+
 
 ## Files
 * *data.sql* sample ARBQ data in SQL format
-* *data.sqlite* sample ARBQ data in an SQLite binary file
-* *index.php* HTML interface to make queries
+* *index.php* CLI and HTML interface to make queries
 * *meme-db.php* configuration file to establish database connection
 * *meme-parse.php* parses Memelang commands into an array
-* *meme-sql.php* library to convert Memelang to SQL and execute on database
+* *meme-sql.php* library to convert Memelang to SQL

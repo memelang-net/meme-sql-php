@@ -8,6 +8,35 @@ require __DIR__.'/meme-db.php';
 require __DIR__.'/meme-parse.php';
 require __DIR__.'/meme-sql.php';
 
+
+// CLI
+
+if (php_sapi_name() == "cli") {
+	$args=implode('', array_slice($argv, 1, 99));
+
+	echo "\nMEMELANG: ".memeEncode(memeDecode($args),['short'=>1])."\n\n";
+	echo 'SQL: '.memeSQL($args)."\n\n";
+	echo "RESULTS:\n".str_repeat('-', 78)."\n";
+	echo "A                   | R                   | B                    |           Q\n";
+	echo str_repeat('-', 78)."\n";
+
+	$rows=memeQuery($args);
+
+	if (empty($rows)) print "No matching memes.";
+	else {
+		foreach ($rows as &$row) {
+			echo str_pad(substr($row[COL_AID],0,18), 20, ' ');
+			echo '| '.str_pad(substr($row[COL_RID],0,18), 20, ' ');
+			echo '| '.str_pad(substr($row[COL_BID],0,18), 21, ' ');
+			echo '| '.str_pad(substr($row[COL_QNT],0,8), 11, ' ', STR_PAD_LEFT); 
+			echo "\n";
+		}
+	}
+
+	exit("\n\n");
+}
+
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en-US">
