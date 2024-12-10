@@ -4,6 +4,21 @@ These PHP scripts receive [Memelang](https://memelang.net/) queries, convert the
 
 Try the demo at http://demo.memelang.net/
 
+
+## Installation
+
+Installation on Ubuntu for SQLite:
+
+	# Install packages
+	sudo apt install -y php sqlite3 git php-sqlite3
+	
+	# Download files
+	git clone https://github.com/memelang-net/meme-sql-php.git
+	
+	# Create database
+	cat data.sql | sqlite3 ./data.sqlite
+
+
 ## Files
 * *data.sql* sample ARBQ data in SQL format
 * *data.sqlite* sample ARBQ data in an SQLite binary file
