@@ -7,10 +7,10 @@ pre { display: block; padding:20px; border-left:4px solid rgb(85,85,85); backgro
 code { font-size:1rem; }
 
 var { font-style:normal; }
-.meme .v2 { color:rgb(0,170,170); } /* A */
-.meme .v3 { color:rgb(213,128,0); font-style:italic; } /* 'R */
-.meme .v4 { color:rgb(213,128,0); } /* .R */
-.meme .v5 { color:rgb(213,0,213); } /* :B */
+.meme .v3 { color:rgb(0,170,170); } /* A */
+.meme .v4 { color:rgb(213,0,213); } /* :B */
+.meme .v5 { color:rgb(213,128,0); font-style:italic; } /* 'R */
+.meme .v6 { color:rgb(213,128,0); } /* .R */
 .meme .v8 { color:rgb(0,192,0); font-style:italic; } /* =Q */
 .meme .v9 { color:rgb(0,192,0); } /* #=Q */
 
@@ -24,9 +24,10 @@ var { font-style:normal; }
 
 .meme .v41 { color:rgb(128,170,128); font-style:italic; vertical-align: baseline; font-size:80%; } /* ORG */
 
-.meme .v42 { color:rgb(213,170,0); } /* ?R */
-.meme .v43,
-.meme .v44 { color:rgb(213,150,0); } /* .R.R */
+.meme .v33 { color:rgb(213,150,0); } /* .R.R */
+.meme .v34 { color:rgb(213,150,0); font-style:italic; } /* .R'R */
+.meme .v36,
+.meme .v35 { color:rgb(213,170,0); } /* ?R */
 
 
 .off { color:rgb(128,128,128); font-style:italic; }
@@ -38,9 +39,9 @@ form, pre, table, .mbe { width:100%; margin-bottom:20px; box-sizing: border-box;
 
 th { text-align:left; background:rgb(43,43,43); padding:8px 12px; }
 td { background:rgb(36,36,36); padding:8px 12px; }
-td.a {width:30%; max-width:200px; overflow:hidden; }
-td.r {width:30%;}
-td.b {width:30%; max-width:200px; overflow:hidden; }
+td.a {width:30%; max-width:166px; overflow:hidden; }
+td.r {width:30%; max-width:166px; }
+td.b {width:30%; max-width:166px; overflow:hidden; }
 th.q, td.q {width:10%; text-align: right; }
 
 td.code { display:block; white-space:pre-wrap; }

@@ -2,86 +2,6 @@
 
 define('MEME_BID_AS_AID', 'm0.bid AS aid');
 
-function memeDeterm ($memeCommands, $write=false) {
-	global $MEME_TERMS;
-
-	$lookups=[];
-	$missings=[];
-
-	foreach ($memeCommands as $i=>&$memeCommand) {
-		foreach ($memeCommand as $j=>&$memeStatement) {
-			foreach ($memeStatement as $k=>&$memeExpression) {
-				if (ctype_alpha(substr($memeExpression[1], 0, 1))) {
-
-					if ($MEME_TERMS[$memeExpression[1]]) $memeExpression[1]=$MEME_TERMS[$memeExpression[1]];
-
-					else {
-						if (!isset($lookups[$memeExpression[1]])) $lookups[$memeExpression[1]]=MEME_A;
-
-						if ($write) {
-							if ($memeExpression[0]===MEME_R) $lookups[$memeExpression[1]]=MEME_R;
-							else if ($memeExpression[0]===MEME_RI) $lookups[$memeExpression[1]]=MEME_R;
-
-							// work on this
-							else if ($memeStatement[$k+1][1]==='is' && $memeStatement[$k+2][1]==='rel') $lookups[$memeExpression[1]]=MEME_R;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if (empty($lookups)) return $memeCommands;
-
-//	print_r($lookups);
-
-	$sqlQuery='SELECT * FROM '. DB_TABLE_TERM .' WHERE str IN (\''.implode("','", array_keys($lookups)).'\')';
-
-//	$rows=memeSQLDB($sqlQuery);
-
-	foreach ($rows as $row) $MEME_TERMS[$row['str']]=$row['aid'];
-
-	foreach ($memeCommands as $i=>&$memeCommand) {
-		foreach ($memeCommand as $j=>&$memeStatement) {
-			foreach ($memeStatement as $k=>&$memeExpression) {
-				if (ctype_alpha(substr($memeExpression[1], 0, 1))) {
-					if ($MEME_TERMS[$memeExpression[1]]) $memeExpression[1]=$MEME_TERMS[$memeExpression[1]];
-					else $missings[$memeExpression[1]]=1;
-				}
-			}
-		}
-	}
-
-	if (!empty($missings)) {
-		$writtings=[];
-		if (!$write) throw new Exception("Unidentified terms: " . implode(', ', array_keys($missings)));
-		else {
-
-//			$maxq=memeSQLDB('SELECT MAX(aid) FROM '.DB_TABLE_TERM);
-			$maxq=[[110]];
-			$max=(int)current(current($maxq));
-
-			foreach ($missings as $word=>$x) {
-				$max++;
-				if ($lookups[$word]===MEME_R || $lookups[$word]===MEME_RI) {
-					if ($max%2===1) $max++;
-				}
-				$MEME_TERMS[$word]=$max;
-				$writtings[]='('.$max.','.MEME_TERM.',\''.$word.'\')';
-			}
-		}
-
-		$writeSQL='INSERT INTO '.DB_TABLE_TERM.' (aid,rid,str) VALUES '.implode(',', $writtings);
-		print $writeSQL;
-//		memeSQLDB($writeSQL);
-	}
-
-	unset($lookups,$missings,$writtings);
-
-	return $memeCommands;
-}
-
-
 // Main function to process memelang query and return results
 function memeQuery($memeString) {
 	try {
@@ -244,7 +164,7 @@ function memeCmdSQL($memeCommand) {
 
 // Translate an $memeStatement array of ARBQ into an SQL WHERE clause
 function memeSelectWhere($memeStatement, $aidOnly=false) {
-	global $rOPR;
+	global $OPRSTR;
 
 	$wheres = [];
 	$joins=[];
@@ -283,17 +203,15 @@ function memeSelectWhere($memeStatement, $aidOnly=false) {
 		else if ($exp[0] === MEME_B) {
 
 			// inverse
-			if ($memeStatement[$i-1][0] === MEME_RI || $memeStatement[$i-1][0] === MEME_BB) {
+			if ($memeStatement[$i-1][0] === MEME_RI || $memeStatement[$i-1][0] === MEME_BB)
 				$wheres[] = "m$m.aid='{$exp[1]}'";
-			}
-			else {
+			else
 				$wheres[] = "m$m.bid='{$exp[1]}'";
-			}
 		}
 
 		// Q
-		else if ($exp[0]>=MEME_EQ_BEG && $exp[0]<=MEME_EQ_END) {
-			$opr = $exp[0]===MEME_DEQ ? '=' : $rOPR[$exp[0]];
+		else if ($exp[0] >= MEME_EQ && $exp[0] <= MEME_LSE) {
+			$opr = $exp[0]===MEME_DEQ ? '=' : $OPRSTR[$exp[0]];
 			$qnt = $exp[1];
 		}
 
@@ -304,28 +222,35 @@ function memeSelectWhere($memeStatement, $aidOnly=false) {
 			$wheres[] = "m$m.rid=\"{$exp[1]}\"";
 			$wheres[] = "m$lm.qnt!=0";
 			
-			if ($exp[0] === MEME_BA) {
-				$joins[] = "JOIN meme m$m ON ".end($bids)."=m$m.aid";
-				$rids[] = "m$m.rid";
-				$bids[] = "m$m.bid";
-				$qnts[] = "m$m.qnt";
-				$joinPrev = "m$m.bid";
-			} else if ($exp[0] === MEME_BB) {
-				$joins[] = "JOIN meme m$m ON ".end($bids)."=m$m.bid";
-				$rids[] = "CONCAT(\"'\", m$m.rid)";
-				$bids[] = "m$m.aid";
-				$qnts[] = "(CASE WHEN m$m.qnt = 0 THEN 0 ELSE 1 / m$m.qnt END)";
-			} else if ($exp[0] === MEME_RA) {
-				$joins[]="JOIN meme m$m ON m$lm.rid=m$m.aid";
-				$rids[] = "CONCAT(\"?\", m$m.rid)";
-				$bids[] = "m$m.bid";
-				$qnts[] = "m$m.qnt";
-			} else if ($exp[0] === MEME_RB) {
-				$joins[]="JOIN meme m$m ON m$lm.rid=m$m.bid";
-				$rids[] = "CONCAT(\"'\", m$m.rid)";
-				$bids[] = "m$m.aid";
-				$qnts[] = "(CASE WHEN m$m.qnt = 0 THEN 0 ELSE 1 / m$m.qnt END)";
-			} else throw new Exception('Error: unknown operator');
+			switch ($exp[0]) {
+				case MEME_BA:
+					$joins[] = "JOIN meme m$m ON ".end($bids)."=m$m.aid";
+					$rids[] = "m$m.rid";
+					$bids[] = "m$m.bid";
+					$qnts[] = "m$m.qnt";
+					$joinPrev = "m$m.bid";
+					break;
+				case MEME_BB:
+					$joins[] = "JOIN meme m$m ON ".end($bids)."=m$m.bid";
+					$rids[] = "CONCAT(\"'\", m$m.rid)";
+					$bids[] = "m$m.aid";
+					$qnts[] = "(CASE WHEN m$m.qnt = 0 THEN 0 ELSE 1 / m$m.qnt END)";
+					break;
+				case MEME_RA:
+					$joins[]="JOIN meme m$m ON m$lm.rid=m$m.aid";
+					$rids[] = "CONCAT(\"?\", m$m.rid)";
+					$bids[] = "m$m.bid";
+					$qnts[] = "m$m.qnt";
+					break;
+				case MEME_RB:
+					$joins[]="JOIN meme m$m ON m$lm.rid=m$m.bid";
+					$rids[] = "CONCAT(\"'\", m$m.rid)";
+					$bids[] = "m$m.aid";
+					$qnts[] = "(CASE WHEN m$m.qnt = 0 THEN 0 ELSE 1 / m$m.qnt END)";
+					break;
+				default:
+					throw new Exception('Error: unknown operator');
+			}
 		}
 	}
 

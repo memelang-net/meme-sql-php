@@ -42,17 +42,19 @@ try {
 		$rows=memeQuery($_GET['q']);
 		foreach ($rows as $row) {
 
+			$inv=(strpos($row[COL_RID],"'")===0);
+
 			//if ($row[COL_AID]==='UNK') continue;
 
 			print "<tr>";
-			print '<td class="a meme"><a href="?q='.htmlentities($row[COL_AID]).'+qry.all"><var class="v2">'.$row[COL_AID].'</var></a></td>';
+			print '<td class="a meme"><a href="?q='.htmlentities($row[COL_AID]).'+qry.all"><var class="v3">'.$row[COL_AID].'</var></a></td>';
 
-			print '<td class="r meme"><a href="?q='.(strpos($row[COL_RID],"'")===0?'':'.').urlencode($row[COL_RID]).'"><var class="v4">'.htmlentities($row[COL_RID]).'</var></a></td>';
+			print '<td class="r meme"><a href="?q='.($inv?'':'.').urlencode($row[COL_RID]).'"><var class="v'.($inv?'5':'6').'">'.htmlentities($row[COL_RID]).'</var></a></td>';
 
 			if ($row[COL_BID]==='UNK')
 				print '<td class="b meme"><var class="off">various</var></td>';
 
-			else print '<td class="b meme"><a href="?q='.urlencode($row[COL_BID]).'+qry.all"><var class="v5">'.htmlentities($row[COL_BID]).'</var></a></td>';
+			else print '<td class="b meme"><a href="?q='.urlencode($row[COL_BID]).'+qry.all"><var class="v4">'.htmlentities($row[COL_BID]).'</var></a></td>';
 
 			print '<td class="q meme"><var class="v9">'.$row[COL_QNT].'</var></td>';
 

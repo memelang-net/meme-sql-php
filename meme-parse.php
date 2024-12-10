@@ -2,43 +2,48 @@
 
 define('MEME_FALSE', 0);
 define('MEME_TRUE',  1);
-define('MEME_A',     2);
-define('MEME_RI',    3);
-define('MEME_R',     4);
-define('MEME_B',     5);
+define('MEME_UNK',   2);
+
+define('MEME_A',     3);
+define('MEME_B',     4);
+
+define('MEME_RI',    5);
+define('MEME_R',     6);
 
 define('MEME_EQ',    8);
 define('MEME_DEQ',   9);
+define('MEME_NEQ',   10);
+define('MEME_GRT',   11);
+define('MEME_GRE',   12);
+define('MEME_LST',   13);
+define('MEME_LSE',   14);
 
-define('MEME_GET',  40);
-define('MEME_ORG',  41);
-define('MEME_RA',   42);
-define('MEME_BB',   43);
-define('MEME_BA',   44);
-define('MEME_RB',   45);
+define('MEME_BA',    33);
+define('MEME_BB',    34);
+define('MEME_RA',    35);
+define('MEME_RB',    36);
 
-define('MEME_EQ_BEG',    MEME_EQ);
-define('MEME_EQ_END',    17);
+define('MEME_GET',   40);
+define('MEME_ORG',   41);
 
-define('MEME_TERM', 99);
+define('MEME_TERM',  99);
 
-global $OPR, $OPRCHAR, $rOPR;
+global $OPRINT, $OPRCHAR, $OPRSTR, $OPRSHORT;
 
-$OPR = [
+$OPRINT = [
 	'@'	   => MEME_A,
+	':'    => MEME_B,
 	'.'    => MEME_R,
 	'\''   => MEME_RI,
-	':'    => MEME_B,
+
 	'='    => MEME_EQ,
  	'#='   => MEME_DEQ,
-	'=='   => 10,
-	'=>'   => 11,
-	'!='   => 12,
-	'!=='  => 13,
-	'>'    => 14,
-	'>='   => 15,
-	'<'    => 16,
-	'<='   => 17,
+	'!='   => MEME_NEQ,
+	'>'    => MEME_GRT,
+	'>='   => MEME_GRE,
+	'<'    => MEME_LST,
+	'<='   => MEME_LSE,
+
 	'?'    => MEME_RA,
 	'[ra]' => MEME_RA,
 	'?\''  => MEME_RB,
@@ -46,7 +51,8 @@ $OPR = [
 	'[ba]' => MEME_BA,
 	'[bb]' => MEME_BB,
 ];
-$rOPR=array_flip($OPR);
+$OPRSTR=array_flip($OPRINT);
+
 
 $OPRCHAR = [
 	'.' => 1,
@@ -62,9 +68,17 @@ $OPRCHAR = [
 	'<' => 2,
 ];
 
+$OPRSHORT = [
+	MEME_BA => '.',
+	MEME_BB => '\'',
+	MEME_RA => '?',
+	MEME_RB => '?\'',
+];
+
+
 // Parse a Memelang query into expressionss
 function memeDecode($memeString) {
-	global $OPRCHAR, $OPR;
+	global $OPRCHAR, $OPRINT;
 
 	// Normalize and clean input
 	$memeString = preg_replace('/\s+/', ' ', trim($memeString));
@@ -79,8 +93,9 @@ function memeDecode($memeString) {
 	$memeExpressions = [];
 	$chars = str_split($memeString);
 	$count = count($chars);
-	$oprFound = [MEME_A=>0,MEME_R=>0,MEME_B=>0,MEME_EQ=>0];
-	$opid = MEME_A;
+	$oprFound = [MEME_A=>0,MEME_B=>0,MEME_R=>0,MEME_EQ=>0,MEME_RA=>0];
+	$oprid = MEME_A;
+	$oprgrp = MEME_A;
 	$oprstr = '';
 
 	for ($i = 0; $i < $count; $i++) {
@@ -89,8 +104,9 @@ function memeDecode($memeString) {
 		switch (true) {
 			// Semicolon separates commands
 			case $chars[$i] === ';':
-				$opid = MEME_A;
-				$oprFound = [MEME_A=>0,MEME_R=>0,MEME_B=>0,MEME_EQ=>0];
+				$oprid = MEME_A;
+				$oprgrp = MEME_A;
+				$oprFound = [MEME_A=>0,MEME_B=>0,MEME_R=>0,MEME_EQ=>0,MEME_RA=>0];
 				if (!empty($memeExpressions)) {
 					$memeStatements[] = $memeExpressions;
 					$memeExpressions = [];
@@ -103,8 +119,9 @@ function memeDecode($memeString) {
 
 			// Space separates statements
 			case ctype_space($chars[$i]):
-				$opid = MEME_A;
-				$oprFound = [MEME_A=>0,MEME_R=>0,MEME_B=>0,MEME_EQ=>0];
+				$oprid = MEME_A;
+				$oprgrp = MEME_A;
+				$oprFound = [MEME_A=>0,MEME_B=>0,MEME_R=>0,MEME_EQ=>0,MEME_RA=>0];
 				if (!empty($memeExpressions)) {
 					$memeStatements[] = $memeExpressions;
 					$memeExpressions = [];
@@ -121,41 +138,46 @@ function memeDecode($memeString) {
 
 				$oprstr=substr($memeString, $i, 4);
 
-				if (!($opid = $OPR[$oprstr])) throw new Exception("Operator $oprstr not recognized at char $i in $memeString");
+				if (!($oprid = $OPRINT[$oprstr])) throw new Exception("Operator $oprstr not recognized at char $i in $memeString");
 
-				$i+=3;
-				if ($chars[$i]==='.') $i++; // extraneous dot in [xx].
+				$oprgrp = $oprid;
+
+				$i+= ($chars[$i]==='.') ? 4 : 3; // extraneous dot in [xx].
 				break;
 
 			// Operators
-			case isset($OPR[$chars[$i]]):
+			case isset($OPRINT[$chars[$i]]):
 
 				// previous operator was followed by empty string
-				if ($opid === MEME_R) $memeExpressions[] = [MEME_R, NULL];
-				else if ($opid === MEME_RI) $memeExpressions[] = [MEME_RI, NULL];
-				//else if ($i>0 && $opid>MEME_A) throw new Exception("Extraneous operator at char $i in $memeString");
+				if ($oprgrp === MEME_R) $memeExpressions[] = [MEME_RI, NULL];
+				//else if ($i>0 && $oprid>MEME_A) throw new Exception("Extraneous operator at char $i in $memeString");
 
 				$oprstr = '';
 				for ($j = 0; $j < 3 && isset($chars[$i + $j]); $j++) {
-					if (isset($OPR[$chars[$i + $j]]) && ($j === 0 || $OPRCHAR[$chars[$i + $j]]===2)) {
+					if (isset($OPRINT[$chars[$i + $j]]) && ($j === 0 || $OPRCHAR[$chars[$i + $j]]===2)) {
 						$oprstr .= $chars[$i + $j];
 					} else break;
 				}
 
-				if (!isset($OPR[$oprstr])) throw new Exception("Operator $oprstr not recognized at char $i in $memeString");
+				if (!isset($OPRINT[$oprstr])) throw new Exception("Operator $oprstr not recognized at char $i in $memeString");
 
-				$opid = $OPR[$oprstr];
+				$oprid  = $OPRINT[$oprstr];
 
-				// tally used operators
-				if ($opid===MEME_R || $opid===MEME_RI) {
-					$oprFound[MEME_R]++;
-					if ($oprFound[MEME_B]>0) throw new Exception("Errant R after B at char $i in $memeString");
+				switch (true) {
+					case $oprid <= MEME_B: $oprgrp = $oprid; break;
+					case $oprid <= MEME_R: $oprgrp = MEME_R; break;
+					case $oprid <= MEME_LSE: $oprgrp = MEME_EQ; break;
+					default: $oprgrp = MEME_RA; break;
 				}
-				else if ($opid>=MEME_EQ_BEG && $opid<=MEME_EQ_END) {
-					if (++$oprFound[MEME_EQ]>1) throw new Exception("Redundant Q operator at char $i in $memeString");
-				} elseif ($opid===MEME_A || $opid===MEME_B) $oprFound[$opid]++;
 
-				$i += strlen($oprstr) - 1;
+				$oprFound[$oprgrp]++;
+
+				// error checks
+				if ($oprgrp === MEME_R && $oprFound[MEME_B]>0) throw new Exception("Errant R after B at char $i in $memeString");
+
+				if ($oprgrp === MEME_EQ && $oprFound[MEME_EQ]>1) throw new Exception("Extraneous equality operator at char $i in $memeString");
+
+				$i += $j - 1;
 				break;
 
 			// Words (A-Z identifiers)
@@ -165,7 +187,7 @@ function memeDecode($memeString) {
 
 				$i--; // Adjust for last increment
 
-				if ($opid === MEME_EQ) {
+				if ($oprid === MEME_EQ) {
 
 					// =t
 					if ($varstr === 't') $memeExpressions[] = [MEME_EQ, MEME_TRUE];
@@ -185,17 +207,18 @@ function memeDecode($memeString) {
 					} else throw new Exception("Unrecognized =Q at char $i in $memeString");
 
 				// .R.R
-				} elseif ($opid === MEME_R  && $oprFound[MEME_R]>1) {
+				} elseif ($oprid === MEME_R  && $oprFound[MEME_R]>1)
 					$memeExpressions[] = [MEME_BA, (string)$varstr];
 
 				// .R'R
-				} elseif ($opid === MEME_RI  && $oprFound[MEME_R]>1) {
+				elseif ($oprid === MEME_RI  && $oprFound[MEME_R]>1)
 					$memeExpressions[] = [MEME_BB, (string)$varstr];
 
 				// @A .R :B
-				} else $memeExpressions[] = [$opid, (string)$varstr];
+				else $memeExpressions[] = [$oprid, (string)$varstr];
 				
-				$opid = null;
+				$oprid = 0;
+				$oprgrp = 0;
 				break;
 
 			// Numbers (integers or decimals)
@@ -203,10 +226,13 @@ function memeDecode($memeString) {
 				while ($i < $count && preg_match('/[0-9.\-]/', $chars[$i]))
 					$varstr .= $chars[$i++];
 
+				if (!preg_match('/^-?\d*(\.\d+)?$/', $varstr))
+					throw new Exception("Malformed number $varstr at char $i in $memeString");
+
 				$i--; // Adjust for last increment
-				if ($opid===MEME_EQ) $opid=MEME_DEQ;
-				$memeExpressions[] = [$opid, (float)$varstr];
-				$opid = null;
+				if ($oprid===MEME_EQ) $oprid=MEME_DEQ;
+				$memeExpressions[] = [$oprid, (float)$varstr];
+				$oprid = 0;
 				break;
 
 			default:
@@ -215,6 +241,7 @@ function memeDecode($memeString) {
 	}
 
 	// Finalize parsing
+	if ($oprid === MEME_RI) $memeExpressions[] = [MEME_RI, NULL];
 	if (!empty($memeExpressions)) $memeStatements[] = $memeExpressions;
 	if (!empty($memeStatements)) $memeCommands[] = $memeStatements;
 
@@ -223,7 +250,7 @@ function memeDecode($memeString) {
 
 
 function memeEncode($memeCommands, $set = []) {
-	global $OPR, $rOPR;
+	global $OPRSTR, $OPRSHORT;
 
 	// Initialize the result array for encoded commands
 	$commandArray = [];
@@ -257,18 +284,9 @@ function memeEncode($memeCommands, $set = []) {
 				}
 
 				// shorten [ba] to .
-				elseif (!empty($set['short']) && $exp[0] === MEME_BA) $oprstr='.';
+				elseif (!empty($set['short']) && !empty($OPRSHORT[$exp[0]])) $oprstr=$OPRSHORT[$exp[0]];
 
-				// shorten [bb] to '
-				elseif (!empty($set['short']) && $exp[0] === MEME_BB) $oprstr='\'';
-
-				// shorten [ra] to ?
-				elseif (!empty($set['short']) && $exp[0] === MEME_RA) $oprstr='?';
-
-				// shorten [rb] to ?'
-				elseif (!empty($set['short']) && $exp[0] === MEME_RB) $oprstr='?\'';
-
-				else $oprstr = $rOPR[$exp[0]];
+				else $oprstr = $OPRSTR[$exp[0]];
 
 
 				// Append the encoded expression to the statement
@@ -289,7 +307,7 @@ function memeEncode($memeCommands, $set = []) {
 	}
 
 	// Return all commands as a semicolon-separated string (optionally in HTML format)
-	if (!empty($set['html'])) return '<code class="meme">' . implode(';</code> <code class="meme">', $commandArray) . ';</code>';
+	if (!empty($set['html'])) return '<code class="meme">' . implode(';</code> <code class="meme">', $commandArray) . '</code>';
 	else return implode('; ', $commandArray);
 }
 
