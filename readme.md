@@ -14,9 +14,10 @@ Installation on Ubuntu for SQLite:
 	
 	# Download files
 	git clone https://github.com/memelang-net/meme-sql-php.git
+	cd meme-sql-php
 	
 	# Create database
-	cat data.sql | sqlite3 ./data.sqlite
+	cat ./data.sql | sqlite3 ./data.sqlite
 
 
 ## Files
