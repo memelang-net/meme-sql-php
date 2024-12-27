@@ -13,18 +13,19 @@ define('MEME_R',     6);
 define('MEME_EQ',    8);
 define('MEME_DEQ',   9);
 define('MEME_NEQ',   10);
-define('MEME_GRT',   11);
+
+define('MEME_LST',   11);
 define('MEME_GRE',   12);
-define('MEME_LST',   13);
-define('MEME_LSE',   14);
+define('MEME_LSE',   13);
+define('MEME_GRT',   14);
 
-define('MEME_BA',    33);
-define('MEME_BB',    34);
-define('MEME_RA',    35);
-define('MEME_RB',    36);
+define('MEME_BA',    20);
+define('MEME_BB',    21);
+define('MEME_RA',    22);
+define('MEME_RB',    23);
 
-define('MEME_GET',   40);
-define('MEME_ORG',   41);
+define('MEME_GET',   30);
+define('MEME_ORG',   31);
 
 define('MEME_TERM',  99);
 
@@ -149,8 +150,8 @@ function memeDecode($memeString) {
 			case isset($OPRINT[$chars[$i]]):
 
 				// previous operator was followed by empty string
-				if ($oprgrp === MEME_R) $memeExpressions[] = [MEME_RI, NULL];
-				//else if ($i>0 && $oprid>MEME_A) throw new Exception("Extraneous operator at char $i in $memeString");
+				if ($oprid === MEME_R) $memeExpressions[] = [MEME_BA, NULL];
+				else if ($oprid === MEME_RI) $memeExpressions[] = [($oprFound[MEME_R]>1?MEME_BB:MEME_RI), NULL];
 
 				$oprstr = '';
 				for ($j = 0; $j < 3 && isset($chars[$i + $j]); $j++) {
@@ -241,7 +242,8 @@ function memeDecode($memeString) {
 	}
 
 	// Finalize parsing
-	if ($oprid === MEME_RI) $memeExpressions[] = [MEME_RI, NULL];
+	if ($oprid === MEME_RI) $memeExpressions[] = [($oprFound[MEME_R]>1?MEME_BB:MEME_RI), NULL];
+	if ($oprid === MEME_R && $oprFound[MEME_R]>1) $memeExpressions[] = [MEME_BA, NULL];
 	if (!empty($memeExpressions)) $memeStatements[] = $memeExpressions;
 	if (!empty($memeStatements)) $memeCommands[] = $memeStatements;
 
@@ -310,6 +312,22 @@ function memeEncode($memeCommands, $set = []) {
 	if (!empty($set['html'])) return '<code class="meme">' . implode(';</code> <code class="meme">', $commandArray) . '</code>';
 	else return implode('; ', $commandArray);
 }
+
+
+// Convert tuples to memelang
+function memeStringify ($rows) {
+	$str='';
+	foreach ($rows as $row) {
+		$str.=$row[COL_AID]
+		.(strpos($row[COL_RID],"'")===0 ? '' : '.').$row[COL_RID]
+		.':'.$row[COL_BID]
+		.'='.$row[COL_QNT]
+		.';';
+	}
+	return $str;
+}
+
+
 
 
 ?>
